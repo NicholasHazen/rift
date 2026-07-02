@@ -1,0 +1,1 @@
+date · symptom · cause · fix

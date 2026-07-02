@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rift — Stage 1 Field Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14161d; --panel:#1b1e28; --panel2:#232736; --line:#2e3242;
+  --ink:#e9e5d9; --muted:#9d9aab; --faint:#6f6c7e;
+  --ember:#ff8a5c; --ember-deep:#b45034; --ember-dim:#3a2620;
+  --storm:#a08fe8; --storm-dim:#262238;
+  --moss:#9dc088; --moss-dim:#20291f;
+  --mono:'IBM Plex Mono',monospace; --disp:'Fraunces',serif; --body:'Atkinson Hyperlegible',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.75}
+.wrap{max-width:840px;margin:0 auto;padding:0 24px 120px}
+a{color:var(--ember);text-decoration:none;border-bottom:1px solid var(--ember-deep)}
+a:hover{color:#ffb08d}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--storm);outline-offset:3px;border-radius:2px}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(38px,6vw,58px);line-height:1.08;margin:.2em 0 .3em;letter-spacing:-.01em}
+h2{font-family:var(--disp);font-weight:600;font-size:30px;line-height:1.2;margin:2.6em 0 .5em}
+h3{font-family:var(--disp);font-weight:500;font-size:21px;margin:2em 0 .4em}
+h4{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:1.8em 0 .5em}
+p{margin:.9em 0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ember)}
+.lede{font-size:20px;color:#cfcbdd;line-height:1.7}
+code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2px 6px;border-radius:4px;color:#d7d2e8}
+hr{border:0;border-top:1px solid var(--line);margin:64px 0}
+strong{color:#fff}
+blockquote.note{margin:1.6em 0;padding:2px 20px;border-left:2px solid var(--storm);color:#c9c4dc;font-style:italic}
+blockquote.note em{color:var(--storm);font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase}
+/* LitRPG system windows — the signature device */
+.sys{font-family:var(--mono);font-size:14.5px;line-height:1.7;background:linear-gradient(var(--panel),var(--panel));border:1px solid var(--ember-deep);border-radius:6px;padding:18px 22px;margin:1.6em 0;color:#f3ded2;position:relative}
+.sys::before{content:attr(data-tag);display:block;color:var(--ember);letter-spacing:.18em;font-size:11.5px;margin-bottom:8px}
+.sys ul{margin:6px 0 0;padding-left:18px}
+.sys li{margin:4px 0}
+/* Boxes */
+.box{border:1px solid var(--line);border-radius:8px;padding:18px 22px;margin:1.4em 0;background:var(--panel)}
+.fun{border-color:var(--ember-deep);background:linear-gradient(var(--ember-dim),var(--panel))}
+.fun h5{color:var(--ember)}
+.oq{border-color:#4a4370;background:linear-gradient(var(--storm-dim),var(--panel))}
+.oq h5{color:var(--storm)}
+.dod{border-color:#44573f;background:linear-gradient(var(--moss-dim),var(--panel))}
+.dod h5{color:var(--moss)}
+.gotcha{border-color:var(--line)}
+.gotcha h5{color:var(--muted)}
+.box h5{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin:0 0 10px}
+.box p,.box li{font-size:15.5px;line-height:1.7}
+.box ul{margin:.4em 0;padding-left:20px}
+/* Week header */
+.week{margin-top:96px;border-top:1px solid var(--line);padding-top:8px}
+.wk-meta{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:24px}
+.wk-meta .num{color:var(--ember);font-size:13px}
+/* Goals two-column */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:1.2em 0}
+.goals .box{margin:0}
+@media(max-width:640px){.goals{grid-template-columns:1fr}}
+/* details */
+details{border:1px solid var(--line);border-radius:8px;margin:1.2em 0;background:var(--panel)}
+summary{cursor:pointer;padding:14px 20px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#cfcbdd;list-style:none}
+summary::before{content:'▸ ';color:var(--ember)}
+details[open] summary::before{content:'▾ '}
+details .inner{padding:4px 22px 18px;border-top:1px solid var(--line)}
+details .inner p,details .inner li{font-size:15.5px}
+details .inner ol{padding-left:20px}
+details .inner li{margin:.6em 0}
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:1.2em 0}
+.card{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--panel);font-size:14.5px;line-height:1.55}
+.card b{display:block;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:#fff;margin-bottom:6px}
+.card .k{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--storm);margin-bottom:8px}
+.card a{border-bottom:none}
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:1.4em 0;font-size:15px}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+/* TOC mission board */
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:2em 0}
+.toc a{display:block;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel);font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#d9d5e6;border-bottom:1px solid var(--line)}
+.toc a:hover{border-color:var(--ember-deep);color:#fff}
+.toc .ph{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:4px}
+figure{margin:2em 0}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em;margin-top:10px;text-align:center}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:1.2em 0}
+@media(max-width:640px){.split{grid-template-columns:1fr}}
+table{display:block;overflow-x:auto}
+.top{margin:2.4em 0 0;font-family:var(--mono);font-size:12px}
+.top a{color:var(--faint);border-bottom:none;letter-spacing:.12em}
+.top a:hover{color:var(--ember)}
+.tracker{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px;margin:1.2em 0}
+.tracker label{display:flex;gap:9px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:9px 11px;background:var(--panel);font-family:var(--mono);font-size:12px;color:#cfcbdd;cursor:pointer}
+.tracker label:hover{border-color:var(--ember-deep)}
+.tracker input{accent-color:#9dc088;margin:0}
+.res{color:var(--moss);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+@media(prefers-reduced-motion:no-preference){
+  .sys{animation:emberline 4s ease-in-out infinite}
+  @keyframes emberline{0%,100%{border-color:var(--ember-deep)}50%{border-color:#e0704a}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header style="padding-top:72px">
+  <div class="eyebrow">Expedition field manual · Stage 1 · living document</div>
+  <h1>The Rift<br><span style="color:var(--muted);font-size:.55em">Twelve weeks to the greed-dial slice</span></h1>
+  <p class="lede">A build order, a teacher, and a promise: every week ends with something on screen, something learned in anger, and something that makes you grin. Written for exactly one developer — a systems engineer with an agent fleet, a LitRPG habit, and a brain that needs the dopamine scheduled, not hoped for.</p>
+
+  <div class="sys" data-tag="[ SYSTEM MESSAGE ]">
+    Quest accepted: <b>Build the Greed-Dial Slice.</b><br>
+    Party size: 1 human, N agents.<br>
+    Duration: 12 weeks (calendar may flex; gates may not).<br>
+    Victory condition: strangers ask for a second session.<br>
+    Hidden objective: you're still having fun in week 9.
+  </div>
+</header>
+
+<h4>Revision log — bump this every time you or an agent edits</h4>
+<table>
+  <tr><th style="width:80px">Rev</th><th style="width:130px">Date</th><th>Change</th></tr>
+  <tr><td>1.0</td><td>Jul 2026</td><td>Initial manual. Fun Mandate added; weeks 7–12 deliberately lower-resolution (sharpen on approach).</td></tr>
+  <tr><td>1.1</td><td>Jul 2026</td><td><b>Physics-Legible First</b> doctrine adopted (three-tier budget). Weeks 1–6 reworked around whack → carry → deliver extraction; encumbrance named as the physical greed dial. One sanctioned Tier-3 spike added (wk 5). Gate tracker, tier diagram, per-section nav, mobile fixes.</td></tr>
+  <tr><td>1.2</td><td>Jul 2026</td><td><b>Scaffolding clause</b> added to Physics-Legible First: Tier-2 physics is a stand-in for future RPG systems, each with a named graduation path, plus the promotion rule (beloved stand-ins get kept, not replaced).</td></tr>
+  <tr><td>1.3</td><td>Jul 2026</td><td>Scaffolding clause reframed as a <b>sequencing bet</b>: physics-first is chosen for build speed; r1.2's predicted "fates" demoted to open futures that playtests adjudicate. The doc was overconfident; the doc admits it.</td></tr>
+  <tr><td>1.4</td><td>2 Jul 2026</td><td>Week 0 session 1 (agent): repo scaffolded — canonical UE .gitignore, LFS .gitattributes, UE-GOTCHAS.md, week-0 checklist, failing build-script stubs; scaffold red-teamed by 3 review agents before first commit. <b>RESOLVED r1.4:</b> codename = <b>OneMoreRock</b>; manual's home = <code>docs/</code> in the game repo. IDE question stays open for S1.</td></tr>
+  <tr><td style="color:var(--faint)">1.5</td><td style="color:var(--faint)">—</td><td style="color:var(--faint)">[Next revision goes here]</td></tr>
+</table>
+
+<h2 id="how">How this document works</h2>
+<p>This file lives in your repo — <code>docs/field-manual.html</code> — where your agents can read it and edit it. It is scaffolded to be <em>revised</em>: every week carries an <span style="color:var(--storm)">open questions</span> block for the things we don't know yet, and the later weeks are intentionally sketchier than the early ones, because pretending to have week-11 answers in week 0 is how plans calcify. When you finish a week, do three things: check reality against the gate, write one honest paragraph in the revision log, and have an agent sharpen the <em>next</em> week's section with what you just learned. The manual should be smarter in week 6 than it is today.</p>
+<p>Color is meaning here, and the meaning comes from your own design: <strong style="color:var(--ember)">ember</strong> marks the player-driven clock — builds, fun payloads, things <em>you</em> push. <strong style="color:var(--storm)">storm violet</strong> marks the world's clock — concepts, systems, open questions the world will answer. <strong style="color:var(--moss)">moss</strong> marks gates: the definition-of-done that decides whether a week is finished. The document is painted in the same two-clock scheme as the game. That's not decoration; it's rehearsal.</p>
+
+<nav class="toc" aria-label="Mission board">
+  <a href="#fun"><span class="ph">Doctrine</span>The Fun Mandate</a>
+  <a href="#phys"><span class="ph">Doctrine</span>Physics-legible first</a>
+  <a href="#os"><span class="ph">Doctrine</span>Operating system</a>
+  <a href="#models"><span class="ph">Theory</span>Three mental models</a>
+  <a href="#dest"><span class="ph">Target</span>The destination</a>
+  <a href="#w0"><span class="ph">Week 0</span>Rig the workshop</a>
+  <a href="#w1"><span class="ph">Week 1</span>The resource node</a>
+  <a href="#w2"><span class="ph">Week 2</span>Combat (GAS)</a>
+  <a href="#w3"><span class="ph">Week 3</span>The rift pushes back</a>
+  <a href="#w4"><span class="ph">Week 4</span>Ire &amp; the director</a>
+  <a href="#w5"><span class="ph">Week 5</span>Camp as machine</a>
+  <a href="#w6"><span class="ph">Week 6</span>The whole story</a>
+  <a href="#w7"><span class="ph">Week 7</span>Real infrastructure</a>
+  <a href="#w8"><span class="ph">Week 8</span>Earning the 24</a>
+  <a href="#w9"><span class="ph">Week 9</span>Two clocks</a>
+  <a href="#w10"><span class="ph">Week 10</span>Feel &amp; legibility</a>
+  <a href="#w11"><span class="ph">Weeks 11–12</span>The fun test</a>
+  <a href="#shelf"><span class="ph">Reference</span>The shelf</a>
+  <a href="#register"><span class="ph">Reference</span>Open questions</a>
+</nav>
+
+<hr>
+
+<h2 id="fun">The Fun Mandate</h2>
+<p class="lede">New doctrine, adopted at your insistence, and you're right: <strong>fun is a weekly deliverable, not a milestone.</strong> If a week ships working code and zero joy, the week failed — for the players who'll eventually inherit that system, and more urgently for you, because your fuel supply is dopamine-per-cycle and this project runs on your fuel.</p>
+
+<p>Here's the honest problem: graybox development is where fun goes to wait. Capsules sliding around a gray plane doing correct, joyless things — for months — is the standard indie path, and it's exactly the path your brain will abandon. The fix is not to abandon graybox (art-before-fun is still procrastination). The fix is to notice that <strong>fun is mostly free if you spend cleverness instead of art budget.</strong> Sound is free. Physics comedy is free. Absurd placeholder identity is free. Text is free — and you, of all people, know what escalating system text does to a LitRPG reader's brain. So we institutionalize the cheap stuff.</p>
+
+<h3>The four fun engines</h3>
+<p>Four small, permanent systems, unlocked across the first six weeks, each one a machine that keeps producing fun for the rest of the project. They appear on the week map as ember markers. Treat their build-out as seriously as the netcode.</p>
+
+<div class="cards">
+  <div class="card"><span class="k">Unlocks week 1</span><b>⚒ The JuiceKit</b>A tiny reusable feedback component: floating LitRPG combat text, sound stingers, particle pops, hitstop hooks. Every new mechanic gets plugged into it the day it's born, so nothing you build is ever silent and numb — not even a graybox node.</div>
+  <div class="card"><span class="k">Unlocks week 4</span><b>🎛 The Director's Remote</b>A god panel: grant ire, force a wave, spawn an elite, kill all, rain ducks. It's test tooling that happens to be the most fun object in the project — because playing dungeon master over your own world (and later, live, over your friends) never stops being funny.</div>
+  <div class="card"><span class="k">Unlocks week 6</span><b>📜 The Chronicle</b>An end-of-run recap generated from the event log, written like a LitRPG chapter: who got greedy, who died richest, who carried. v0 is string templates. Later, your local models on the Spark polish it into prose. This is also, quietly, the embryo of your LLM content pipeline.</div>
+  <div class="card"><span class="k">Unlocks week 0</span><b>🎬 The Friday Clip</b>Twenty seconds of this week's build, recorded every Friday, posted to your friends' Discord. Accountability, dopamine, a dev-log archive, and — by week 12 — a trailer's worth of raw material. Non-negotiable, even in ugly weeks. <em>Especially</em> in ugly weeks.</div>
+</div>
+
+<h3>Commit to a bit</h3>
+<p>The second half of the mandate: <strong>graybox needs a personality, and absurdity is the cheapest personality on the market.</strong> Your enemies do not have art. They could be gray capsules — or they could be, say, <em>geese</em>. A honk sound is free. A goose named by a generator ("Gregory, Vice-Goose of the Storm") costs one word list your agents will write in five minutes. The moment the horde has a dumb, committed identity, every playtest becomes quotable, every clip becomes shareable, and the game acquires charm months before it acquires art. The bit is disposable — real creature design arrives in Stage 2 — but the <em>charm infrastructure</em> (name generators, title generators, superlatives, the Chronicle's voice) survives forever. Pick your bit in week 3. There's an open-questions box waiting for it.</p>
+
+<div class="sys" data-tag="[ FUN PAYLOAD — CONTRACT ]">
+  Every week below carries a Fun Payload block: one thing for the <b>player</b> (the build gets juicier) and one for the <b>builder</b> (you get a toy). Payloads are scoped to hours, not days. If a week's payload slips, it rolls to the next week's — it never silently dies. Fun debt is tracked like tech debt.
+</div>
+
+<blockquote class="note"><em>Mentor's aside</em> — There's a deeper reason this doctrine works, and it comes from your own beliefs list: "a game with compelling and social gameplay doesn't need to deliver everything day one." The corollary is that <em>charm scales down further than content does.</em> RuneScape was charming before it was big. Deep Rock was charming in gray caves. Charm-per-dollar is the one metric where a solo dev with a sense of humor beats a 200-person studio. Spend there.</blockquote>
+
+<hr>
+
+<h2 id="phys">Physics-legible first</h2>
+<p class="lede">Second doctrine, adopted rev 1.1, from your own observation: <strong>players inherently understand simple physics problems.</strong> "Get the glowing rock through the hole; don't let the geese touch it" needs no tutorial, no tooltip, no onboarding flow — the physics <em>is</em> the onboarding. Rocket League is soccer with cars and is understood in four seconds. So wherever a mechanic can be expressed physically, it should be — <em>within a budget</em>, because "physics in multiplayer" spans from nearly-free to genuinely-heroic, and the difference is invisible from the design seat.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 250" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The three-tier physics budget</title><desc>Three tiers of multiplayer physics from cheap to expensive: cosmetic, character collision, and true rigid bodies. The core loop lives in tier two; tier three is quarantined.</desc>
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<path d="M60 62 C240 58 440 44 620 22" fill="none" stroke="#6f6c7e" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#ar3)"/>
+<text x="60" y="46" font-family="IBM Plex Mono" font-size="11" fill="#6f6c7e">networking cost →</text>
+<text x="135" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9dc088">≈ free</text>
+<text x="340" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#ffb08d">cheap — rides the CMC</text>
+<text x="545" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#e06a6a">Rocket-League hard</text>
+<rect x="40" y="98" width="190" height="76" rx="8" fill="#1b1e28" stroke="#44573f"/>
+<text x="135" y="126" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#9dc088">Tier 1 · Cosmetic</text>
+<text x="135" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">ragdolls · debris · ducks</text>
+<text x="135" y="162" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">no gameplay authority</text>
+<rect x="245" y="98" width="190" height="76" rx="8" fill="#3a2620" stroke="#b45034" stroke-width="1.2"/>
+<text x="340" y="126" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ffb08d">Tier 2 · Character collision</text>
+<text x="340" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#e0b8a0">shove · carry · body-block</text>
+<text x="340" y="162" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#c98a6b">kick · kinematic hazards</text>
+<rect x="450" y="98" width="190" height="76" rx="8" fill="#1b1e28" stroke="#8a3a3a"/>
+<text x="545" y="126" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e06a6a">Tier 3 · True rigid bodies</text>
+<text x="545" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#b98080">networked dribbling</text>
+<text x="545" y="162" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#8a6060">continuous player↔body play</text>
+<text x="340" y="204" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#ff8a5c">▲ the core loop lives here</text>
+<text x="545" y="204" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#e06a6a">quarantined: spike-only</text>
+</svg>
+<figcaption>Same idea from the design seat; three different sports in engineering. Spend where the exchange rate is good.</figcaption>
+</figure>
+
+<p><strong>Tier 1 — cosmetic — is free</strong> because nobody needs agreement on where a ragdoll lands. <strong>Tier 2 is the gold</strong>, and here's the technical reason: none of it is actually rigid-body simulation. Body-blocking is capsule collision. Shoving and knockback are impulses on the <strong>CharacterMovementComponent</strong>, which ships with battle-tested networked prediction. Carrying is replicated attachment. A wind-up kick is a discrete, event-shaped impulse — and <strong>discrete beats continuous under latency</strong>: the wind-up hides 100 ms inside the animation, where continuous dribbling exposes every millisecond. <strong>Tier 3 — a free-simulated body that players push in real time — is where Rocket League spent years of bespoke prediction work</strong>, and Unreal's networked physics prediction is still experimental-grade. Under lag it feels like stirring soup by mail. It gets one sanctioned, timeboxed spike (week 5, stretch) and otherwise stays off the Stage-1 critical path.</p>
+
+<p>What this doctrine does to the game — and it's a genuine upgrade, not a compromise: <strong>the node breaks into physical chunks; you grab, carry, and deliver them through a literal portal</strong>. Carrying slows you and blunts your fighting, which means <strong>encumbrance is the greed dial, physicalized</strong> — "one more rock?" is the exit decision in miniature, played on every trip, legible to anyone who has ever carried too many grocery bags in one go. Walls become tower-defense-legible barriers; a player planted in a doorway <em>means something</em>; shoving a goose off your chunk is real tactics. And a bonus your goose-universe already earned: <strong>comedy absorbs jank.</strong> Fall Guys ships physics wobble as charm. When Tier-2 collisions get silly, the Bit converts the failure into content.</p>
+
+<blockquote class="note"><em>Design memo</em> — This also quietly de-risks week 10. Legibility was going to be carried mostly by HUD craft; now the world itself teaches harvest, weight, blocking, and delivery, and the HUD only has to teach ire and the storm. Physics didn't just add fun — it took UI burden off the table.</blockquote>
+
+<h3>Physics-first is a sequencing bet <span class="res" style="margin-left:8px">reframed r1.3</span></h3>
+<p>The precision that survived two revisions of getting it wrong: the only commitment this doctrine makes is <strong>build order</strong>. A Yeet is an afternoon; a taunt/threat/aggro system is a <em>system</em> — so the physical version ships first because it's the fastest legible version of each mechanic, not because its future is decided. Where each one goes afterward is genuinely unknown until real people play: maybe Yeet stays forever as a refined signature verb, maybe shoving becomes a class skill that keeps a physical component, maybe building destruction turns out to be a pillar nobody planned. The table below holds <em>hypotheses</em>, not plans — its job is to make sure the eventual decision is deliberate, not to make it early.</p>
+
+<table>
+  <tr><th>Built now (fast)</th><th>Slower RPG sibling</th><th>Open futures — playtests decide</th></tr>
+  <tr><td>Yeet / knockback</td><td>Crowd-control family: stagger, launch, resistances</td><td>Stays forever, refined and polished; folds into the ability family; or both coexist</td></tr>
+  <tr><td>Body-blocking + shove</td><td>Tank kit: taunt, threat, guard abilities</td><td>Stays raw physicality; becomes a class skill that keeps its physical component; or hybrid</td></tr>
+  <tr><td>Physical carry + the waddle</td><td>Inventory, carry-weight, Strength stat</td><td>Bulk goes abstract with dramatic physical carries kept (the Deep Rock pattern); or full-physical stays the identity</td></tr>
+  <tr><td>Walls: block + gnaw</td><td>Fortification stats, armor, siege damage types</td><td>Stats layer on; or destruction physics becomes a feature the game leans into hard</td></tr>
+  <tr><td>Physical portal delivery</td><td>Extraction flow + banked inventory</td><td>The threshold ceremony may be the keeper; or physical delivery <em>is</em> the extraction identity</td></tr>
+</table>
+
+<p><strong>The adjudication rule, two-way:</strong> the fun test settles these, in either direction. Lean in where a stand-in sings — promote it to a pillar and budget for it, including futures this table never imagined. Swap out where it drags — the RPG sibling was always waiting. Evidence decides; log every verdict in the revision log like any other decision.</p>
+<hr>
+
+<h2 id="os">The operating system (rules that know how you fail)</h2>
+<p>Eight rules, each one a guardrail placed where you've told me the cliff is. The long-form rationale lives in the markdown plan; here's the working card. Print it, pin it, obey it.</p>
+
+<table>
+  <tr><th style="width:210px">Rule</th><th>The practice</th><th style="width:260px">Why it protects you</th></tr>
+  <tr><td><b>1 · Problem-first media</b></td><td>Never open a video/doc without a written question. Video ≤ 1 hr/week, batched Friday.</td><td>Video feels like progress and produces almost none. Your history says so.</td></tr>
+  <tr><td><b>2 · The session ritual</b></td><td>10 min load context → 100 min one problem → 10 min commit + <em>tomorrow-note</em> naming the next concrete action.</td><td>Re-entry is where ADHD sessions die. The tomorrow-note parks the car on a downhill slope.</td></tr>
+  <tr><td><b>3 · The 90-minute valve</b></td><td>Stuck past 90 min: agent explains the subsystem end-to-end, or post in <a href="https://unrealsource.com/">Unreal Source</a>, or switch to the week's parallel task.</td><td>One wall must never eat a session. Momentum is the resource.</td></tr>
+  <tr><td><b>4 · First-of-pattern by hand</b></td><td>You write the first replicated property, first RPC, first ability, first StateTree, first DataAsset. Agents replicate the pattern after.</td><td>Agents generate UE code that compiles and is subtly wrong about authority. Your mental model is the only firewall.</td></tr>
+  <tr><td><b>5 · Multiplayer from hour one</b></td><td>PIE always ≥ 2 clients + dedicated-server checkbox. Net emulation (100 ms, 2% loss) from week 3.</td><td>Single-player-only code is a bug written today, found in week 8, at scale.</td></tr>
+  <tr><td><b>6 · C++ systems, Blueprint wiring</b></td><td>State, logic, replication in C++. Blueprints: asset hookup, tuned values, UI layout. Content = DataAssets/DataTables from JSON.</td><td>C++ and JSON are text — your fleet can read, diff, author. Blueprints are opaque binaries.</td></tr>
+  <tr><td><b>7 · Friday = playtest &amp; learn</b></td><td>Run the build (bots or humans) → measure → batched learning hour → record the Friday Clip → write Monday's tomorrow-note.</td><td>Belief #1, operationalized weekly: games are meant to be played.</td></tr>
+  <tr><td><b>8 · Gray-box till week 10</b></td><td>Capsules, cubes, free SFX. No Fab browsing. Charm via the Fun Mandate, not assets.</td><td>Art-before-fun is procrastination wearing a render pipeline.</td></tr>
+</table>
+
+<blockquote class="note"><em>Scheduling reality</em> — This plan assumes ~10–12 focused hours across five-ish 2-hour blocks. You have a day job shipping EMURJ and a family; some weeks will give you six hours. The contract: <strong>the calendar flexes, the gates don't.</strong> A week that takes two weeks is the plan working. A gate that quietly shrinks is the plan dying.</blockquote>
+
+<hr>
+
+<h2 id="models">Three mental models (ten minutes of theory, then hands)</h2>
+
+<h3>1 · The server is the dungeon master</h3>
+<p>Unreal's networking model in one image: the server runs the <em>real</em> game; clients are players at the table. A client never changes the world — it sends a polite request (a <strong>Server RPC</strong>: "I'd like to harvest this"), the DM validates and mutates true state, and changed facts flow back down through <strong>replication</strong>. When a fact changes, clients react to it (<strong>RepNotify</strong>: "node health dropped — play the crack effect"). Every bug you write in month one will be a violation of this model. One warning aimed specifically at you: this is <em>not</em> the deterministic-lockstep world you built for Salient. Nothing here is deterministic; there is no shared simulation to keep in sync. There is one authoritative state and many eventually-consistent views of it. Different religion. Don't syncretize.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 300" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The dungeon master model</title><desc>Server in the center holds true state; two clients send requests up and receive replicated facts down.</desc>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="215" y="30" width="250" height="86" rx="10" fill="#232736" stroke="#b45034" stroke-width="1"/>
+<text x="340" y="62" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" fill="#ff8a5c">SERVER — the DM</text>
+<text x="340" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#9d9aab">owns true state · validates · narrates</text>
+<rect x="60" y="210" width="220" height="60" rx="10" fill="#1b1e28" stroke="#2e3242"/>
+<text x="170" y="236" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#e9e5d9">Client A</text>
+<text x="170" y="254" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#6f6c7e">predicts · reacts · renders</text>
+<rect x="400" y="210" width="220" height="60" rx="10" fill="#1b1e28" stroke="#2e3242"/>
+<text x="510" y="236" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#e9e5d9">Client B</text>
+<text x="510" y="254" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#6f6c7e">predicts · reacts · renders</text>
+<line x1="212" y1="206" x2="268" y2="122" stroke="#a08fe8" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="168" y="160" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#a08fe8">request (RPC)</text>
+<line x1="330" y1="122" x2="252" y2="206" stroke="#ff8a5c" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="412" y1="122" x2="468" y2="206" stroke="#ff8a5c" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="512" y="160" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#ff8a5c">facts (replication)</text>
+</svg>
+<figcaption>Clients ask. The server decides. Facts flow down. Memorize the shape.</figcaption>
+</figure>
+
+<h3>2 · The gameplay framework is a cast of characters</h3>
+<p>Every Unreal game gets the same troupe, and "where should this code live?" is always answered by "which character owns this fact?" The <strong>GameMode</strong> is the referee's rulebook — server-only, decides spawning and win conditions (ours: the rift session's rules). The <strong>GameState</strong> is the scoreboard on the wall — replicated to everyone, holding shared facts (ours: the ire meter, the rift timer, instability). Each player owns a <strong>PlayerController</strong> (hands and eyes — input lives here), a <strong>PlayerState</strong> (their fact sheet — name, contribution, haul, replicated), and a <strong>Pawn/Character</strong> (the body). NPCs are Pawns possessed by an <strong>AIController</strong> — a brain in a jar, pluggable into any body, which is precisely the property your spawn tables will exploit later.</p>
+
+<h3>3 · Assets and code are two different worlds</h3>
+<p><code>Source/</code> is C++ — text, yours, fleet-legible. <code>Content/</code> is binary — meshes, maps, Blueprints, <code>.uasset</code> everything. The engine is a framework you <em>subclass</em>, not a library you call: C++ defines classes; the editor makes tuned asset instances of them. This split is why rule 6 exists, why Git LFS is a week-0 requirement, and why your content pipeline flows JSON → DataAsset: it keeps the game's <em>soul</em> on the text side of the wall, where you and your agents live. If the metaphor helps: it's your EMURJ metafield architecture all over again — schema in code, content as structured data, and the people (agents) who author content never touch the schema layer.</p>
+
+<hr>
+
+<h2 id="dest">The destination</h2>
+<p class="lede">Week 12: <strong>the greed-dial slice.</strong> One rift map. Twenty-plus concurrent players (friends + headless bots). A camp built from deployables. A visible <strong style="color:var(--ember)">ire</strong> meter that rises as the expedition harvests, builds, and kills — and an invisible director spending that ire on escalating violence. A two-front siege. A <strong style="color:var(--storm)">storm</strong> that closes in as the rift destabilizes, opening the late rare window. A portal, an exit decision, a haul that only counts if it makes it out. And a Chronicle that tells the story afterward.</p>
+
+<p>The slice exists to answer one question: <strong>is the greed dial fun?</strong> Does "we set our own difficulty by how hard we push, and the world answers proportionally" produce the tension and the war stories we believe it does? Everything else in the vision — the city, seasons, rift variety, LLM lore — multiplies fun that exists. Nothing downstream can create it. Twelve weeks buys the answer.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 300" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The session arc</title><desc>Two rising pressure curves over session time: ire, stepped and player-driven; instability, smooth and accelerating. Rares emerge late, then an exit decision window before the rift closes.</desc>
+<line x1="70" y1="28" x2="94" y2="28" stroke="#ff8a5c" stroke-width="2"/>
+<text x="100" y="32" font-family="IBM Plex Mono" font-size="12" fill="#ff8a5c">Ire — your greed</text>
+<line x1="290" y1="28" x2="314" y2="28" stroke="#a08fe8" stroke-width="2"/>
+<text x="320" y="32" font-family="IBM Plex Mono" font-size="12" fill="#a08fe8">Instability — the world's clock</text>
+<text x="440" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#e0a83e">rares emerge</text>
+<text x="577" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#e06a6a">rift closes</text>
+<line x1="60" y1="60" x2="60" y2="248" stroke="#2e3242" stroke-width="1"/>
+<line x1="60" y1="248" x2="622" y2="248" stroke="#4a4658" stroke-width="1"/>
+<line x1="440" y1="62" x2="440" y2="248" stroke="#e0a83e" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="590" y1="62" x2="590" y2="248" stroke="#e06a6a" stroke-width="1" stroke-dasharray="4 4"/>
+<path d="M60 238 H140 V210 H220 V182 H300 V150 H380 V118 H460 V90 H585" fill="none" stroke="#ff8a5c" stroke-width="2"/>
+<path d="M60 244 C220 238 360 218 460 158 C520 120 560 88 585 60" fill="none" stroke="#a08fe8" stroke-width="2"/>
+<line x1="482" y1="264" x2="586" y2="264" stroke="#9d9aab" stroke-width="1"/>
+<text x="534" y="284" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#9d9aab">← exit decision window →</text>
+<text x="60" y="284" font-family="IBM Plex Mono" font-size="11.5" fill="#6f6c7e">session time →</text>
+</svg>
+<figcaption>Two clocks, one decision. The best loot lives inside the storm, at the exact moment leaving is smartest.</figcaption>
+</figure>
+
+<p>Three numbers to hold: <strong>24</strong> is the design target for players per rift — your call, and the right one; the shared basecamp with four to six squads sortieing out of it is the social condenser that makes 24 feel like a living world. <strong>32</strong> is the engineered ceiling. And the <strong>NPC budget</strong> — not player count — is the real performance knob, because 24 players plus 100 pathfinding attackers is what actually melts a server. <code>MaxExpeditionSize</code> is a config value from the first commit. Never a constant.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 150" role="img" style="max-width:680px;display:block;margin:0 auto"><title>Week map</title><desc>Twelve weeks in five phases, with fun-engine unlock markers at weeks 0, 1, 4, and 6, a perf gate at week 8, and the fun test at weeks 11 to 12.</desc>
+<rect x="40" y="60" width="46" height="26" rx="5" fill="#232736" stroke="#2e3242"/>
+<rect x="90" y="60" width="184" height="26" rx="5" fill="#3a2620" stroke="#b45034"/>
+<rect x="278" y="60" width="92" height="26" rx="5" fill="#2c2416" stroke="#8a6a2a"/>
+<rect x="374" y="60" width="92" height="26" rx="5" fill="#262238" stroke="#4a4370"/>
+<rect x="470" y="60" width="92" height="26" rx="5" fill="#262238" stroke="#4a4370"/>
+<rect x="566" y="60" width="74" height="26" rx="5" fill="#20291f" stroke="#44573f"/>
+<text x="63" y="77" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">RIG</text>
+<text x="182" y="77" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#ffb08d">CORE LOOP 1–4</text>
+<text x="324" y="77" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#e0c78a">CAMP 5–6</text>
+<text x="420" y="77" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#c3b8f2">STEEL 7–8</text>
+<text x="516" y="77" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#c3b8f2">ARC 9–10</text>
+<text x="603" y="77" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9dc088">TEST 11–12</text>
+<circle cx="63" cy="46" r="4" fill="#ff8a5c"/><text x="63" y="34" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#ff8a5c">clip</text>
+<circle cx="120" cy="46" r="4" fill="#ff8a5c"/><text x="120" y="34" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#ff8a5c">juice</text>
+<circle cx="228" cy="46" r="4" fill="#ff8a5c"/><text x="228" y="34" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#ff8a5c">remote</text>
+<circle cx="324" cy="46" r="4" fill="#ff8a5c"/><text x="324" y="34" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#ff8a5c">chronicle</text>
+<circle cx="466" cy="100" r="4" fill="#a08fe8"/><text x="466" y="122" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#a08fe8">perf gate</text>
+<circle cx="603" cy="100" r="4" fill="#9dc088"/><text x="603" y="122" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9dc088">fun test</text>
+</svg>
+<figcaption>The route, the fun-engine unlocks, and the two gates that matter.</figcaption>
+</figure>
+<h3>Gate tracker</h3>
+<p style="font-size:15px;color:var(--muted)">Checks don't persist in a browser preview — they're for live sessions. In the repo, have an agent hard-code the ✓ as each gate passes; the tracker doubles as the manual's save file.</p>
+<div class="tracker">
+  <label><input type="checkbox"> W0 · Rigged</label>
+  <label><input type="checkbox"> W1 · Node + carry</label>
+  <label><input type="checkbox"> W2 · GAS combat</label>
+  <label><input type="checkbox"> W3 · The horde</label>
+  <label><input type="checkbox"> W4 · Ire live</label>
+  <label><input type="checkbox"> W5 · Camp built</label>
+  <label><input type="checkbox"> W6 · Full loop</label>
+  <label><input type="checkbox"> W7 · Real server</label>
+  <label><input type="checkbox"> W8 · Perf @ 24</label>
+  <label><input type="checkbox"> W9 · Two clocks</label>
+  <label><input type="checkbox"> W10 · Feel floor</label>
+  <label><input type="checkbox"> W11–12 · Fun test</label>
+</div>
+
+<section class="week" id="w0">
+<div class="wk-meta"><span class="num">Week 00</span><span>Phase: Rig</span><span>Budget: ½ week — hard box</span></div>
+<h2>Rig the workshop</h2>
+<p>An empty shop, and you hanging tools. The only goal: a running project, a healthy repo, an agent that can build the code. Setup is a notorious tar pit for your particular brain ("I'll just perfect my editor config…"), so this week has the tightest box in the manual. The moment you feel the pull to "get oriented" in the editor menus — that's the trap. You get oriented by needing things.</p>
+
+<div class="goals">
+  <div class="box"><h5>Build goals</h5><ul><li>UE 5.7 project from the <b>Third Person C++ template</b>, running</li><li>Git + LFS repo, pushed</li><li><code>CLAUDE.md</code> v1 + empty <code>UE-GOTCHAS.md</code></li><li>Agent builds the project from CLI</li></ul></div>
+  <div class="box"><h5>Learning goals</h5><ul><li>Project anatomy: <code>Source/</code> vs <code>Content/</code>, the <code>.uproject</code>, modules</li><li>The build toolchain: UnrealBuildTool, <code>Build.bat</code>, Live Coding's existence</li><li>How PIE multiplayer options work (clients count, dedicated-server checkbox)</li></ul></div>
+</div>
+
+<div class="box fun"><h5>⚡ Fun payload</h5>
+<p><b>Builder:</b> the codename ceremony. The project gets a dumb internal name tonight (open question below), a splash screen with a terrible logo an agent generates in ASCII, and the mannequin gets a traffic-cone hat if you can manage it in ten minutes — the project should make you smirk on boot from day one. <b>Player (that's you, for now):</b> record <b>Friday Clip #001</b> — the character doing literally anything — and post it. The ritual starts before the game does.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 — Install &amp; run.</b> Epic launcher → UE 5.7 (binary — do <em>not</em> source-build; that's week 7 for a reason). IDE: <a href="https://www.jetbrains.com/rider/">Rider</a> (best UE integration) or VS2022. New project: Third Person, C++. Press Play. You have a game character; we will never be precious about starting from scratch.</li>
+<li><b>S2 — Repo health.</b> <a href="https://git-lfs.com/">Git LFS</a>; the standard <a href="https://github.com/github/gitignore/blob/main/UnrealEngine.gitignore">UE .gitignore</a>; track <code>*.uasset</code> and <code>*.umap</code> in LFS. First commit. Then write <code>CLAUDE.md</code>: build commands, the eight rules (especially 4/5/6), project conventions. Create <code>UE-GOTCHAS.md</code> — every hard-won fix goes here; in three months it's the institutional memory of a one-person studio and it travels across your worktrees.</li>
+<li><b>S3 — Fleet hookup.</b> <code>UnrealBuildTool -Mode=GenerateClangDatabase</code> → <code>compile_commands.json</code> so Claude Code can navigate. Optional bonus: Epic's experimental <a href="https://dev.epicgames.com/documentation/unreal-engine/unreal-mcp-in-unreal-editor">Unreal MCP plugin</a> and/or <a href="https://github.com/Natfii/UnrealClaude">UnrealClaude</a>. Editor-driving agents are a garnish, not a dependency — the tooling is a year old.</li>
+<li><b>S4 — Ceremony &amp; clip.</b> Codename, splash, cone hat, Friday Clip #001. Close the laptop when the gate below passes. Setup week does not get an encore.</li>
+</ol></div></details>
+
+<div class="split">
+  <div class="box"><h5>You, by hand</h5><p style="margin:0">Project creation, first PIE run, reading the generated template code top to bottom once (it's short and it's your first map of "where code lives").</p></div>
+  <div class="box"><h5>The fleet</h5><p style="margin:0">.gitignore/.gitattributes, CLAUDE.md scaffold, clang database generation, build script wrappers, the ASCII logo. Let an agent explain every folder in the project root to you — it's a good first test of whether your context files work.</p></div>
+</div>
+
+<div class="box dod"><h5>▣ Gate — definition of done</h5><p style="margin:0">Character runs in PIE with 2 clients. Repo pushed. Agent builds from CLI and correctly answers "where is player input handled in this project?" Clip #001 posted.</p></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li><span class="res">Resolved r1.4</span> — codename: <b>OneMoreRock</b>. The exit decision in three words; it names the <code>.uproject</code> and the primary C++ module, chosen before project creation because renaming a UE project later is misery. Doesn't pre-commit the Bit (still due week 3).</li>
+<li>Rider or VS2022? (Decide in S1; don't churn later. Note: the dev machine is macOS — the realistic pair there is Rider vs Xcode/clangd.)</li>
+<li><span class="res">Resolved r1.4</span> — the manual lives at <code>docs/field-manual.html</code> in the game repo; CLAUDE.md names it the source of truth. De-facto since first commit.</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w1">
+<div class="wk-meta"><span class="num">Week 01</span><span>Phase: Core loop</span><span>Fun engine unlock: JuiceKit</span></div>
+<h2>The humble resource node</h2>
+<p>Everything in the rift — ire, haul, the greed dial, the exit decision — is downstream of one primitive: <em>a thing in the world players extract value from.</em> So we start there, and we use it to force the entire networking core through your hands. By Friday you'll have a node two networked clients can harvest, and you'll have <em>felt</em> the dungeon-master model work instead of reading about it.</p>
+
+<h3>The concepts, taught by the node</h3>
+<p>The node's health lives on the <strong>server</strong> — clients don't get a vote. When a client holds the harvest key, their PlayerController sends a <strong>Server RPC</strong> ("I'd like to harvest this"). The server checks range and validity, then ticks health down. Health is a <strong>replicated property</strong> with <strong>RepNotify</strong>: the server changes it, every client's copy updates, and the notify fires so clients react — crack VFX, UI tick, JuiceKit pop. The division of labor in one sentence, which is 80% of multiplayer game programming: <strong>the server changes facts; clients react to facts changing.</strong></p>
+<p>The proof of internalization is the <strong>cheater test</strong>: from a client, call the harvest logic locally, bypassing the RPC. If the world changes, you built a single-player game with extra steps. If nothing happens because the client had no authority — you now understand Unreal networking better than most people with forty tutorial-hours.</p>
+
+<div class="box fun"><h5>⚡ Fun payload — the JuiceKit is born</h5>
+<p><b>Player:</b> when the node breaks, a physical <b>chunk pops out</b> with a little launch impulse and a confetti burst — and the part your LitRPG brain has been waiting fifteen years for: <b>floating combat text</b>, <code>+3 Ferrocrystal!</code> drifting up in mono type. Then you grab the chunk and do <b>the waddle</b> — carrying visibly slows you, and a capsule-person waddling a comically large rock to a crate is charm at Tier-2 prices. Numbers going up, loudly, plus physical comedy: a complete game. <b>Builder:</b> build the feedback as <code>UJuiceComponent</code> — one reusable component (floating text, sound stinger, particle pop, hitstop hook for later). Every mechanic you ever build gets plugged in the day it's born. Fun engine #1, and also just good architecture.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 — The fact.</b> Hand-write (rule 4) <code>AResourceNode</code> with <code>UPROPERTY(ReplicatedUsing=OnRep_Health)</code>, <code>GetLifetimeReplicatedProps</code>, and <code>HasAuthority()</code> guards. Change health with a debug key on the server; watch both clients react.</li>
+<li><b>S2 — The request.</b> <code>Server_Harvest</code> RPC with validation (range, node alive). Your first client→server request; write the validation like the client is lying to you, because someday one will be.</li>
+<li><b>S3 — The break.</b> Interact-to-break (deplete over time), and on exhaust the node <b>pops a physical chunk</b>: spawn with a small impulse (Tier-1 cosmetic while airborne), then it settles, sleeps, and goes net-dormant. Node respawn via <code>FTimerManager</code>.</li>
+<li><b>S4 — The carry.</b> <code>Server_Grab</code> → attach the chunk to the character (replicated attachment — Tier 2, no rigid-body drama); a CMC speed penalty scaled by chunk weight (the waddle); deposit at a collection crate; debug haul counter. Drop-on-command as a freebie.</li>
+<li><b>S5 — The proof &amp; the juice.</b> Wire node, pop, and deposit into <code>UJuiceComponent</code> v0 (floating text, cha-ching, confetti — free CC0 SFX). Cheater test. Preview net emulation at 100 ms just to feel it (mandatory from week 3). Friday Clip #002: the waddle.</li>
+</ol></div></details>
+
+<div class="split">
+  <div class="box"><h5>You, by hand</h5><p style="margin:0">All of S1–S2 (first replicated property and first RPC of your life — this is the week rule 4 exists for). The cheater test personally.</p></div>
+  <div class="box"><h5>The fleet</h5><p style="margin:0">JuiceKit widget boilerplate, the floating-text pool, SFX import scripting, a second node variant copied from your pattern. First entries into <code>UE-GOTCHAS.md</code> as they're earned.</p></div>
+</div>
+
+<h4>Resources this week</h4>
+<div class="cards">
+  <div class="card"><span class="k">Read — the one full binge</span><b>Multiplayer Network Compendium</b>Cedric Neukirchen's canonical community text. Short, dense, and this week's problem gives every page a hook. <a href="https://cedric-neukirchen.net/docs/multiplayer-compendium/">cedric-neukirchen.net</a></div>
+  <div class="card"><span class="k">Skim</span><b>Gameplay Framework docs</b>Meet the cast formally. <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/">Docs root</a> → search "Gameplay Framework".</div>
+  <div class="card"><span class="k">Watch (Friday hour, if needed)</span><b>Replication in one sitting</b><a href="https://www.youtube.com/results?search_query=unreal+engine+5+c%2B%2B+replication+repnotify+explained">YouTube: UE5 C++ replication RepNotify</a> — one video max, question in hand.</div>
+</div>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">Two PIE clients + dedicated-server checkbox: both see the same node break, the same chunk pop, and a carried chunk deposit correctly — server-authoritative, including a client that grabs what another dropped. Carrying visibly slows you. Cheater test fails safe. Harvesting already feels good. Clip posted.</p></div>
+
+<div class="box gotcha"><h5>⚠ Gotcha seeds</h5><ul>
+<li>Forgot <code>GetLifetimeReplicatedProps</code> → property silently never replicates. First entry in the gotcha file, guaranteed.</li>
+<li><code>OnRep_*</code> functions are <em>not</em> auto-called on the server/listen host — if server-side reaction matters, call it manually after changing the value.</li>
+<li>Editing the header with Live Coding active → weirdness. Header changes = full restart. Accept it early.</li>
+<li>Replicated physics actors jitter under movement replication — the chunk's contract is <b>pop → settle → sleep → net-dormant</b>. A chunk at rest is furniture, not a simulation. If chunks vibrate on clients, you skipped the sleep step.</li>
+</ul></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li><span class="res">Resolved r1.1</span> — hold-to-channel vs whack: superseded by the Physics-Legible First doctrine. Nodes break into carryable chunks; whacking proper arrives in week 2 when melee exists.</li>
+<li>Chunk budget: loose bodies must be bounded. Max live chunks per rift? Auto-despawn into the nearest crate after N minutes at rest, or merge stacks? Decide before week 8's scale pass, not during it.</li>
+<li>Exact resource names — placeholder taxonomy now, or is the Bit (week 3) allowed to infect resources too? (<code>+3 Goose Down</code> is objectively funnier.)</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w2">
+<div class="wk-meta"><span class="num">Week 02</span><span>Phase: Core loop</span><span>Warning: steepest week — budget patience</span></div>
+<h2>Teaching the world to fight (GAS)</h2>
+<p>The rift needs combat, and an RPG's combat means <em>abilities</em> — attacks, dodges, storm damage-over-time, elite specials, and eventually (per your proc-gen belief) <em>generated combinations</em> of all of the above. You could hand-roll damage in a day. We're not going to, and here's the straight version of why, because this week has the worst effort-to-visible-progress ratio of the twelve and you'll be tempted to bail: the <strong>Gameplay Ability System</strong> is over-engineered for week 2 and <em>correctly</em>-engineered for week 40. It ships networked prediction, cooldowns, costs, stacking, and status effects as configuration. Rolling your own means re-solving networked ability prediction — one of the genre's genuinely hard problems — by hand, later, under pressure. Pay the tax now, while the codebase is small and forgiving.</p>
+
+<h3>Four ideas, four metaphors</h3>
+<p>The <strong>AbilitySystemComponent</strong> is the socket that makes a character a citizen of the rules engine. <strong>Attributes</strong> are numbers with rules (Health, Stamina) living in an AttributeSet. <strong>GameplayEffects</strong> are the <em>only</em> legal way attributes change — think signed ledger transactions ("−15 Health, source: PlayerA's slash, 14:02"). Nobody edits the account balance directly, and because every change is a transaction, resistances, buffs, and stacking become <em>modifications to transactions</em> instead of spaghetti. <strong>GameplayTags</strong> are hierarchical adjectives (<code>State.Stunned</code>, <code>Damage.Type.Storm</code>) the whole system can query — a shared vocabulary that the director and the storm will interrogate constantly from week 9 on.</p>
+
+<div class="box fun"><h5>⚡ Fun payload</h5>
+<p><b>Player:</b> your second ability is <b>Yeet</b> — a shove with comically overtuned knockback that launches ragdolls into low orbit. Physics comedy is free and it never stops being funny; it is also, sneakily, your first knockback GameplayEffect, which sieges will reuse forever. And per the physics doctrine, Yeet graduates from gag to <b>first-class verb</b>: shoving the horde off a chunk — or off a wall line, or into a hazard — is legitimate tactics, and because it rides the CharacterMovementComponent's existing networked prediction, it costs Tier-2 prices. <b>Builder:</b> the target dummy is named <b>Gerald</b>, Gerald has a nameplate, and Gerald screams (one free SFX) when hit. You will spend dozens of hours with Gerald. He deserves a personality.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 — Socket.</b> Enable the GameplayAbilities plugin; ASC on the character. Crib initialization order shamelessly from <a href="https://github.com/Narxim/GAS-Example">Narxim/GAS-Example</a> — it is famously fiddly and this is not where your learning budget goes.</li>
+<li><b>S2 — Ledger.</b> AttributeSet (Health, Stamina); a damage GameplayEffect; Gerald the dummy absorbing transactions.</li>
+<li><b>S3 — First verb.</b> Hand-write (rule 4) the melee ability: activate → trace → apply GE. Wire into JuiceKit: hit sound, floating damage number. LitRPG brain: fed.</li>
+<li><b>S4 — Second verb.</b> Ranged ability (projectile or hitscan — projectile teaches more replication). Cooldown + stamina cost via GEs, so you touch the cost/cooldown machinery once.</li>
+<li><b>S5 — Death &amp; Yeet.</b> Health→0 → death → ragdoll → respawn. Then Yeet. Clip #003 is obviously Gerald in orbit.</li>
+<li><b>S6 — Buffer.</b> GAS always overruns. This session is pre-spent so the calendar doesn't panic.</li>
+</ol></div></details>
+
+<h4>Resources this week</h4>
+<div class="cards">
+  <div class="card"><span class="k">Reference (keep open)</span><b>tranek/GASDocumentation</b>The community bible. A reference, not a book. <a href="https://github.com/tranek/GASDocumentation">GitHub</a></div>
+  <div class="card"><span class="k">Crib</span><b>Narxim/GAS-Example</b>Clean, minimal, maintained. Steal the setup. <a href="https://github.com/Narxim/GAS-Example">GitHub</a></div>
+  <div class="card"><span class="k">Pattern library</span><b>tomlooman/ActionRoguelike</b>Well-architected UE C++ to pattern-match against, free. <a href="https://github.com/tomlooman/ActionRoguelike">GitHub</a> · his <a href="https://courses.tomlooman.com/">course</a> only if you're flailing for structure.</div>
+</div>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">Two clients fight each other and Gerald; health replicates; death and respawn survive 100 ms simulated lag. Every hit makes a sound and a number.</p></div>
+
+<div class="box gotcha"><h5>⚠ Gotcha seeds</h5><ul>
+<li>ASC init order: <code>InitAbilityActorInfo</code> must run on possess <em>and</em> on the client after PlayerState replication — the #1 GAS beginner wall. Narxim shows the shape.</li>
+<li>Do <b>not</b> open Lyra this week. Everyone says it's the best GAS reference; it is, at shipped-game scale, and it will bury a week-2 learner. Shelf until week 8+.</li>
+<li>If GAS takes nine days instead of seven: the calendar flexes, the gate doesn't.</li>
+</ul></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li><b>The combat-model question, parked deliberately:</b> tab-target vs action combat. The slice runs action-lite (trace melee + one projectile). The real decision — weighty Souls-ish vs fast Fortnite-ish vs hybrid — is a Stage 2 pillar decision that playtests should inform, not precede.</li>
+<li>Stamina in the slice at all, or Health-only until it earns its place?</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w3">
+<div class="wk-meta"><span class="num">Week 03</span><span>Phase: Core loop</span><span>Decision due: commit to the Bit</span></div>
+<h2>The rift pushes back</h2>
+<p>Three weeks in: a world with value in it (nodes) and violence in it (abilities). Now the rift gets its immune system — the creatures that will, from next week, <em>answer the expedition's greed</em>. This week they're dumb chasers, and that's correct. The director makes them mean later; this week makes them <em>exist</em>, cheaply and reliably, and takes your first performance baseline so week 8 has something to compare against.</p>
+
+<h3>Concepts</h3>
+<p>An NPC is a Pawn possessed by an <strong>AIController</strong> — a brain in a jar, pluggable into any body, which is exactly the property your spawn tables will exploit for variety. Movement runs on the <strong>NavMesh</strong>: the engine bakes a "walkable carpet" over level geometry, and pathfinding queries run against the carpet, not raw geometry — that's why a hundred pathfinders is even thinkable. For the brain, use <strong>StateTree</strong>, Epic's newer model — it reads like a flowchart of states with enter/exit conditions, which maps onto how you already think. (Behavior Trees have far more written material; if StateTree fights you past the 90-minute valve, fall back without guilt. Docs search: "StateTree" / "Behavior Trees".) One more doctrine note while the horde is being born: mobs and players share capsule collision, so <strong>body-blocking is free</strong> — tune capsule sizes, mass, and push interactions so that a player planted in a doorway <em>means something</em>. A tank role invented out of pure Tier-2 collision, no rigid bodies, all legibility.</p>
+
+<div class="box fun"><h5>⚡ Fun payload — commit to the Bit</h5>
+<p><b>This is decision week.</b> The horde needs a dumb, committed placeholder identity, chosen from the open-questions box below (current front-runner: <b>geese</b> — a honk is free, a doppler honk while charging is comedy, and it's on-brand for a Pacific Northwest developer). Whatever you pick: the kill feed gets a superlative generator (<code>Gregory, Vice-Goose of the Storm, has been slain by Nick</code>) built from agent-written word lists. Charm infrastructure — the generators, the voice — outlives the bit itself. <b>Builder:</b> the first time fifteen of anything charge you honking in unison, record it. That's Clip #004 and it will be your most-replayed file.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 — Body &amp; carpet.</b> NPC pawn + AIController; NavMesh bounds volume; MoveTo the nearest player. (NavMesh not building? It's the bounds volume. It's always the bounds volume.)</li>
+<li><b>S2 — Brain.</b> Hand-write your first StateTree (rule 4): Idle → Chase → Attack. Keep it three states; resist elaborateness.</li>
+<li><b>S3 — Claws.</b> Attack routes through your week-2 GAS ability so all damage stays on the ledger. NPCs get an ASC too — cheap now, essential when elites need storm resistances in week 9.</li>
+<li><b>S4 — The tap.</b> <code>WaveSpawner</code>: N goons per interval from a spawn point. Simple pooling if spawning hitches; don't gold-plate.</li>
+<li><b>S5 — Credit &amp; baseline.</b> Per-player kill credit on PlayerState — quietly the embryo of contribution tracking, the thing that keeps a 24-player shared camp fair. Then the baseline: <code>stat unit</code> with 15 NPCs chasing 2 clients; write the server frame time into the repo. From here on we measure. Feelings about performance are banned.</li>
+</ol></div></details>
+
+<div class="split">
+  <div class="box"><h5>You, by hand</h5><p style="margin:0">The first StateTree; the decision about the Bit; reading the profiler output yourself and writing the number down.</p></div>
+  <div class="box"><h5>The fleet</h5><p style="margin:0">Name/title generator word lists, the superlative kill-feed strings, a second NPC variant from your pattern, spawner boilerplate, honk SFX wiring.</p></div>
+</div>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">15 NPCs chase and melee 2 clients on a listen server without visible stutter, under net emulation (now permanently on, per rule 5). Baseline frame time committed. The horde has a name, a noise, and a kill feed with jokes in it.</p></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li><b>The Bit:</b> geese / garden gnomes / crabs / rubber ducks / something from your kids' current obsession? Pick by Friday. It's disposable; the charm systems aren't.</li>
+<li>Melee-only horde for the slice, or one ranged goon type early? (Ranged pressure changes camp design a lot — leaning: add one ranged type in week 9 with the elites.)</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+<section class="week" id="w4">
+<div class="wk-meta"><span class="num">Week 04</span><span>Phase: Core loop</span><span>Fun engine unlock: Director's Remote</span></div>
+<h2>The heart: ire and the director</h2>
+<p>This is the week I've been steering you toward since the first conversation. Everything so far was parts; this week is <em>the idea</em>. The greed dial becomes code — deliberately early, partly because every later system tunes against it, and mostly because from Friday onward you're not doing engine exercises anymore. You're building your game. That distinction is fuel, and you need the tank full for the eight weeks that remain.</p>
+
+<h3>The concept: a dungeon master with a wallet</h3>
+<p><strong>Ire is currency that players mint by being greedy</strong> — every harvest tick, every kill, every structure standing generates it — <strong>and the director spends that currency on violence</strong>: bigger waves, faster waves, nastier compositions. The elegance is that difficulty stops being a setting and becomes a <em>consequence</em>. A cautious expedition gets a quiet rift; a greedy one summons hell; and the dial sits in the players' hands every minute of every session. Lineage worth stealing from: Left 4 Dead's AI director, Deep Rock's swarm pacing, Risk of Rain's time-scaling — yours is distinct because the players <em>author</em> the pressure.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 120" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The ire economy</title><desc>Greed mints ire; the ire pool funds the director's budget; the director spends it on waves, which apply pressure back on the players.</desc>
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="40" y="34" width="130" height="52" rx="8" fill="#3a2620" stroke="#b45034"/>
+<text x="105" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ffb08d">Greed</text>
+<text x="105" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#c98a6b">harvest · build · kill</text>
+<rect x="210" y="34" width="120" height="52" rx="8" fill="#232736" stroke="#b45034"/>
+<text x="270" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ff8a5c">Ire pool</text>
+<text x="270" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">GameState</text>
+<rect x="370" y="34" width="130" height="52" rx="8" fill="#262238" stroke="#4a4370"/>
+<text x="435" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#c3b8f2">Director</text>
+<text x="435" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">spends budget</text>
+<rect x="540" y="34" width="100" height="52" rx="8" fill="#262238" stroke="#4a4370"/>
+<text x="590" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#c3b8f2">Waves</text>
+<text x="590" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">pressure</text>
+<line x1="172" y1="60" x2="206" y2="60" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#ar2)"/>
+<line x1="332" y1="60" x2="366" y2="60" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#ar2)"/>
+<line x1="502" y1="60" x2="536" y2="60" stroke="#a08fe8" stroke-width="1.3" marker-end="url(#ar2)"/>
+<text x="340" y="110" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#6f6c7e">↻ pressure feeds back on the greedy — difficulty as consequence, not setting</text>
+</svg>
+<figcaption>The signature loop. Everything else in the game orbits this.</figcaption>
+</figure>
+
+<h3>The Unreal shapes</h3>
+<p>A <strong>World Subsystem</strong> — an engine-managed, world-scoped singleton (a service container, a shape you know in your sleep) — is the home for <code>UIreSubsystem</code>, server-side only, with the current ire value mirrored onto GameState for clients to read. A <code>DirectorComponent</code> reads the pool and spends against a spawn table. And critically, rule 6 at full power: every tuning value — ire per harvest tick, per kill, per structure-minute, wave budget curves, spawn weights — lives in a <strong>DataAsset generated from JSON</strong>. From this week forward your agents author game balance as text files. Your proc-gen belief just grew hands.</p>
+
+<div class="box fun"><h5>⚡ Fun payload — the Director's Remote</h5>
+<p><b>Builder:</b> a god panel (debug UMG or console commands — <code>ire.Give 500</code>, <code>ire.ForceWave</code>, <code>ire.SpawnElite</code>, <code>KillAllGeese</code>). It's test tooling that happens to be the most fun object in the project, because playing DM over your own world never gets old — and in week 11 you'll use it <em>live on your friends</em>, which is the single most memorable playtest trick a solo dev has. Fun engine #2. <b>Player:</b> the ire meter speaks. Escalating flavor stages instead of just a number: <code>The rift stirs.</code> → <code>The rift notices you.</code> → <code>The rift is FURIOUS.</code> Cheap text, real dread — and it quietly opens a design door (see the open question about vague vs exact display; mystery is one of your load-bearing beliefs).</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 — The pool.</b> Hand-write <code>UIreSubsystem</code> (rule 4, last of the firsts for a while): accrual from harvest/kill/structure events via a small event-bus or direct calls; mirrored value on GameState.</li>
+<li><b>S2 — The knobs.</b> <code>URiftTuningDataAsset</code> + the JSON→asset import path. Have an agent author the first tuning file; you review the schema like it's an EMURJ metafield spec, because it basically is.</li>
+<li><b>S3 — The spender.</b> Director: every N seconds, convert accumulated ire into a wave budget; buy goons from the spawn table until spent.</li>
+<li><b>S4 — The voice.</b> Debug ire meter + flavor-text stages, wired through JuiceKit (stage transitions get a sound).</li>
+<li><b>S5 — The Remote.</b> God panel. Then the ritual demo: idle three minutes, note the waves; harvest greedily three minutes, note the waves. If the difference isn't <em>visceral</em>, tune the JSON until it is — without recompiling, which is the whole point.</li>
+</ol></div></details>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">Demonstrable causality: greed for three minutes produces visibly bigger waves than idling. Retuned from JSON with no recompile. Remote works. <b>Record this clip carefully — it's the first artifact of the actual game.</b></p></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>Does ire <b>decay</b> when the expedition lays low, or only ratchet up? (Decay = stealth/recovery play exists. Ratchet = commitment. Slice: try slow decay; it makes the dial feel more like a dial.)</li>
+<li>Expedition-wide pool vs per-player heat? (Slice: expedition-wide — it's the social pressure version. "WHO built a fourth extractor?" is a feature.)</li>
+<li>Display: exact number vs vague stages? Your mystery belief argues for stages; competitive optimizers will want numbers. Maybe: stages in-world, exact in the post-run Chronicle.</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w5">
+<div class="wk-meta"><span class="num">Week 05</span><span>Phase: Camp</span><span>Hidden exam: join-in-progress</span></div>
+<h2>Camp as machine</h2>
+<p>The vision says the camp isn't a home — it's <em>gear</em>. The machine the expedition assembles to convert a hostile rift into a haul, and its footprint is one hand on the greed dial. This week the machine gets parts, and you meet the two classic problems basebuilding drags into multiplayer: <strong>trust</strong> and <strong>late joiners</strong>.</p>
+
+<h3>Concepts</h3>
+<p>Placement is the DM model at larger scale: the <strong>ghost preview is client-side</strong> — instant, cosmetic, the client imagining — and <strong>placement is a Server RPC with validation</strong> (range, overlap, cost). Never trust the client's opinion of where a wall goes; a modified client <em>will</em> try to place walls inside spawners. Second: walls change the walkable carpet, so <strong>dynamic NavMesh</strong> rebuilds around fresh construction and NPCs path around — and gnaw through — it. Third, the hidden exam: <strong>join-in-progress</strong>. A client connecting <em>after</em> the camp exists must receive the whole picture from replication alone. If the camp only looks right to players who watched it get built, replication is subtly broken — and at 24 players with rolling arrivals, this bug class is fatal. Test it deliberately this week while it's cheap.</p>
+
+<div class="box fun"><h5>⚡ Fun payload</h5>
+<p><b>Player:</b> the extractor <em>cha-chings</em> on every tick (it is a machine that prints money and the rift's anger simultaneously — it should sound like both), walls crack visually by damage stage, and invalid placement gets a game-show buzzer. <b>Builder:</b> the goon-vs-wall moment. The first time the horde swarms a wall and starts comically gnawing it while your extractor keeps ringing behind you — that's the game's whole thesis in one screenshot, and Clip #006.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 — Ghost.</b> Placement component: trace from camera, snapped ghost mesh, client-side validity tint (green/red + buzzer).</li>
+<li><b>S2 — Trust.</b> <code>Server_PlaceStructure</code>: revalidate everything server-side, spend resources, spawn the replicated structure. Structure count reports to the ire subsystem.</li>
+<li><b>S3 — The greed machine.</b> Extractor: scans nearby nodes, auto-harvests on a timer, generates ire per minute. Installing one is pushing the dial with both hands — make sure the flavor text says so.</li>
+<li><b>S4 — The wall.</b> HP via GAS (structures get attributes too — the ledger pays again), dynamic NavMesh obstacle, and NPC targeting widened to nearest-player-or-structure. Funnels and kill-boxes are now real play — this is the tower-defense legibility the physics doctrine promised, and nobody will need it explained.</li>
+<li><b>S5 — The exam.</b> Storage box, then the join-in-progress test: build a camp with two clients, connect a third, audit what it sees. Fix what's missing. Every fix is a gotcha-file entry.</li>
+</ol></div></details>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">Two clients co-build a camp; the extractor pulls unattended; a wave damages walls; and a third client joining mid-session sees a correct world.</p></div>
+
+<div class="box gotcha"><h5>⚠ Gotcha seeds</h5><ul>
+<li>Dynamic NavMesh rebuild is not free — set the nav mesh to dynamic-with-obstacles mode, not full runtime regen, or 40 walls will eat the server.</li>
+<li>JIP failures hide in "I set that in BeginPlay on the client" logic. State must live in replicated properties, not in the memory of having-been-there.</li>
+</ul></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>Build permissions in a friends-only slice: none needed — but write down now what the matchmade-strangers version needs (plot claims? squad ownership? contribution-gated placement?) so Stage 2 isn't designing from scratch.</li>
+<li>Do walls fully block, or slow-and-aggro? (Slice: block + gnawable. Mazes will be degenerate; let playtesters find that and enjoy them before you fix it.)</li>
+<li><b>The sanctioned Tier-3 spike (stretch, one session, hard timebox):</b> a single server-simulated boulder you can shove downhill into the horde. Run it under 100 ms emulation. If it feels good, log it as a future rift-modifier ingredient; if it fights you, that's the doctrine confirmed at the cost of one evening. Either way it does not enter the Stage-1 critical path.</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w6">
+<div class="wk-meta"><span class="num">Week 06</span><span>Phase: Camp</span><span>Fun engine unlock: The Chronicle · First humans</span></div>
+<h2>The whole story, told to humans</h2>
+<p>Six weeks in, the parts assemble into the thing itself: a session with a beginning, a middle, and an end. Land in the rift, establish the foothold, feed the machine, weather the answer, and get out through the portal with what you can carry. This is your first core belief — <em>games are meant to be played by people</em> — made real on the earliest possible date. Real friends. Real internet. Real stories.</p>
+
+<h3>What you're building</h3>
+<p>A session state machine (Lobby → Active → Extraction → Debrief) on the GameMode. The <strong>portal</strong>: a literal gate in the world, and the rule that gives the whole game its spine — <strong>the haul only banks when it physically crosses the threshold; die and you drop what you're carrying.</strong> Players channel to exit themselves, but the loot goes through the hole the old-fashioned way: carried, hauled, chucked across the line. Gear stays with you: we're building tension, not Tarkov gear-fear; the harsher-stakes version becomes a rift-tier modifier later, for the players who want to sweat. An end-of-session scoreboard: banked, kills, ire generated, per player — contribution visibility is the seed of fairness at 24. And a restart flow, because Friday's playtest will demand "again."</p>
+
+<div class="box fun"><h5>⚡ Fun payload — the Chronicle awakens</h5>
+<p><b>Player &amp; builder at once, and the biggest payload in the manual:</b> log every notable event during the session (first blood, biggest yeet, extractor count, deaths, who carried the most weight through the portal), then render a <b>Chronicle</b> at debrief — a LitRPG-chapter recap from string templates: <i>"Day 1 of the Expedition. The party grew greedy at the northern vein. Gregory, Vice-Goose of the Storm, took exception. Nick died richest."</i> Plus superlative awards: <i>Most Greedy · Died Richest · Wall Enjoyer · Carried</i>. v0 is templates and word lists (fleet-authored). Down the road, your DGX Spark's local models polish event logs into real prose — the Chronicle is the embryo of your entire LLM-content thesis, born as a joke. Fun engine #3, and the thing your playtesters will screenshot.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 — The clock.</b> Session timer + state machine on GameMode; state mirrored to GameState for HUDs.</li>
+<li><b>S2 — The door.</b> Portal actor: a physical threshold that banks whatever crosses it (carried chunks, crate contents hauled over), plus channel-to-exit for the player and haul-drop on death. This is where encumbrance becomes the exit decision in miniature: heavy trips are slow and vulnerable, light trips waste the window. Treat the tuning — carry limits, portal placement, threshold feedback — as design, not plumbing, because "one more rock?" is the whole game in three words.</li>
+<li><b>S3 — The ledgered ending.</b> Scoreboard from PlayerState stats; restart flow.</li>
+<li><b>S4 — The Chronicle.</b> Event log subsystem + template renderer + awards. Fleet writes the word lists and templates; you write the event taxonomy (it's a schema problem — your home turf).</li>
+<li><b>S5 — The night.</b> Friends playtest over <a href="https://tailscale.com/">Tailscale</a> (everyone joins your tailnet, direct-IP to your listen server — the entire NAT/matchmaking problem deferred to the week it matters). Debrief notes written same night.</li>
+</ol></div></details>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">Three humans, remote, complete a full session — land, build, harvest, siege, extract — and receive a Chronicle that makes at least one of them laugh. Debrief notes committed.</p></div>
+
+<blockquote class="note"><em>Mentor's aside</em> — Your friends will be kind. Watch what they <strong>do</strong>, not what they say: where they hesitated, what they ignored, when they laughed, when they went quiet in the good way. The laugh timestamps are the design document. Also: schedule the session like an event with a start time. You're rehearsing the appointment-gameplay muscle you'll use all the way to seasonal launches.</blockquote>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>Session length target? Instinct says 45–75 minutes for the slice (a weeknight unit). The variable-duration rift classes are a Stage 2/3 axis; the slice needs one good default.</li>
+<li><span class="res">Resolved r1.1</span> — shared pool vs per-player carry: the physics doctrine answers it. Carry is per-player and <em>physical</em>; the "who hauls the rares" negotiation happens in the world, with your hands full, which is better than any menu could make it.</li>
+<li>Chronicle tone: deadpan LitRPG narrator, or unhinged goose-war correspondent? Prototype both template sets; keep whichever gets screenshotted.</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w7">
+<div class="wk-meta"><span class="num">Week 07</span><span>Phase: Steel</span><span>The grind week — boxed hard, ends in ducks</span></div>
+<h2>Real infrastructure</h2>
+<p>Honesty first: least dopaminergic week of the twelve. No new gameplay Friday. Instead, the project stops being an editor toy and becomes a <em>service</em> — a dedicated Linux server on rented hardware, running your game for clients anywhere. That VPS is the seed crystal of the eventual rift fleet: the shape you build this week (one rift, one server process) is the same shape that later runs fifty of them. Also the week your day-job instincts become superpowers instead of transferable-with-effort: this is deploys, artifacts, and boxes — you've done this a thousand times, just with a weirder binary.</p>
+
+<h3>Why this week is annoying, explained once</h3>
+<p>Epic's launcher binaries don't include the dedicated-server build target; shipping servers requires the engine <em>from source</em>. So: link your Epic account to GitHub (free), clone the engine, kick off the build — it's hours of machine time, so start it and go do week-8 prep while the fans scream. Then learn the packaging vocabulary: <strong>cooking</strong> bakes editor-format assets into optimized platform format; <strong>packaging</strong> bundles cooked content + binaries into something shippable. Add a <code>Server</code> target, package Linux server + Windows client, deploy to a 4–8 vCPU VPS under systemd. The one non-negotiable: <strong>script everything</strong> into fleet-runnable commands (<code>RunUAT BuildCookRun …</code> wrapped in your tooling). One command in, artifacts out. Ugly scripts fine; un-automated steps not — you're cutting builds weekly from here to Early Access.</p>
+
+<div class="box fun"><h5>⚡ Fun payload — the Duck Test</h5>
+<p><b>Builder:</b> the celebration for first-WAN-session is a console command on the Remote: <code>Ducks 200</code> — two hundred physics-simulated ducks rain onto the server. It is (a) extremely funny, (b) your first genuine stress test, and (c) the beginning of a proud tradition of load-testing tools that are also toys. Name the VPS something ceremonial. Set a server MOTD. <b>Player:</b> friends connecting to a real server for the first time get greeted by name in the MOTD. Small thing; lands big.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 —</b> GitHub source access; clone; kick the engine build; while it runs, draft week 8's bot-client plan.</li>
+<li><b>S2 —</b> Server build target; first cook; run server + packaged client on LAN.</li>
+<li><b>S3 —</b> VPS provision; deploy; systemd unit; firewall; connect from home.</li>
+<li><b>S4 —</b> Automate: one command → server + client artifacts → deployed. Fleet owns this pipeline from now on.</li>
+<li><b>S5 —</b> WAN friends session. Ducks. Ceremony. Clip #008 is ducks.</li>
+</ol></div></details>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">Friends connect from packaged clients to the VPS over the real internet and play a full session with Chronicle. One command produces and ships the artifacts. Ducks have rained.</p></div>
+
+<div class="box gotcha"><h5>⚠ Gotcha seeds</h5><ul>
+<li>Sprawl gravity: there is always one more thing to make elegant about a build pipeline. Ship ugly. The box is the feature.</li>
+<li>Your DGX Spark is ARM — UE desktop/client builds are x86-64 territory. The Spark's Stage-1 jobs are orchestration, bot-fleet control, and (soon) Chronicle-polishing LLMs — not engine builds. Don't burn a session discovering this the hard way.</li>
+</ul></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>VPS vendor + spec (start 4–8 vCPU; measure before buying bigger)? Home-lab x86 box as the staging server?</li>
+<li>Where do build artifacts live — object storage now, or scp-and-pray until it hurts?</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+<section class="week" id="w8">
+<div class="wk-meta"><span class="num">Week 08</span><span>Phase: Steel</span><span>The perf gate becomes a Friday ritual</span></div>
+<h2>Earning the 24</h2>
+<p>You pushed back on my cautious 4–8 player scope, and you were right — concurrent social play <em>is</em> the product. This is the week the conviction gets paid for: 20–24 connected clients plus a siege-scale horde, on the VPS, under 33 milliseconds a frame. Measured. Not hoped.</p>
+
+<h3>The cost model, once, properly</h3>
+<p>Replication bandwidth is roughly <strong>actors × properties × update frequency × recipients</strong>, and server CPU stacks movement, AI, and animation on top. Every optimization this week attacks one factor — and if you want a day-job anchor: this is CDN thinking. <strong>Relevancy</strong> (<code>NetCullDistanceSquared</code>) is edge caching — the DM doesn't narrate events at another table; clients only receive nearby actors, and your two-front siege design is secretly a relevancy optimization wearing a design hat. <strong>Update frequency</strong> (<code>NetUpdateFrequency</code>) is cache TTL — a wall doesn't need 30 updates a second; a charging elite does. <strong>Dormancy</strong> (<code>SetNetDormancy(DORM_DormantAll)</code>) puts unchanging actors — idle nodes, finished walls — to sleep at near-zero cost until touched. <strong>Server-side animation</strong>: the server needs collision and positions, not a beautifully ticking anim graph — <code>VisibilityBasedAnimTickOption = OnlyTickPoseWhenRendered</code> on NPC meshes reclaims a shocking slice of CPU. And the <strong>director gets a hard entity cap</strong>, because the honest lever at siege time is NPC count — and "fewer, meaner enemies" is usually better gameplay anyway.</p>
+
+<div class="box fun"><h5>⚡ Fun payload — the bot derby</h5>
+<p><b>Builder:</b> your load-testing army gets personality for free: bots draw names from the title generator, and a <b>spectator drone camera</b> (a flying spectator pawn) lets you film the swarm from above — which is both a debugging tool and your first source of trailer-grade footage. Twenty-four named bots and a honking horde colliding at a wall line is genuinely cinematic in a way gray capsules have no right to be. <b>Player:</b> siege population on the HUD ticks up like a storm warning. Numbers being scary is also juice.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 —</b> Headless bot client: packaged client launched with <code>-nullrhi -nosound</code>, auto-connect from command line.</li>
+<li><b>S2 —</b> Bot behavior script (wander, harvest, poke things) + the fleet runner: launching, monitoring, and harvesting logs from 20+ bots across your LAN x86 boxes / cheap spot instances is an orchestration problem, i.e., your idea of a good time. The Spark can conduct.</li>
+<li><b>S3 —</b> Profile under load: <code>stat unit</code>, <code>stat net</code>, and Unreal Insights (launch with <code>-trace</code>; docs search "Unreal Insights") — the flight recorder that says <em>which</em> system ate the frame instead of leaving you to guess.</li>
+<li><b>S4 —</b> The four passes: relevancy, frequency, dormancy, anim tick. One at a time, measuring between each, numbers into the repo.</li>
+<li><b>S5 —</b> Director entity cap + wire the perf gate into the Friday ritual permanently. Derby footage. Clip #009.</li>
+</ol></div></details>
+
+<div class="box dod"><h5>▣ Gate — the perf gate, now recurring</h5><p style="margin:0">20–24 connected clients + 60–80 NPCs mid-siege; server frame &lt; 33 ms sustained on the VPS; numbers committed. <b>This gate reruns every Friday for the rest of the project</b> — the recurring test, not the one-time pass, is what makes 24 an engineering fact instead of a launch-day surprise.</p></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>Where does the bot fleet live long-term — LAN boxes, spot instances, or both with the Spark conducting?</li>
+<li>First look at Lyra is sanctioned this week (shelf's off): mine its team/replication patterns for anything worth stealing. What did you find? Log it here.</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w9">
+<div class="wk-meta"><span class="num">Week 09</span><span>Phase: Arc</span><span>The second clock starts ticking</span></div>
+<h2>Two clocks</h2>
+<p>Back to pure design payoff. The vision's emotional engine is two clocks converging on one decision: <strong style="color:var(--ember)">ire</strong>, the clock the players wind, and <strong style="color:var(--storm)">instability</strong>, the clock the world winds. This week the second clock ships, and sessions stop being encounters and become <em>narratives</em> — "we got greedy at the vein, the storm hit early, we barely made the portal" is a story the <em>system</em> wrote. That's your mystery-and-story belief achieved through mechanics instead of authored content — the only way a solo studio affords it — and it's the raw material the Chronicle has been waiting for.</p>
+
+<h3>What ships</h3>
+<p>The <strong>siege scheduler</strong>: a proper two-front assault (spatial spread by design — which you now know is also a relevancy optimization). Wave composition scaling from ire via the spawn tables. The <strong>instability clock</strong>: a storm escalating across the session — hazard zones, a tightening safe radius, damage-over-time at the fringes; post-process for menace, a GameplayEffect for teeth (the week-2 ledger paying dividends — storm damage is just another transaction, resistible by future gear). And the <strong>rare window</strong>: as instability peaks, elite spawns (with generated titles, ranged variants allowed now) and rare nodes unlock. The best loot lives inside the storm at the exact moment leaving is smartest. That's the exit decision with teeth, and PNW-you knows precisely what a real storm rolling in should feel like — build that dread.</p>
+
+<div class="box fun"><h5>⚡ Fun payload</h5>
+<p><b>Player:</b> the siege klaxon and a single free battle-music track that kicks in when the assault begins — music is the highest feel-per-hour purchase in game development and it costs you one track. Elites announce themselves by generated title in the kill feed before they arrive: <code>⚠ Bureaucrat-Goose of the Endless Storm approaches the east wall.</code> <b>Builder:</b> the Remote learns <code>storm.SetPhase</code> and <code>elite.Spawn</code> — you can now conduct an entire session's drama by hand, which is both a tuning tool and a preview of week 11's live-DM party trick.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 —</b> Siege scheduler: timed events, two fronts, front assignment from spawn-point sets.</li>
+<li><b>S2 —</b> Composition scaling from ire tiers (all JSON; fleet drafts, you review).</li>
+<li><b>S3 —</b> Instability clock + storm zones (GE DoT + post-process pass).</li>
+<li><b>S4 —</b> Rare window: elite archetype (more HP, one nasty ability, a title), rare nodes flagged and gated by instability phase.</li>
+<li><b>S5 —</b> Full-arc test night with friends + bots. Tune until at least one squad wipes from greed.</li>
+</ol></div></details>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">A full session has the arc — calm → escalation → siege → storm → rare-window gamble → extraction — and in a mixed test, at least one squad wipes <em>because they got greedy</em>. If nobody ever wipes, the dial has no teeth yet; tune until it bites.</p></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>Storm shape: shrinking safe radius (battle-royale-legible, camp-centric) vs roaming hazard cells (weirder, more rift-like)? Slice: pick the legible one; park the weird one for a rift modifier.</li>
+<li>Does the storm damage structures too? (Terrifying and thematic; possibly miserable. Test once with the Remote and decide by feel.)</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w10">
+<div class="wk-meta"><span class="num">Week 10</span><span>Phase: Arc</span><span>Juice graduates; legibility exam</span></div>
+<h2>Feel and legibility</h2>
+<p>The systems work; now strangers have to <em>feel</em> them. Two crafts this week. <strong>Game feel:</strong> combat reads as impactful through feedback in the ~100 ms band — a few frames of hitstop, real impact sounds, damage numbers, screen shake used like hot sauce. The JuiceKit built in week 1 means this is a tuning pass, not a construction project; that bill was pre-paid. <strong>Legibility:</strong> your design runs on <em>informed greed</em> — players can only choose risk if they can read it. Mystery in content is strategy; opacity in systems is just bad UI. Ire, instability, and haul weight must be readable at a glance by someone who has never heard your elevator pitch.</p>
+
+<div class="box fun"><h5>⚡ Fun payload</h5>
+<p><b>Player:</b> the kill-confirm ding, the extraction-success fanfare, and the death screen that quotes your Chronicle's narrator in real time (<i>"Nick has died as he lived: holding too much Goose Down."</i>). <b>Builder:</b> this whole week is the payload — it's the week the game starts feeling like a game, and the before/after clip (week 9 footage vs week 10 footage, same encounter) is the most satisfying Friday Clip of the run. Post both side by side.</p></div>
+
+<details><summary>Session-by-session breakdown</summary><div class="inner"><ol>
+<li><b>S1 —</b> Hitstop + screen shake through JuiceKit; tune, don't add.</li>
+<li><b>S2 —</b> SFX pass across every verb (free CC0 packs); the siege track from week 9 gets intro/outro states.</li>
+<li><b>S3 —</b> The real HUD: ire stages, instability clock, haul weight, session timer. UMG from C++ — <a href="https://benui.ca/">BenUI</a> is the reference and very much rule-6-compliant.</li>
+<li><b>S4 —</b> Menu → connect flow; respawn beacon deployable (death now has geography — where you planted it matters).</li>
+<li><b>S5 —</b> The legibility exam: one fresh person, zero verbal instruction, one session. Watch. Don't ask — observe.</li>
+</ol></div></details>
+
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">A stranger joins with no instruction and, within one session, demonstrably understands harvest, build, ire, and extract. Friday perf gate still green with the new UI in play.</p></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>First real art question, deliberately parked until now: what's the slice's <em>lighting/mood</em> identity (one skybox + fog pass is cheap and transforms everything)? One evening, hard cap.</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<section class="week" id="w11">
+<div class="wk-meta"><span class="num">Weeks 11–12</span><span>Phase: Test</span><span>The only question that matters</span></div>
+<h2>The fun test</h2>
+<p>Twelve weeks ago this was a vision document. Now it's a build, and these two weeks put the hypothesis on trial: <strong>is the greed dial fun?</strong> Two structured Discord playtests — first 8–12 humans with bots filling toward 24, then 16–24 humans. Between tests you <strong>tune, don't add</strong>: spawn tables, ire rates, storm timing, haul weights. New features are quarantined; a fun test contaminated by fresh bugs answers nothing.</p>
+
+<h3>Running a playtest that produces signal</h3>
+<p>Schedule it like an event with a start time — appointment gameplay, the muscle you'll flex all the way to seasonal launches. Brief players in one paragraph, maximum. During: you observe — hesitations, ignored systems, laughs, the good kind of quiet. After, a five-minute survey: <em>Did you feel in control of the difficulty?</em> (the dial, in disguise) · <em>Describe your exit decision.</em> · <em>What confused you?</em> · <em>Would you play again tomorrow?</em> Then watch the only metric that matters: <strong>who shows up to session two unprompted.</strong></p>
+
+<div class="box fun"><h5>⚡ Fun payload — Nick, live at the Remote</h5>
+<p>The party trick the whole manual has been assembling: for one session per test night, <b>you DM the rift live</b> — Director's Remote in hand, spawning the elite at the worst moment, easing off when a squad's about to break, raining ducks when morale needs it. Players talking to an invisible, clearly-present dungeon master is an experience nobody forgets, and it's also the highest-bandwidth design research available: you'll <em>feel</em> where the automated director should push and yield. Close each night with the Chronicle awards ceremony read aloud. That's the community's first tradition, born before the game has art.</p></div>
+
+<div class="box dod"><h5>▣ Gate — Stage 1 exit</h5><p style="margin:0">≥ 60% of testers return unprompted, and you can write one honest paragraph on what's fun and what isn't. If the dial isn't fun yet, hear this clearly: <b>iterating here for another month is the plan working, not failing.</b> Stage 2 — biomes, rift modifiers, the city stub, progression — multiplies fun. It has never once created it.</p></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li>Recruiting: which communities get invites (friends-of-friends first, then a LitRPG/gamedev Discord or two)? Draft the pitch paragraph early; it's also your Steam-page copy rehearsal.</li>
+<li>What gets measured automatically vs surveyed? (The event log already knows retention, session length, wipe causes — Chronicle data is playtest telemetry wearing a costume.)</li>
+</ul></div>
+<p class="top"><a href="#how">↑ back to the mission board</a></p>
+</section>
+
+<hr>
+
+<h2 id="shelf">The shelf</h2>
+<table>
+  <tr><th>Resource</th><th>Job</th><th style="width:110px">When</th></tr>
+  <tr><td><a href="https://cedric-neukirchen.net/docs/multiplayer-compendium/">Multiplayer Network Compendium</a></td><td>The networking text; your one sanctioned full read</td><td>Week 1</td></tr>
+  <tr><td><a href="https://github.com/tranek/GASDocumentation">tranek/GASDocumentation</a></td><td>GAS community bible (reference)</td><td>Week 2+</td></tr>
+  <tr><td><a href="https://github.com/Narxim/GAS-Example">Narxim/GAS-Example</a></td><td>Clean minimal GAS setup to crib</td><td>Week 2</td></tr>
+  <tr><td><a href="https://github.com/tomlooman/ActionRoguelike">tomlooman/ActionRoguelike</a> · <a href="https://courses.tomlooman.com/">course</a></td><td>Well-architected UE C++ to pattern-match; course only if flailing</td><td>Week 2+</td></tr>
+  <tr><td><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/">Official docs</a> · <a href="https://dev.epicgames.com/community/learning">learning portal</a></td><td>Search-first: "Gameplay Framework", "StateTree", "Unreal Insights", "PCG"</td><td>Ongoing</td></tr>
+  <tr><td><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/lyra-sample-game-in-unreal-engine">Lyra sample</a></td><td>Shipped-scale patterns to mine — never a base</td><td>Week 8+</td></tr>
+  <tr><td><a href="https://benui.ca/">BenUI</a></td><td>UMG/Slate from C++</td><td>Week 10</td></tr>
+  <tr><td><a href="https://unrealsource.com/">Unreal Source Discord</a></td><td>Where the 90-minute valve vents</td><td>Ongoing</td></tr>
+  <tr><td><a href="https://dev.epicgames.com/documentation/unreal-engine/unreal-mcp-in-unreal-editor">Unreal MCP</a> · <a href="https://github.com/Natfii/UnrealClaude">UnrealClaude</a></td><td>Agent↔editor bridge (experimental garnish)</td><td>Week 0</td></tr>
+  <tr><td><a href="https://tailscale.com/">Tailscale</a> · <a href="https://git-lfs.com/">Git LFS</a> · <a href="https://github.com/github/gitignore/blob/main/UnrealEngine.gitignore">UE .gitignore</a></td><td>Friend tests without NAT pain; repo health</td><td>Weeks 0, 6</td></tr>
+  <tr><td><a href="https://www.youtube.com/results?search_query=unreal+engine+official+feature+overview">Epic's official videos</a></td><td>Friday-hour visual learning, question in hand — search-query links so nothing rots</td><td>Fridays</td></tr>
+</table>
+<p style="font-size:14px;color:var(--faint)">Deep doc links drift as Epic reshuffles; the docs search terms above are the stable interface. GitHub and community links are durable.</p>
+
+<h2 id="register">Master open-questions register</h2>
+<p>The parked decisions that belong to the <em>game</em>, not to a week. Answer them when reality provides evidence, log the answer in the revision log, and have an agent propagate the consequences through this manual.</p>
+<div class="box oq"><h5>? Standing questions</h5><ul>
+<li><b>The name.</b> Codename now; the real one after playtesters start describing the game in their own words — steal their language.</li>
+<li><b>Combat identity.</b> Weighty vs fast vs hybrid; tab-target's fate. Decide from playtest feel, not theory, after week 12.</li>
+<li><b>Ire display philosophy.</b> Vague stages (mystery) vs exact numbers (optimizers). Current lean: stages in-world, exact numbers in the Chronicle.</li>
+<li><b>Stakes ladder.</b> Slice: haul-at-risk, gear-safe. Define the hardcore rift-tier modifiers before Stage 2 economy work.</li>
+<li><b>Session length classes.</b> One good default now (45–75 min); sprint/standard/persistent split is a Stage 2/3 axis.</li>
+<li><b>The Bit's retirement plan.</b> When real creature design arrives, what carries over? (Answer, probably: the generators, the Chronicle voice, and one goose kept as a legacy elite. Players will riot otherwise.)</li>
+<li><b>When strangers get matchmade.</b> Requires build permissions + contribution systems; scope it only after two clean friend-and-Discord test cycles.</li>
+<li><b>Tier-3 physics ambitions.</b> Dribbled objectives, rolling siege boulders as mob weapons, physics puzzles — parked behind the week-5 spike's verdict and the maturity of UE's networked physics prediction. Revisit at Stage 2 with evidence in hand.</li>
+<li><b>LLM runtime experiments.</b> Chronicle stays offline/season-time. The city rumor-NPC experiment waits for a city.</li>
+</ul></div>
+
+<hr>
+
+<h2>A closing note from your mentor</h2>
+<p>Twelve weeks from now the most likely outcome is not triumph or disaster — it's a build that's 70% of this manual, two weeks behind the calendar, with a greed dial that's <em>almost</em> fun, a folder of Friday Clips, and one playtest quote you can't stop thinking about. That is a wildly successful outcome. It means the hypothesis is answerable, and you built the machine that answers it — and if the Fun Mandate held, you're still smiling at the kill feed in week 9, which is the hidden objective this whole document actually optimizes for.</p>
+<p>The failure modes all share one root: substituting input for output. Watching instead of building. Reading engine source instead of shipping the week. Browsing Fab instead of tuning spawn tables. When you feel the drift, the fix is always the same and always available: open the tomorrow-note, do the first concrete action, and let momentum handle the rest.</p>
+<p>You're bringing unusual advantages — fifteen years of systems instinct, an agent fleet, a design deliberately shaped for a team of one, and now a doctrine that refuses to let the work go joyless. What these twelve weeks buy is the one thing none of that can shortcut: <em>judgment about what's fun</em>, formed by watching real people play a real thing you really built — and laughing at the Chronicle afterward, together.</p>
+<p class="lede" style="margin-top:2em">Go rig the workshop. The rift's waiting, and so is Gerald.</p>
+
+<div class="sys" data-tag="[ SYSTEM MESSAGE ]" style="margin-top:3em">
+  Manual v1.0 loaded. Twelve gates ahead.<br>
+  First action: <b>install the engine, run the template, commit.</b><br>
+  The tomorrow-note is already written. It says: begin.
+</div>
+
+</div>
+</body>
+</html>
