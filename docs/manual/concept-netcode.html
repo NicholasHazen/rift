@@ -144,6 +144,34 @@
 
 <p><strong>Clause one: OnReps coalesce.</strong> The engine ships latest values, not journeys. If health goes 3 → 0 → 3 between two network updates — a break and an instant respawn, say, or any A→B→A — the client receives 3, compares it to the 3 it already has, and fires nothing. The break never happened, as far as that client can prove. The smell: an effect that usually plays but sometimes doesn't, and gets flakier as load and lag rise. The law: <strong>replication syncs state; it does not deliver events.</strong> Events that matter ride the event list or an RPC — which is exactly why the Chronicle's rule in the previous section exists.</p>
 
+<p>The figure draws the smell. Two lanes run left to right across time — the server's true history on top, the client's received copy underneath — and the dashed verticals are network updates, the only moments the wire ships anything. On the server lane, health reads 3, dips to 0, and is back at 3 before the second update ever fires. At that update the engine ships the latest value: 3, which equals the 3 the client already holds, so no notify fires. The dip exists nowhere on the client's lane. The break lived and died between two updates, and no machine but the server can prove it happened.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 280" role="img" style="max-width:680px;display:block;margin:0 auto"><title>OnReps coalesce</title><desc>Two timelines. The server's health goes from three to zero and back to three between two network updates. At the next update the engine ships only the latest value, three; the client compares it to the three it already holds and fires no notify, so the break is invisible to every client.</desc>
+<defs><marker id="arcl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<line x1="230" y1="36" x2="230" y2="246" stroke="#6f6c7e" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="520" y1="36" x2="520" y2="246" stroke="#6f6c7e" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="230" y="26" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">update n</text>
+<text x="520" y="26" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">update n+1</text>
+<text x="60" y="60" font-family="IBM Plex Mono" font-size="11.5" fill="#ff8a5c">SERVER — the true history</text>
+<path d="M60 92 H330 V118 H390 V92 H620" fill="none" stroke="#e9e5d9" stroke-width="2"/>
+<text x="150" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">3</text>
+<text x="360" y="136" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e06a6a">0</text>
+<text x="500" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">3</text>
+<text x="360" y="158" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#e06a6a">the break — lived and died between updates</text>
+<line x1="520" y1="100" x2="520" y2="196" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arcl)"/>
+<text x="528" y="150" font-family="IBM Plex Mono" font-size="10" fill="#ff8a5c">ships the latest: 3</text>
+<text x="60" y="186" font-family="IBM Plex Mono" font-size="11.5" fill="#9d9aab">CLIENT — the received copy</text>
+<line x1="60" y1="210" x2="620" y2="210" stroke="#2e3242" stroke-width="1"/>
+<circle cx="230" cy="210" r="4.5" fill="#ff8a5c"/>
+<circle cx="520" cy="210" r="4.5" fill="#ff8a5c"/>
+<text x="230" y="234" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">in sync — holds 3</text>
+<text x="520" y="234" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#e9e5d9">receives 3 · 3 = 3 → OnRep never fires</text>
+<text x="60" y="266" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">time →</text>
+</svg>
+<figcaption>The engine ships latest values, not journeys.</figcaption>
+</figure>
+
 <p><strong>Clause two: ordering is not guaranteed across properties or actors.</strong> Two facts changed together on the server may arrive in either order on a client. Live, you rarely notice — changes trickle one at a time and arrive as they happened. But an OnRep that reads a <em>second</em> property while reacting to the first is gambling on arrival order, and the gamble mostly pays until a late joiner receives both facts in one bunch, shuffled. The smell has a name you will use for years: works live, wrong after JIP — join-in-progress.</p>
 
 <p><strong>Clause three: initial replication fires against defaults.</strong> When an actor first replicates to a client, its OnReps fire comparing the incoming values to a freshly constructed actor's defaults — not to any history. A wall at damage stage three arrives to a late joiner as one notify: default to three. If that OnRep <em>narrates the transition</em> — plays the flinch, spawns the debris — your joiner watches an hour-old injury happen in front of them. Write every OnRep to converge, not narrate: "make the visuals match this value now," never "play what just happened."</p>

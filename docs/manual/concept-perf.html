@@ -32,6 +32,40 @@
 
 <p>Run it with this game's own numbers. A siege at full design load is 80 NPCs replicating to 24 clients, and the engine's default appetite is around 30 updates a second — so the napkin says 80 × 24 × 30 ≈ <strong>57,600 actor-updates per second</strong>, before counting players, walls, nodes, or loose chunks, and before serializing a single property inside each update. Nobody ships that number. The point of the napkin is that the unoptimized bill is not <em>close</em> — it is an order-of-magnitude conversation, which is why week 8 is a week and not an afternoon. Gerald, alone in an empty rift, costs nothing worth typing; the bill is a crowd phenomenon. Where do 24 and 80 come from? → <a href="the-slice.html#three-numbers">the-slice.html#three-numbers</a>.</p>
 
+<p>The figure draws the formula as four blocks, multiplied left to right, with the siege's own numbers inside. Above each block, an ember arrow names the lever that attacks it — dormancy removes actors from the conversation, Minimal mode strips properties, <code>NetUpdateFrequency</code> slows the clock, relevancy trims the audience. Two levers are missing on purpose: the anim tick and crowd following attack the other bill, the frame. The levers themselves are taught below, landmines included.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 205" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The wire bill</title><desc>Replication cost as four multiplied factors — actors, properties, update frequency, recipients — each with the lever that attacks it: dormancy on actors, Minimal replication on properties, NetUpdateFrequency on frequency, relevancy on recipients. The unoptimized product is roughly 57,600 actor-updates per second.</desc>
+<defs><marker id="arwb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="105" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#ff8a5c">lever 3 · dormancy</text>
+<text x="268" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#ff8a5c">lever 6 · Minimal ASC</text>
+<text x="431" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#ff8a5c">lever 2 · frequency</text>
+<text x="594" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#ff8a5c">lever 1 · relevancy</text>
+<line x1="105" y1="38" x2="105" y2="64" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arwb)"/>
+<line x1="268" y1="38" x2="268" y2="64" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arwb)"/>
+<line x1="431" y1="38" x2="431" y2="64" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arwb)"/>
+<line x1="594" y1="38" x2="594" y2="64" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arwb)"/>
+<rect x="40" y="68" width="130" height="58" rx="8" fill="#232736" stroke="#2e3242"/>
+<text x="105" y="91" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e9e5d9">actors</text>
+<text x="105" y="111" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#6f6c7e">80 NPCs at siege</text>
+<rect x="203" y="68" width="130" height="58" rx="8" fill="#232736" stroke="#2e3242"/>
+<text x="268" y="91" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e9e5d9">properties</text>
+<text x="268" y="111" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#6f6c7e">per actor, per update</text>
+<rect x="366" y="68" width="130" height="58" rx="8" fill="#232736" stroke="#2e3242"/>
+<text x="431" y="91" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e9e5d9">frequency</text>
+<text x="431" y="111" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#6f6c7e">~30 Hz default</text>
+<rect x="529" y="68" width="130" height="58" rx="8" fill="#232736" stroke="#2e3242"/>
+<text x="594" y="91" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e9e5d9">recipients</text>
+<text x="594" y="111" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#6f6c7e">24 clients</text>
+<text x="186" y="102" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" fill="#9d9aab">×</text>
+<text x="349" y="102" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" fill="#9d9aab">×</text>
+<text x="512" y="102" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" fill="#9d9aab">×</text>
+<text x="340" y="158" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9d9aab">80 × 24 × 30 ≈ 57,600 actor-updates a second — before players, walls, or chunks</text>
+<text x="340" y="186" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6f6c7e">levers 4 and 5 are missing on purpose — they attack the other bill, the frame</text>
+</svg>
+<figcaption>Four factors, four levers — each attacks exactly one.</figcaption>
+</figure>
+
 <p>Now hold the two bills apart, because shorthand will tempt you to blur them. <strong>The formula is bandwidth</strong>: it counts what crosses the wire, and the four network levers below each attack one of its factors. <strong>The gate is CPU</strong>: server frame under 33 milliseconds, and most of a siege frame is not networking at all — it is movement, AI, and animation stacked on top of the replication work. A quiet wire proves nothing about the frame, and a green frame can hide a wire near saturation, so Friday reads both gauges. The wire and the frame are different bills.</p>
 
 <h2 id="frame-budget">Thirty-three milliseconds</h2>

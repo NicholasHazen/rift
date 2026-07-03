@@ -108,6 +108,40 @@
 
 <p>The handshake must run on every machine, and the two kinds of machine offer different safe moments. On the server the moment is possession — <code>PossessedBy</code> on the Character — because possession is when a body and its owner are guaranteed joined. A client is the fiddly half: the Character and the PlayerState arrive by replication, and replication signs no ordering promises across actors. The one hook that fires exactly when both halves exist on a client is <code>OnRep_PlayerState</code> on the Character — the PlayerState pointer just landed, so introduce it to its body right there. Two call sites, both mandatory. Miss the second and you meet GAS's most famous beginner wall: everything works where you test as the host, and abilities silently refuse for every real client. Why won't the two actors just arrive in order? → <a href="concept-netcode.html#repnotify">concept-netcode.html#repnotify</a>.</p>
 
+<p>The figure draws the handshake as two columns. On the left, the server: the PlayerState holding the account, the Character acting for it, and the moment possession joins them — <code>PossessedBy</code>, call site one. On the right, the client: the same two actors arrive by replication, their arrows deliberately crossed, because the wire promises no arrival order. The one hook guaranteed to fire when both halves exist on the client is <code>OnRep_PlayerState</code> — call site two. Under the columns sits the bill for missing either one.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 320" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The InitAbilityActorInfo handshake</title><desc>Two columns. On the server, the PlayerState owns the account and the Character acts for it; PossessedBy is call site one. On the client the two actors arrive by replication in no guaranteed order, so OnRep_PlayerState on the Character is call site two. Missing either call site makes abilities work for the host and silently fail for joining clients.</desc>
+<defs><marker id="arhs" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<line x1="340" y1="24" x2="340" y2="264" stroke="#2e3242" stroke-width="1"/>
+<text x="170" y="36" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#ff8a5c">SERVER</text>
+<text x="510" y="36" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">CLIENT</text>
+<rect x="40" y="52" width="260" height="50" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="170" y="73" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">PlayerState — OwnerActor</text>
+<text x="170" y="91" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">holds the account</text>
+<rect x="40" y="116" width="260" height="50" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="170" y="137" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">Character — AvatarActor</text>
+<text x="170" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">the body acting on it</text>
+<rect x="40" y="196" width="260" height="58" rx="8" fill="#3a2620" stroke="#b45034"/>
+<text x="170" y="218" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#ffb08d">PossessedBy → InitAbilityActorInfo</text>
+<text x="170" y="238" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#c98a6b">call site one — possession joins them</text>
+<rect x="380" y="52" width="260" height="50" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="510" y="73" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">Character arrives</text>
+<text x="510" y="91" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">sometime</text>
+<rect x="380" y="116" width="260" height="50" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="510" y="137" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">PlayerState arrives</text>
+<text x="510" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">sometime else — no order promised</text>
+<line x1="304" y1="77" x2="374" y2="141" stroke="#ff8a5c" stroke-width="1.2" marker-end="url(#arhs)"/>
+<line x1="304" y1="141" x2="374" y2="77" stroke="#ff8a5c" stroke-width="1.2" marker-end="url(#arhs)"/>
+<text x="340" y="180" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">replication — arrival order unpromised</text>
+<rect x="380" y="196" width="260" height="58" rx="8" fill="#3a2620" stroke="#b45034"/>
+<text x="510" y="218" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#ffb08d">OnRep_PlayerState → InitAbilityActorInfo</text>
+<text x="510" y="238" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#c98a6b">call site two — both halves now exist</text>
+<text x="340" y="296" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#e06a6a">one call site missed → works as the host, silently refuses for every real client</text>
+</svg>
+<figcaption>Two machines, two call sites, both mandatory.</figcaption>
+</figure>
+
 <h2 id="prediction-scope">The honesty clause</h2>
 
 <div class="predict" data-tag="[ PREDICT ]">Under 100 ms of lag, which appears first on your screen — your swing animation, or Gerald's damage number? Why can one be predicted locally while the other must round-trip?</div>

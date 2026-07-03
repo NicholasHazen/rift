@@ -32,6 +32,40 @@
 
 <p><span class="storm">So where do shipping builds happen?</span> The pragmatic path: a home-lab x86 Linux box, which builds the engine from source and the Linux server natively — and the server artifact is the one the whole plan leans on — plus a Windows machine or containerized builds for the Win64 clients. The ideal path: containerized CI on Epic's official Linux images, where a build is a job you submit instead of a machine you own; the Unreal Containers project on the shelf documents that whole practice. My recommendation: <span class="ember">the Linux box now, containers when the deploy outgrows scp</span>. The pipeline below is identical either way — only the room it runs in changes.</p>
 
+<p>The figure paints the lane markings, one card per machine. This Mac develops: the editor, PIE, and a native macOS client — and can never produce the Linux server or a Win64 client. The build host — whichever machine <a href="register.html#oq-03">OQ-03</a> picks — builds: the engine from source and both shipping artifacts. The Spark conducts: the bot fleet and, eventually, the Chronicle's local models — never engine builds, because ARM. And the VPS runs the server artifact and builds nothing. Four machines, four lanes, and every week-7 surprise lives in a lane violation.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 220" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The lane markings</title><desc>Four machines and their lanes. This Mac develops — the editor, PIE, and a macOS client — and never produces the Linux server or Windows clients. The build host builds the engine from source, the Linux server, and the Win64 clients, and is not for daily development. The ARM Spark conducts the bot fleet and the Chronicle's local models, never engine builds. The VPS runs the server artifact and builds nothing.</desc>
+<rect x="15" y="30" width="150" height="170" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="90" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THIS MAC</text>
+<text x="90" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">develops</text>
+<text x="90" y="100" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the editor · PIE</text>
+<text x="90" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">a native macOS client</text>
+<text x="90" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: Linux server, Win64</text>
+<rect x="185" y="30" width="150" height="170" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="260" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THE BUILD HOST</text>
+<text x="260" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">builds — OQ-03's pick</text>
+<text x="260" y="100" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the engine, from source</text>
+<text x="260" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the Linux server</text>
+<text x="260" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the Win64 clients</text>
+<text x="260" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: daily development</text>
+<rect x="355" y="30" width="150" height="170" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="430" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THE SPARK</text>
+<text x="430" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">conducts — it is ARM</text>
+<text x="430" y="100" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the bot fleet</text>
+<text x="430" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the Chronicle's</text>
+<text x="430" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">local models</text>
+<text x="430" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: engine builds</text>
+<rect x="525" y="30" width="150" height="170" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="600" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THE VPS</text>
+<text x="600" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">runs</text>
+<text x="600" y="100" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the server artifact</text>
+<text x="600" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">under systemd</text>
+<text x="600" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: builds anything</text>
+</svg>
+<figcaption>Four machines, four lanes, zero cross-traffic.</figcaption>
+</figure>
+
 <p>This is a register question with a date, and the one entry there that takes your sign-off rather than a fleet default. What's on the ballot, and when is it due? → <a href="register.html#oq-03">register.html#oq-03</a>. Week 6 checks the friends' platforms; week 7 executes whatever you chose. Decided in week 1 it costs a conversation; discovered in week 7 it costs the week.</p>
 
 <h2 id="pipeline">The pipeline, translated</h2>
