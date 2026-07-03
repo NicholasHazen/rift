@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 01 · The humble resource node — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Core loop</div>
+  <h1>The humble resource node</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 01</span><span>Phase: Core loop</span><span>Budget: 5 sessions</span><span>resolution: full</span><span data-state="valve"></span>
+</div>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — First vein depleted; one chunk carried to the crate at a waddle. Total haul: one rock. The award for Heaviest Load went uncontested.</blockquote>
+
+<p class="lede">By Friday you will have a resource node that two networked clients can harvest, break, and haul — and you will have <em>felt</em> the dungeon-master model work instead of reading about it. Everything in the rift — ire, haul, the greed dial, the exit decision itself — is downstream of one primitive, <em>a thing in the world players extract value from</em>, and this week that primitive forces the entire networking core through your hands.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">Two PIE clients plus the dedicated-server checkbox: both see the same node break, the same chunk pop, and a carried chunk deposit correctly — server-authoritative end to end, including a client that grabs a chunk another client dropped. Carrying visibly slows you. The cheater test fails safe. Harvesting already feels good. Clip #002 posted.</p></div>
+
+<p>One prerequisite listen, then five build sessions. Before S1, hear <a href="concept-netcode.html">the dungeon-master page</a> through once, start to finish — it is the longest listen in the manual, this week is its lab, and every session below links back into it by anchor.</p>
+
+<p>S1 and S2 are yours alone: the first replicated property and the first RPC of the codebase are first-of-pattern, and first-of-pattern belongs to your hands (rule 4). Every replicated property and every RPC ships with a one-line authority explanation the day it's written — the habit starts with the first one. The trap this week: substituting input for output. You'll know you're in it when a second tutorial starts before <code>AResourceNode</code> compiles. The move: build S1 first and read with a bug in hand — the shelf pulls below are for questions, not preparation.</p>
+
+<h2 id="sessions">The sessions</h2>
+
+<p>Five sessions, one actor and its consequences: a fact, a request, a break, a carry, and a proof with juice on top. Each item carries its done-when. The fleet's standing job all week: first entries into <a href="../../UE-GOTCHAS.md">UE-GOTCHAS.md</a> as they're earned — this week reliably earns some.</p>
+
+<h3 id="s1">S1 — The fact</h3>
+<p><strong>[NICK — by hand]</strong> Hand-write <code>AResourceNode</code>: a <code>Health</code> property declared <code>UPROPERTY(ReplicatedUsing=OnRep_Health)</code>, registered in <code>GetLifetimeReplicatedProps</code>, every mutation guarded by <code>HasAuthority()</code>. Give the server a debug key that ticks health down, and watch both client windows react through <code>OnRep_Health</code>. The point of the session is the feeling: you pressed a key on the server, and the world told the clients. Why can't a client just decrement the health itself? → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a>. <em>Done when:</em> a server-side health change renders on both clients, and the property carries its one-line authority explanation.</p>
+
+<h3 id="s2">S2 — The request</h3>
+<p><strong>[NICK — by hand]</strong> The first client→server request of the project — and both of the week's silent failures live in this session, so build it with the links open. First, the home: <code>Server_StartHarvest</code> and <code>Server_StopHarvest</code> live on your Character or PlayerController — anywhere on the owned spine — and take the node as a parameter, never sitting on the node itself, because a Server RPC called on an actor the client doesn't own is dropped with no error, no warning, no log line. Where may a Server RPC live, and why does the wrong answer silently do nothing? → <a href="concept-netcode.html#ownership">concept-netcode.html#ownership</a>. Second, the shape: the pair is Reliable and fires on key press and key release, and the <em>server</em> ticks the drain in between — never an RPC per held frame, which is a buffer overflow on a timer, paid out as mystery disconnects. Why events, never streams? → <a href="concept-netcode.html#reliability">concept-netcode.html#reliability</a>. Write the validation — node alive, player in range — like the client is lying to you, because someday one will be. Hold-to-channel is the harvest verb for now; whacking proper arrives in week 2, when melee exists. <em>Done when:</em> holding the key drains the node server-side, releasing stops it, and a request from across the map does nothing.</p>
+
+<h3 id="s3">S3 — The break</h3>
+<p><strong>[NICK — by hand]</strong> Depletion to zero breaks the node, and the break pays the week's first physical dividend: a chunk pops out with a small launch impulse, settles, sleeps, and goes net-dormant — the bounded Tier-2 life every loose chunk in this game lives, start to finish. Respawn the node with <code>FTimerManager</code>. What exactly is a chunk allowed to do between pop and sleep? → <a href="doctrine-physics.html#chunk-contract">doctrine-physics.html#chunk-contract</a>. <em>Done when:</em> the node breaks, pops one chunk that comes to rest still on both clients, and respawns on its timer.</p>
+<p><strong>[FLEET]</strong> A second resource variant copied from your node pattern — the point is proving the pattern replicates, in both senses. Alongside it, SFX import scripting and CC0 sound sourcing arrive ahead of S5.</p>
+
+<h3 id="s4">S4 — The carry</h3>
+<p><strong>[NICK — by hand]</strong> <code>Server_Grab</code> attaches the chunk to your character — replicated attachment, Tier 2, no rigid-body drama — and the carry brings the waddle: a replicated <code>CarriedWeight</code> and a <code>GetMaxSpeed()</code> override on both sides, so the client predicting your movement and the server correcting it agree about how slow greed makes you. Deposit at a collection crate, count the haul with a debug counter, and take drop-on-command as the freebie it is. Why must both sides compute the same max speed? → <a href="doctrine-physics.html#cmc">doctrine-physics.html#cmc</a>. <em>Done when:</em> carrying visibly slows you on every screen, and a chunk dropped by one client deposits from the hands of another.</p>
+
+<h3 id="s5">S5 — The proof and the juice</h3>
+<p><strong>[NICK — by hand]</strong> Wire the node, the pop, and the deposit into <code>UJuiceComponent</code> v0: floating text, a cha-ching, confetti. Sort the channels as you wire — the confetti and the cha-ching ride moments, fired once and free to miss, while the node's health and the chunk on the ground ride facts. Which channel does a visible thing belong on? → <a href="concept-netcode.html#facts-vs-moments">concept-netcode.html#facts-vs-moments</a>. Then run the exam below — personally, that's the rule — and switch on net emulation at 100&nbsp;ms just to feel what the round-trip costs; it's permanently on from week 3. Friday Clip #002 is the waddle. <em>Done when:</em> the cheater test fails safe, the juice fires on both clients, and the clip is posted.</p>
+<p><strong>[FLEET]</strong> JuiceKit widget boilerplate and the floating-text pool arrive before the session — S5 is wiring, not widget plumbing.</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — the JuiceKit is born</h5><p style="margin:0"><b>Player:</b> when the node breaks, a physical <b>chunk pops out</b> with a little launch impulse and a confetti burst — and the payoff fifteen years of LitRPG promised you: <b>floating combat text</b>, <code>+3 Ferrocrystal!</code> drifting up in mono type. Then you grab the chunk and do <b>the waddle</b> — carrying visibly slows you, and a capsule-person waddling a comically large rock to a crate is charm at Tier-2 prices. Numbers going up, loudly, plus physical comedy: a complete game. <b>Builder:</b> the feedback is <code>UJuiceComponent</code> — one reusable component (floating text, sound stinger, particle pop, a hitstop hook for later), and every mechanic you ever build gets plugged in the day it's born. Fun engine #1, and also just good architecture. What does the JuiceKit grow into? → <a href="fun-engines.html#juicekit">fun-engines.html#juicekit</a></p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+
+<p>Three ideas, all taught by one rock. The deep versions live on the concept pages; the two silent failures are linked from the exact sessions where they bite.</p>
+
+<p><strong>The model.</strong> The node's health lives on the server; clients hold a copy and a hook — <code>OnRep_Health</code> — that fires when the copy changes, which is where the crack VFX, the UI tick, and the JuiceKit pop all hang. Every verb this game will ever have is this same shape again: a request goes up, a fact comes down. What does one harvest look like end to end, wire and all? → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a>. <span class="ember">The server changes facts; clients react to facts changing.</span></p>
+
+<p><strong>Facts and moments.</strong> The JuiceKit is born riding the second of the wire's two channels: moments — fire-and-forget narration a late joiner is allowed to miss. The node's health and the chunk on the ground are facts, guaranteed to converge on every client that ever looks. The sorting question for everything visible you build from now on — <span class="storm">would a join-in-progress client need to see it?</span> — is taught at <a href="concept-netcode.html#facts-vs-moments">concept-netcode.html#facts-vs-moments</a>.</p>
+
+<p id="exam"><strong>The exam.</strong> The proof of internalization is the cheater test, and you run it yourself: from a client, call the harvest logic locally — a debug key wired straight to the C++, bypassing the RPC entirely. If the world changes, you built a single-player game with extra steps; if nothing happens because the client had no authority, you now understand Unreal networking better than most people with forty tutorial-hours. From here it's a habit, not a ceremony — the full procedure, run on every server-authoritative verb you ever add, lives at <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a>.</p>
+
+<div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
+  <li>Forgot <code>GetLifetimeReplicatedProps</code> → the property compiles, runs, and silently never replicates → <a href="concept-netcode.html#authority">the trace</a>.</li>
+  <li>An RPC does nothing — no error, no log → check ownership first, always → <a href="concept-netcode.html#ownership">concept-netcode.html#ownership</a>.</li>
+  <li>A reliable RPC per held frame = buffer overflow = mystery disconnects → <a href="concept-netcode.html#reliability">concept-netcode.html#reliability</a>.</li>
+  <li><code>OnRep_*</code> never auto-fires on the server or listen host for its own changes — call the handler manually after changing the value → <a href="concept-netcode.html#repnotify">concept-netcode.html#repnotify</a>.</li>
+  <li>Chunks vibrating on clients = you skipped the sleep step. A chunk at rest is furniture, not a simulation → <a href="doctrine-physics.html#chunk-contract">doctrine-physics.html#chunk-contract</a>.</li>
+  <li>Editing a header with Live Coding active = weirdness. Header changes mean a full restart; accept it early.</li>
+</ul></div>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-06">OQ-06 — the chunk budget: how many live chunks per rift, and what happens past the cap?</a> · decide before week 8's scale pass, not during it</li>
+  <li><a href="register.html#oq-07">OQ-07 — resource names: placeholder taxonomy, or is the Bit allowed to infect the resources too?</a> · decided with the Bit in week 3. (+3 Goose Down is objectively funnier.)</li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"Before I hand-write my first replicated property: what are authority, ownership, RPC routing, and RepNotify as one coherent system, in under 25 minutes?" → <a href="shelf.html#netcode">Alex Forsythe's replication talk</a> — the sanctioned Friday-hour video, question in hand.</li>
+  <li>"Where is the official minimal worked example of a replicated property plus a Server RPC that I can diff <code>AResourceNode</code> against when something silently fails?" → <a href="shelf.html#netcode">Epic docs — Multiplayer Programming Quick Start</a>.</li>
+  <li>"What's the one sanctioned full binge on UE networking?" → <a href="shelf.html#netcode">the Multiplayer Network Compendium</a> — short, dense, and this week's problem gives every page a hook.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Why is the server the dungeon master, and what breaks when you forget? → <a href="concept-netcode.html">concept-netcode.html</a></li>
+    <li>What may a loose chunk do, and when must it sleep? → <a href="doctrine-physics.html#chunk-contract">doctrine-physics.html#chunk-contract</a></li>
+    <li>Why is the waddle almost free, networking-wise? → <a href="doctrine-physics.html#cmc">doctrine-physics.html#cmc</a></li>
+    <li>What does the JuiceKit owe every future mechanic? → <a href="fun-engines.html#juicekit">fun-engines.html#juicekit</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+    <li>What does the node's health become when abilities arrive? → <a href="week-02.html">week-02.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

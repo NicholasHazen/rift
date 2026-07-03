@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 05 · Camp as machine — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Camp</div>
+  <h1>Camp as machine</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 05</span><span>Phase: Camp</span><span>Budget: 5 sessions + a stretch spike</span><span>Exam: join-in-progress</span><span>resolution: full</span><span data-state="valve"></span>
+</div>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — Day 4. The wall held for eleven minutes. The extractor never stopped ringing.</blockquote>
+
+<p class="lede">By Friday you will have two clients co-building a camp whose extractor harvests unattended while a wave gnaws at the walls — and a third client that joins mid-session and sees all of it correctly. You will understand the two problems basebuilding drags into multiplayer — trust and late joiners — well enough to design for the first and run a deliberate exam on the second.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">Two clients co-build a camp; the extractor pulls unattended; a wave damages walls; and a third client joining mid-session sees a correct world. Topology: PIE with the dedicated-server checkbox, net emulation on per rule 5.</p></div>
+
+<p>The vision says the camp isn't a home — it's <em>gear</em>: the machine the expedition assembles to convert a hostile rift into a haul, whose footprint is one hand on the greed dial. This week the machine gets parts: a ghost, a wall, an extractor, a crate. Trust gets designed in from the first trace, because a wall is the biggest thing a client has asked the server to believe so far. Late joiners get their exam on Friday, deliberately, while the camp is small and the fixing is cheap.</p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Five sessions and one sanctioned stretch. The first two put trust into placement, the middle two build the machine and the siege that answers it, and the fifth is the exam. Done-marks land as sessions close, per the week-0 convention.</p>
+
+<h3 id="s1">S1 — Ghost</h3>
+<p><strong>[NICK]</strong> The placement component's client half: trace from the camera, a snapped ghost mesh, and a validity tint — green where legal, red plus a game-show buzzer where not. The ghost is the client imagining: instant, cosmetic, and the server never hears about it. That split is the week's first lesson, built before it's taught. <em>Done when:</em> the ghost previews and tints instantly on a client, and no placement traffic has crossed the wire yet.</p>
+<p><strong>[FLEET]</strong> The structure numbers — wall and extractor costs, footprints, scan radius, tick rate — ride the week-4 tuning path as JSON; you review the schema, the values stay in text. <em>Done when:</em> the file imports and a wall knows its price without anyone recompiling.</p>
+
+<h3 id="s2">S2 — Trust</h3>
+<p><strong>[NICK — by hand]</strong> <code>Server_PlaceStructure</code>: revalidate everything the ghost claimed — range, overlap, cost — spend the resources, and spawn the replicated structure. The one-line authority read: the client proposes a transform; the server validates it, and only the server spawns. Structure count reports to the ire subsystem, so the machine's footprint is on the dial from the first wall. Then run the cheater test on the new verb the week it's born — forge the worst placement you can and watch it die on the server. What does the test prove, and how is it run? → <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a>. <em>Done when:</em> a legal wall stands on every client, and every illegal placement you can forge fails safe.</p>
+
+<h3 id="s3">S3 — The greed machine</h3>
+<p><strong>[NICK]</strong> The extractor: scans nearby nodes, auto-harvests on a timer, generates ire per minute. Installing one is pushing the dial with both hands — make sure the flavor text says so. Why does automated harvest price violence faster than a pick ever could? → <a href="concept-ire.html#economy">concept-ire.html#economy</a>. <em>Done when:</em> an extractor placed by one client pulls unattended, and the ire stage climbs while both players stand perfectly still.</p>
+<p><strong>[FLEET]</strong> The extractor's voice: install and tick lines from the word lists, wired through the JuiceKit — the payload box below says what it must sound like. <em>Done when:</em> an extractor tick makes a sound and a number on every client near it.</p>
+
+<h3 id="s4">S4 — The wall</h3>
+<p><strong>[NICK]</strong> Wall HP via GAS — structures get attributes too, and the ledger pays again. Register the wall as a dynamic nav obstacle so paths bend around fresh construction, and widen NPC targeting to nearest-player-or-structure so the horde gnaws what it can't path around. Walls block and are gnawable — <a href="register.html#d-walls">standing law</a> — and mazes will be degenerate; let playtesters find that and enjoy it before you fix it. Funnels and kill-boxes are now real play: the tower-defense legibility the physics doctrine promised, and nobody will need it explained. <em>Done when:</em> a wave gnaws a wall down through its damage stages while paths bend around the walls still standing.</p>
+<p><strong>[FLEET]</strong> Damage-stage looks for the gray-box wall — tint shifts and cracks, not art — so the wall's health is readable at a glance from across the camp. <em>Done when:</em> a glance tells you which wall the horde is winning against.</p>
+
+<h3 id="s5">S5 — The exam</h3>
+<p><strong>[NICK — by hand]</strong> The storage box first — a shared crate for chunks, one more replicated structure from the S2 pattern. Then the join-in-progress exam: build a camp with two clients, connect a third cold, and walk the written audit — the checklist lives at <a href="concept-netcode.html#join-in-progress">concept-netcode.html#join-in-progress</a>, and it is a procedure, not a vibe pass. Fix everything the audit catches; every fix is an entry in <a href="../../UE-GOTCHAS.md">UE-GOTCHAS.md</a>. <em>Done when:</em> the third client's world diffs clean against the server's — the gate's last condition.</p>
+
+<h3 id="spike">Stretch — the sanctioned Tier-3 spike</h3>
+<p><strong>[NICK — one session, hard timebox]</strong> A single server-simulated boulder you can shove downhill into the horde, run under the standing 100&nbsp;ms emulation. This is the one Tier-3 spike the <a href="register.html#d-physics-budget">physics budget</a> sanctions, and it comes with homework so the verdict is informed, not vibes — both pre-reads sit on the shelf below. If the boulder sings, log it as a future rift-modifier ingredient; if it fights you, that's the doctrine confirmed at the cost of one evening. Either way it does not enter the Stage-1 critical path — the ambitions parked behind the verdict are <a href="register.html#oq-19">OQ-19</a>. Why is a free rigid body under latency a different sport from everything else this week builds? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a>. <em>Done when:</em> the timebox expires with a dated one-line verdict — sings or fights — recorded against OQ-19.</p>
+<p>The trap this week: the spike leaking. You'll know you're in it when the boulder is negotiating for a second evening. The move: the timebox is the verdict — a boulder that needs more time to feel good has already answered "fights."</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — the machine sings</h5><p style="margin:0"><b>Player:</b> the extractor <em>cha-chings</em> on every tick — it is a machine that prints money and the rift's anger simultaneously, and it should sound like both. Walls crack visibly by damage stage, and invalid placement gets a game-show buzzer. <b>Builder:</b> the goon-vs-wall moment. The first time the horde swarms a wall and starts gnawing it while your extractor keeps ringing behind you — that's the game's whole thesis in one screenshot, and Clip #006.</p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+<p>Four ideas, all orientation — one link each; the deep homes hold the answers.</p>
+
+<p><strong>Trust, at placement scale.</strong> Placement is the DM model applied to construction: the ghost preview is client-side — instant, cosmetic, the client imagining — and placement is a Server RPC with validation for range, overlap, and cost. Never trust the client's opinion of where a wall goes; a modified client <em>will</em> try to place walls inside spawners. Why does every verb that changes the world route through the server? → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a></p>
+
+<p><strong>The carpet, changed at runtime.</strong> Walls change the walkable carpet mid-session, and the engine offers two ways to keep the NavMesh honest — priced very differently. What does it cost to change the carpet at runtime, and which mode do walls want? → <a href="concept-horde.html#navmesh">concept-horde.html#navmesh</a></p>
+
+<p><strong>The join-in-progress exam.</strong> A client connecting after the camp exists must receive the whole picture from replication alone; at 24 players with rolling arrivals, this bug class is fatal, which is why the exam runs now, while it's cheap. And it runs predict-then-verify, because a prediction graded is worth ten answers handed over.</p>
+
+<div class="predict" data-tag="[ PREDICT ]">Before S5's third client connects, write your prediction down: what exactly will it see wrong, and why?</div>
+
+<p>Every miss on your list will have the same shape: a fact living somewhere other than a replicated property — set once on the clients that happened to be present, and remembered nowhere the server replicates. <strong class="ember">State must live in replicated properties, not in the memory of having-been-there.</strong> That law headlines the full failure taxonomy and the audit checklist at the theory page — grade your prediction against it after the exam. What should you have predicted, and how do you audit for the rest? → <a href="concept-netcode.html#join-in-progress">concept-netcode.html#join-in-progress</a></p>
+
+<p><strong>The ledger pays again.</strong> A wall's HP is an AttributeSet, and the horde's gnawing is a transaction against it — the same ledger that already moves player health, paying its week-5 dividend. What else does the ledger pay for, and when? → <a href="concept-gas.html#dividends">concept-gas.html#dividends</a></p>
+
+<div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
+  <li>Forty walls eating the server? Dynamic NavMesh rebuild is not free — Dynamic Modifiers Only carves holes; full regen re-rasterizes. → <a href="concept-horde.html#navmesh">concept-horde.html#navmesh</a></li>
+  <li>The camp looks right only to players who watched it get built? JIP failures hide in "I set that in BeginPlay on the client" logic. → <a href="concept-netcode.html#join-in-progress">concept-netcode.html#join-in-progress</a></li>
+</ul></div>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-18">OQ-18 — stranger matchmaking: what do build permissions need when the expedition isn't friends?</a> · parked, Stage 2 — write the notes down while building the friend version</li>
+  <li><a href="register.html#oq-19">OQ-19 — Tier-3 ambitions: boulders, dribbled objectives, physics puzzles</a> · parked behind this week's spike verdict</li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"How do freshly placed walls change NPC pathing without full runtime regen?" → <a href="shelf.html#ai">Epic docs — Modifying the Navigation Mesh</a> — open it in S4, before forty walls eat the server.</li>
+  <li>"Why is Tier-3 networked physics genuinely hard — and which flavor of hard would the boulder be signing up for?" → <a href="shelf.html#netcode">Gaffer On Games — Introduction to Networked Physics</a> — read before the spike, so the verdict is informed, not vibes.</li>
+  <li>"What did shipping continuous player-vs-rigid-body under latency actually take?" → <a href="shelf.html#netcode">the Rocket League GDC physics talk</a> — watch it in the spike's Friday hour.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>What will the third client be missing, and how do you audit for it? → <a href="concept-netcode.html#join-in-progress">concept-netcode.html#join-in-progress</a></li>
+    <li>What does it cost to change the walkable carpet at runtime? → <a href="concept-horde.html#navmesh">concept-horde.html#navmesh</a></li>
+    <li>What separates the physics tiers, and why is the boulder quarantined? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+    <li>What do the camp's parts assemble into? → <a href="week-06.html">week-06.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

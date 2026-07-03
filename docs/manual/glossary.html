@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Reference · Glossary</div>
+  <h1>Glossary</h1>
+  <p><em>When to (re)read this:</em> the first evening back after a gap, when the words have gone soft — or any time a page uses a term like it's obvious and it isn't.</p>
+  <p class="lede">Every term the manual leans on: one sentence each, and a link to the page that actually teaches it. This is vocabulary insurance — five minutes here and the whole working vocabulary is back. The glossary points; it never teaches.</p>
+</header>
+
+<p>Two rules keep this page honest. An entry is one spoken sentence plus one teaching link — an entry without a link is incomplete, because a glossary that starts teaching becomes a second copy of every page it serves. And across the wiki, the first use of a taught term on any page links either here or straight to the term's teaching anchor, so no page ever strands you on a word.</p>
+
+<h2>The game's words</h2>
+
+<p>The design's own nouns — what the game is about, in its own language.</p>
+
+<p id="ire"><strong class="ember">Ire</strong> — the currency greed mints — every harvest tick, kill, and structure-minute — and the fund the director spends on waves. → <a href="concept-ire.html#economy">concept-ire.html#economy</a></p>
+
+<p id="instability"><strong class="storm">Instability</strong> — the world's clock: storm pressure that rises all session no matter how the expedition plays, opening the late rare window before the rift closes. → <a href="the-slice.html#two-clocks">the-slice.html#two-clocks</a></p>
+
+<p id="the-director"><strong>The director</strong> — the server-side spender that wakes on a timer, converts pooled ire into a wave budget, and shops the spawn table until the budget runs out. → <a href="concept-ire.html#economy">concept-ire.html#economy</a></p>
+
+<p id="juicekit"><strong>JuiceKit</strong> — <code>UJuiceComponent</code>, the one reusable feedback organ — floating text (<code>+3 Ferrocrystal!</code>), stingers, particle pops, a hitstop hook — that every mechanic plugs into the day it's born. → <a href="fun-engines.html#juicekit">fun-engines.html#juicekit</a></p>
+
+<p id="directors-remote"><strong>The Director's Remote</strong> — the god panel: console commands for tuning the live game and for playing human director during playtests. → <a href="fun-engines.html#remote">fun-engines.html#remote</a></p>
+
+<p id="the-chronicle"><strong>The Chronicle</strong> — the end-of-run LitRPG recap rendered from the session's event log: string templates today, local-LLM prose later. → <a href="fun-engines.html#chronicle">fun-engines.html#chronicle</a></p>
+
+<p id="the-bit"><strong>The Bit</strong> — the horde's committed placeholder identity: absurd on purpose, played completely straight, decided for real in week 3. → <a href="doctrine-fun.html#the-bit">doctrine-fun.html#the-bit</a></p>
+
+<p id="gerald"><strong>Gerald</strong> — the target dummy: a nameplate, a scream, and a career. → <a href="fun-engines.html#bestiary">fun-engines.html#bestiary</a></p>
+
+<p id="the-waddle"><strong>The waddle</strong> — the visible slowdown of carrying a chunk, derived on server and owning client from one replicated fact so prediction never rubber-bands. → <a href="doctrine-physics.html#cmc">doctrine-physics.html#cmc</a></p>
+
+<p id="the-yeet"><strong>The Yeet</strong> — a shove with comically overtuned knockback that rides the CMC's built-in prediction: born a gag, kept as a first-class crowd-control verb. → <a href="doctrine-physics.html#cmc">doctrine-physics.html#cmc</a></p>
+
+<p id="greed-dial"><strong>The greed dial</strong> — the hypothesis under test: the expedition sets its own difficulty by how hard it pushes, and the world answers proportionally. → <a href="the-slice.html#hypothesis">the-slice.html#hypothesis</a></p>
+
+<p id="one-more-rock"><strong>One more rock</strong> — the exit decision in miniature, played on every carry trip with your own two arms. → <a href="the-slice.html#exit-decision">the-slice.html#exit-decision</a></p>
+
+<p id="exit-decision"><strong>The exit decision</strong> — the moment the best loot sits inside the worst danger and leaving is smartest — the tension the entire slice exists to produce. → <a href="the-slice.html#exit-decision">the-slice.html#exit-decision</a></p>
+
+<p id="onemorerock"><strong>OneMoreRock</strong> — the codename: the exit decision in three words, stamped on the <code>.uproject</code> and the primary C++ module. → <a href="register.html#d-codename">register.html#d-codename</a></p>
+
+<h2>The craft's words</h2>
+
+<p>Unreal's vocabulary, plus the engineering words this project coined — the terms the concept pages exist to teach.</p>
+
+<p id="authority"><strong>Authority</strong> — the server is the DM: it owns every fact in the world, and clients send requests, never results. → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a></p>
+
+<p id="ownership"><strong>Ownership</strong> — the private chain of actors a connection may speak through, which decides where RPCs are allowed to run. → <a href="concept-netcode.html#ownership">concept-netcode.html#ownership</a></p>
+
+<p id="replication"><strong>Replication</strong> — the one-way conveyor that carries the server's facts down to every client's copy of the world. → <a href="concept-netcode.html#facts-vs-moments">concept-netcode.html#facts-vs-moments</a></p>
+
+<p id="repnotify"><strong>RepNotify</strong> — the client-side callback that fires when a replicated property's new value lands — coalesced and unordered, so it must state facts, never tell stories. → <a href="concept-netcode.html#repnotify">concept-netcode.html#repnotify</a></p>
+
+<p id="relevancy"><strong>Relevancy</strong> — the lever that stops shipping an actor to clients too far away to care — and on those clients the actor doesn't update less, it doesn't exist. → <a href="concept-perf.html#passes">concept-perf.html#passes</a></p>
+
+<p id="dormancy"><strong>Dormancy</strong> — the lever that removes a sleeping actor from replication entirely, until <code>FlushNetDormancy()</code> puts it back in the conversation. → <a href="concept-perf.html#passes">concept-perf.html#passes</a></p>
+
+<p id="join-in-progress"><strong>Join-in-progress (JIP)</strong> — the late joiner's world, rebuilt from replicated facts alone — the reason a moment may never be the only carrier of state. → <a href="concept-netcode.html#join-in-progress">concept-netcode.html#join-in-progress</a></p>
+
+<p id="listen-vs-dedicated"><strong>Listen vs dedicated</strong> — the two server shapes: a player's machine that also hosts, versus a headless process that is nobody's client. → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a></p>
+
+<p id="asc"><strong>ASC</strong> — the <code>AbilitySystemComponent</code>, the account that makes an actor a citizen of the rules engine: no account, no citizenship. → <a href="concept-gas.html#asc-placement">concept-gas.html#asc-placement</a></p>
+
+<p id="gameplayeffect"><strong>GameplayEffect</strong> — the only legal way to change an attribute: a transaction posted to the ledger, never a direct write. → <a href="concept-gas.html#ledger">concept-gas.html#ledger</a></p>
+
+<p id="gameplaytag"><strong>GameplayTag</strong> — a hierarchical adjective — <code>State.Stunned</code>, <code>Damage.Type.Storm</code> — that abilities, effects, and checks all speak as one shared vocabulary. → <a href="concept-gas.html#tags">concept-gas.html#tags</a></p>
+
+<p id="statetree"><strong>StateTree</strong> — Epic's flowchart brain: states with enter conditions, tasks, and transitions, re-selected from the root whenever an exit fires. → <a href="concept-horde.html#statetree">concept-horde.html#statetree</a></p>
+
+<p id="navmesh"><strong>NavMesh</strong> — the baked map of walkable surface that NPC pathfinding runs on, rebuilt dynamically where players wall it off. → <a href="concept-horde.html#navmesh">concept-horde.html#navmesh</a></p>
+
+<p id="cook"><strong>Cook</strong> — the asset-compile stage: every <code>.uasset</code> baked from editor format into the target platform's optimized format, by walking the reference graph. → <a href="concept-shipping.html#pipeline">concept-shipping.html#pipeline</a></p>
+
+<p id="package"><strong>Package</strong> — the zip stage: cooked files packed into <code>.pak</code> archives and bundled with the binaries into something shippable. → <a href="concept-shipping.html#pipeline">concept-shipping.html#pipeline</a></p>
+
+<p id="chunk-contract"><strong>The chunk contract</strong> — pop → settle → sleep → net-dormant: the four words every loose body in the game signs. → <a href="doctrine-physics.html#chunk-contract">doctrine-physics.html#chunk-contract</a></p>
+
+<p id="tiers"><strong>Tier 1 / 2 / 3</strong> — the physics budget's three price points: cosmetic and free, character-collision and cheap, true rigid bodies and quarantined. → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a></p>
+
+<p id="cheater-test"><strong>The cheater test</strong> — the procedure run on every server-authoritative verb the week it ships: lie to the server as a client and confirm the lie bounces. → <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a></p>
+
+<h2>The manual's words</h2>
+
+<p>The operating system's vocabulary — the words the manual uses about itself.</p>
+
+<p id="gate"><strong class="moss">The gate</strong> — a week's definition of done, test topology named; the calendar flexes, the gates don't. → <a href="doctrine-os.html#friday">doctrine-os.html#friday</a></p>
+
+<p id="valve"><strong>The valve</strong> — the 90-minute rule's three pre-chosen exits from a wall: get taught, post it, or switch to the parallel task. → <a href="stuck.html#valve">stuck.html#valve</a></p>
+
+<p id="tomorrow-note"><strong>The tomorrow-note</strong> — one line in <code>docs/tomorrow-note.md</code> naming the next session's first concrete action; a session without it isn't closed. → <a href="doctrine-os.html#ritual">doctrine-os.html#ritual</a></p>
+
+<p id="save-file"><strong>The save file</strong> — the mission board's state window, rendered from <code>state.js</code> and written only at session close and gate pass. → <a href="index.html#save-file">index.html#save-file</a></p>
+
+<p id="oq-id"><strong>OQ-id</strong> — an open question's permanent grep handle, never renamed and never reused, resolved only by the register's transaction. → <a href="register.html#lifecycle">register.html#lifecycle</a></p>
+
+<p id="resolution-sketch"><strong>Resolution: sketch</strong> — the fence on weeks 7 through 12: a sketch page sharpens only when the previous week's gate passes, never sooner. → <a href="index.html#how">index.html#how</a></p>
+
+<p id="shelf-pull"><strong>Shelf pull</strong> — a page's ration of at most three shelf links, each phrased as the question the resource answers. → <a href="shelf.html">shelf.html</a></p>
+
+<p id="fun-payload"><strong>Fun payload</strong> — the week's shipped fun, one thing for the player and one for the builder, scoped as contract and rolled forward as debt when it slips. → <a href="doctrine-fun.html#payload-contract">doctrine-fun.html#payload-contract</a></p>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Which decisions are law, and which questions are still open? → <a href="register.html">register.html</a></li>
+    <li>Where do external resources live, each with the question it answers? → <a href="shelf.html">shelf.html</a></li>
+    <li>How does the manual change without growing scar tissue? → <a href="index.html#how">index.html#how</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

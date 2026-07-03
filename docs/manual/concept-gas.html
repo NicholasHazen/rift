@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ability Ledger — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Concept · The Gameplay Ability System</div>
+  <h1>The ability ledger</h1>
+  <p><em>When to (re)read this:</em> once, start to finish, before week 2's first session — before the GameplayAbilities plugin gets enabled — and again any time an ability works on one machine and silently doesn't on another.</p>
+  <p class="lede">The Gameplay Ability System is the biggest plugin the engine will ever hand you, and most explanations describe its parts without ever naming its shape. The shape is an accounting department. Five ideas — the account, the balances, the transactions, the vocabulary, and the transactions-in-progress — and week 2 puts every one of them through your hands. This page teaches the five in order, then the two pieces of fine print that decide whether that week is smooth or haunted: where the account lives, and what prediction honestly covers.</p>
+</header>
+
+<h2 id="counting-house">The counting house</h2>
+
+<p>An RPG is a building full of numbers wearing a world as a costume. Health, stamina, a wall's remaining patience, the storm's teeth at the fringe — everything the rift does to a body is, underneath, a number changing. The tempting build, the one you could ship in an afternoon, is to change those numbers directly: find every place damage seems to happen and write <code>Health -= 15</code>.</p>
+
+<p>That build survives about a week. Then the design asks for resistances, and buffs, and stacking, and storm damage that future gear should shrug off, and a kill feed that knows who killed whom — and every one of those needs facts the bare subtraction threw away: who changed the number, by how much, why, and what modified it in flight.</p>
+
+<p>The Gameplay Ability System is the engine's answer, and the answer is bookkeeping. <span class="ember">Nobody edits a balance directly — everything files a transaction.</span> Every transaction names its source and its reason, and the books are kept by machinery that already knows how to replicate, stack, and expire. Resistances and buffs stop being spaghetti and become modifications to transactions. The whole plugin is five ideas: the account (the AbilitySystemComponent), the balances (Attributes), the transactions (GameplayEffects), the vocabulary (GameplayTags), and the transactions-in-progress (Abilities). Everything else is configuration. Why pay for this much machinery now instead of hand-rolling damage in a day? → <a href="week-02.html">week-02.html</a>.</p>
+
+<h2 id="asc-placement">The account, and where it lives</h2>
+
+<p>The <strong>AbilitySystemComponent</strong> is the account — the socket that makes an actor a citizen of the rules engine. No account, no citizenship: an actor without an ASC cannot be slashed by an ability, burned by the storm, or blessed by a buff, because there is nowhere to file the transaction. Gerald's first act in week 2 is receiving one.</p>
+
+<p>Where the account lives is this page's first decision, and it is cheapest made before there is code to retrofit. The scenario that decides it is death. Week 2 ends with the full arc — health to zero, ragdoll, respawn — and a respawn destroys the old Character and spawns a fresh one. An ASC living on the Character goes down with the body: attributes, tags, active cooldowns, all of it, wiped by every death. An ASC living on the <strong>PlayerState</strong> survives, because the PlayerState is the fact sheet that outlives bodies — surviving is its entire job. So player ASCs live on the PlayerState. Which character in the troupe owns which fact? → <a href="concept-anatomy.html#cast">concept-anatomy.html#cast</a>.</p>
+
+<p>One piece of fine print rides along. The PlayerState is tuned for scoreboard facts — names, scores, slow news — so it replicates at a lazy default rate. Ability state is not slow news: bump the PlayerState's <code>NetUpdateFrequency</code> to around 100 so the account keeps pace with the fight.</p>
+
+<p>NPCs get the opposite ruling. A goose that dies is done being a goose — nothing worth preserving, nothing to hand a successor — so NPC ASCs live directly on the Pawn and die with it. The split carries one more setting: replication mode. Player ASCs run <strong>Mixed</strong> — full transaction detail replicates to the owning client, while everyone else receives only the tags and cues they can see. NPC ASCs run <strong>Minimal</strong> — their transactions never leave the server at all. At 60–80 NPCs that is not tidiness; it is a lever week 8 pulls on purpose. What does the ledger cost on the wire? → <a href="concept-perf.html#cost-model">concept-perf.html#cost-model</a>. Geese don't need estates.</p>
+
+<h2 id="attributes">Balances with rules</h2>
+
+<p>An <strong>Attribute</strong> is a number with a bodyguard. Health and Stamina live in an <strong>AttributeSet</strong> attached to the ASC, and the set is not a struct of floats — it is the place where the rules about those floats live. Two hooks do most of the work, and week 2 writes both.</p>
+
+<p><code>PreAttributeChange</code> fires before a new value lands. Clamp there — Health pinned between zero and MaxHealth — and no transaction, however strange its math, can ever push a balance somewhere illegal. <code>PostGameplayEffectExecute</code> fires after a transaction has landed. Consequences live there: read the new balance and rule on it — Health at zero means Gerald is dead, and death is a ruling, not a subtraction. Clamp before the write; judge after it.</p>
+
+<h2 id="ledger">The ledger</h2>
+
+<p>A <strong>GameplayEffect</strong> is a transaction template: a data-only description of a change — which attributes, by how much, applied instantly, over a duration, or until revoked. It is the only legal way a balance changes. When an ability actually uses one, the template gets filled in and becomes a <strong>GameplayEffectSpec</strong> — the slip, carrying magnitudes, source, and context. The slip is why the system scales: because every change is a filed document, a resistance is an edit to incoming slips, a buff is an edit to outgoing ones, and stacking is a filing policy. None of it touches your damage code, because there is no damage code. There are transactions.</p>
+
+<p>Stamina is the second balance, wired exactly once in week 2 so the cost machinery gets learned. Does any slice verb actually deserve a stamina gate? → <a href="register.html#oq-08">register.html#oq-08</a>.</p>
+
+<h3>One slash, filed end to end</h3>
+
+<p>Here is week 2's whole curriculum in one swing, told in ledger voice. PlayerA slashes. On the server, the ability commits and its trace finds Gerald. The ability fills in the slip: <strong>−15 Health, source: PlayerA's slash, 14:02</strong>. Gerald's ASC accepts the transaction; his AttributeSet clamps the write on the way in and, once it lands, rules on the result. Gerald lives, this time.</p>
+
+<p>Then the fact travels. Health is replicated state, so the new value ships to every client, and on each one the RepNotify hook fires: the health bar dips, and the JuiceKit floats <strong>−15</strong> over Gerald's head in mono type. The number on your screen is not your slash's receipt — it is the server's narration of a fact that already happened. The fine print on how facts land — coalescing, ordering, late joiners — belongs to netcode, not to GAS: what exactly does RepNotify promise? → <a href="concept-netcode.html#repnotify">concept-netcode.html#repnotify</a>.</p>
+
+<p>The figure compresses the trace. Three boxes sit inside the server, left to right: the slash commits, the slip gets written, and Gerald's AttributeSet clamps the write and rules on the result. One ember arrow then runs down and out of the server — the changed fact replicating — into a single box standing for every client, where OnRep fires and the JuiceKit celebrates.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 340" role="img" style="max-width:680px;display:block;margin:0 auto"><title>One slash, filed as a ledger transaction</title><desc>Inside the server, PlayerA's slash commits and its trace finds Gerald; the ability writes a GameplayEffectSpec of minus fifteen Health with source PlayerA at 14:02; Gerald's AttributeSet clamps the write and rules on the result. The changed Health then replicates down to every client, where OnRep_Health fires and the JuiceKit floats the damage number.</desc>
+<defs><marker id="arg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="20" y="22" width="640" height="152" rx="10" fill="none" stroke="#2e3242"/>
+<text x="36" y="48" font-family="IBM Plex Mono" font-size="11" fill="#9d9aab">SERVER — WHERE THE LEDGER IS WRITTEN</text>
+<rect x="40" y="64" width="180" height="88" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="130" y="92" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e9e5d9">PlayerA's slash</text>
+<text x="130" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">ability commits</text>
+<text x="130" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">trace finds Gerald</text>
+<line x1="222" y1="108" x2="248" y2="108" stroke="#9d9aab" stroke-width="1.2" marker-end="url(#arg)"/>
+<rect x="252" y="64" width="176" height="88" rx="8" fill="#232736" stroke="#b45034"/>
+<text x="340" y="92" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#ff8a5c">THE SLIP — GE SPEC</text>
+<text x="340" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">−15 Health</text>
+<text x="340" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#9d9aab">source: PlayerA · 14:02</text>
+<line x1="430" y1="108" x2="456" y2="108" stroke="#9d9aab" stroke-width="1.2" marker-end="url(#arg)"/>
+<rect x="460" y="64" width="180" height="88" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="550" y="92" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e9e5d9">Gerald's AttributeSet</text>
+<text x="550" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">clamps the write</text>
+<text x="550" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">rules on the result</text>
+<line x1="520" y1="178" x2="390" y2="248" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arg)"/>
+<text x="545" y="222" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#ff8a5c">replication — the fact lands</text>
+<rect x="180" y="252" width="330" height="64" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="345" y="278" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#e9e5d9">EVERY CLIENT</text>
+<text x="345" y="298" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#6f6c7e">OnRep_Health fires · JuiceKit floats −15</text>
+</svg>
+<figcaption>The server writes the ledger. Every client reads it and celebrates.</figcaption>
+</figure>
+
+<h2 id="tags">The shared vocabulary</h2>
+
+<p><strong>GameplayTags</strong> are hierarchical adjectives — <code>State.Stunned</code>, <code>Damage.Type.Storm</code> — and the whole system speaks them. Accounts carry them: Gerald is <code>State.Stunned</code>. Slips carry them: this damage is storm-typed. Abilities read them as grammar: an activation can require some tags and forbid others, all as data. A stun is not an if-statement scattered through your verbs; it is one tag that every verb already respects.</p>
+
+<p>The vocabulary matters because of who speaks it later. From week 9, <span class="storm">the director and the storm interrogate this vocabulary constantly</span> — what state is the expedition in, what type of damage burns at the fringe — and every answer is a tag query against accounts you set up in week 2. Name tags like you will be questioned about them, because you will be.</p>
+
+<h2 id="lifecycle">Transactions in progress</h2>
+
+<p>An <strong>Ability</strong> is the fifth idea and the one the other four exist to serve — the thing that actually happens when you press the button. Think of it as a transaction still being negotiated, and its lifecycle as four stops, in strict order.</p>
+
+<p><code>CanActivateAbility</code> is the question at the counter: may this even start? It reads the vocabulary — stunned? dead? — and checks the price without paying it. <code>CommitAbility</code> is the moment of commitment: cost and cooldown are checked <em>and paid</em> here, and both are GameplayEffects of their own — the cost an instant transaction against a balance, the cooldown a duration transaction granting a tag that CanActivate will refuse tomorrow. Commit re-checks before it pays, because the world is allowed to change between the counter and the till. Then comes the work — trace, spawn the projectile, apply effects to targets — everything the ability actually does. Last, <code>EndAbility</code> closes the folder; skip it and the ability hangs open forever, blocking its own next activation. Commit is where asking ends and bookkeeping begins.</p>
+
+<h2 id="init-order">The handshake</h2>
+
+<p>Every account carries two names. The <strong>OwnerActor</strong> holds the account — the PlayerState. The <strong>AvatarActor</strong> is the body currently acting on the account's behalf — the Character. <code>InitAbilityActorInfo</code> is the handshake that introduces them, and until it runs on a machine, that machine's copy of the ASC does not know whose hands it is wearing: abilities refuse to fire, attributes never wire to the UI.</p>
+
+<p>The handshake must run on every machine, and the two kinds of machine offer different safe moments. On the server the moment is possession — <code>PossessedBy</code> on the Character — because possession is when a body and its owner are guaranteed joined. A client is the fiddly half: the Character and the PlayerState arrive by replication, and replication signs no ordering promises across actors. The one hook that fires exactly when both halves exist on a client is <code>OnRep_PlayerState</code> on the Character — the PlayerState pointer just landed, so introduce it to its body right there. Two call sites, both mandatory. Miss the second and you meet GAS's most famous beginner wall: everything works where you test as the host, and abilities silently refuse for every real client. Why won't the two actors just arrive in order? → <a href="concept-netcode.html#repnotify">concept-netcode.html#repnotify</a>.</p>
+
+<h2 id="prediction-scope">The honesty clause</h2>
+
+<div class="predict" data-tag="[ PREDICT ]">Under 100 ms of lag, which appears first on your screen — your swing animation, or Gerald's damage number? Why can one be predicted locally while the other must round-trip?</div>
+
+<p>The swing, by a tenth of a second. Activation is <strong>predicted</strong>: your client is allowed to start the ability locally — animation, sound, stamina spent — and the server confirms or corrects it after the fact. The damage number is different in kind. It reports Gerald's health, Gerald's health is the server's fact, and your client may not invent facts about the world — why not? → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a>. The slip is filed on the server, and the number floats when the answer replicates back: one round-trip after your button press.</p>
+
+<p>So here is the honest scope, worth fixing in your head before you ever evaluate feel. Stock GAS predicts <em>your own hands</em>: activation, costs and cooldowns, effects you apply to yourself. It does not predict what you do to the world: damage to other actors and projectile spawns wait for the server, and that latency is normal — every networked action RPG lives with it. The honest fix is the one the JuiceKit exists for: fire the feel locally at activation — swing sound, whoosh, camera nudge — so the predicted half of the action carries the juice while the fact makes its trip. That is also the reason this game's feedback routes through the JuiceKit instead of GAS's own GameplayCues: one feel system, owned by the game, aimed exactly at the seam prediction leaves. What does the JuiceKit ship? → <a href="fun-engines.html#juicekit">fun-engines.html#juicekit</a>.</p>
+
+<p>One more clause, to keep a future evening from dying on it: stock GAS ships no lag compensation — no server-side rewind to honor where a target stood on your screen. In this slice that costs nothing, because the melee targets are NPCs, and a goose files no complaints about hit registration. Do not spend a valve session tuning toward a PvP melee feel the stock system cannot deliver; what combat wants to be when it grows up is a Stage-2 question — weighty, fast, or hybrid? → <a href="register.html#oq-16">register.html#oq-16</a>. When that question comes due, GASShooter and Lyra are the someday-shapes for prediction-heavy combat, and they stay on the shelf until the problem is real. Predict your own hands; wait for the world.</p>
+
+<h2 id="dividends">The ledger pays again</h2>
+
+<p>GAS charges everything up front — the machinery all lands before the fun does. The consolation is compound interest: every idea on this page gets billed once and then pays out for the rest of the slice. Week 5 gives structures accounts of their own — a wall's HP is an AttributeSet, the horde's gnawing is a transaction against it, and repairs and armor become configuration instead of new systems. Where does that land? → <a href="week-05.html">week-05.html</a>. Week 9 turns the storm's fringe into one periodic GameplayEffect with <code>Damage.Type.Storm</code> on the slip — which is exactly what makes it resistible by future gear, because a resistance is an edit to incoming slips. It gets tested on Gerald first. Where does the storm get its teeth? → <a href="week-09.html">week-09.html</a>.</p>
+
+<p>By week 9 you will not be writing new damage systems. You will be filing new kinds of transactions into a ledger that already replicates, stacks, and expires them. Learn the ledger once; the rest is entries.</p>
+
+<div class="box gotcha"><h5>⚠ Symptom index</h5><ul>
+<li>Abilities work when you test as the host, silently fail for joining clients → the handshake never ran on the client → <a href="#init-order">the handshake</a>.</li>
+<li>Death wipes attributes and cooldowns → the account lives on the Character → <a href="#asc-placement">where the account lives</a>.</li>
+<li>Ability state feels a beat stale for players → the PlayerState's lazy default update rate → <a href="#asc-placement">where the account lives</a>.</li>
+<li>Health drifts negative or over max under strange math → clamp in <code>PreAttributeChange</code> → <a href="#attributes">balances with rules</a>.</li>
+<li>An ability fires once and never again → <code>EndAbility</code> never ran → <a href="#lifecycle">the lifecycle</a>.</li>
+<li>The damage number lands a beat after the swing → not a bug → <a href="#prediction-scope">the honesty clause</a>.</li>
+<li>An attribute changed on the server and nothing visibly reacted → the fine print on facts → <a href="concept-netcode.html#repnotify">concept-netcode.html#repnotify</a>.</li>
+</ul></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li><a href="register.html#oq-08">OQ-08 — stamina in the slice: a real pressure, or Health-only until it earns its place?</a> · verdict from combat feel</li>
+<li><a href="register.html#oq-16">OQ-16 — combat identity: weighty, fast, or hybrid?</a> · Stage 2, after week 12</li>
+</ul></div>
+
+<h4>Shelf pulls</h4>
+<ul>
+<li>"One corner of GAS is confusing me — where is the community bible that answers point questions?" → <a href="shelf.html#gas">tranek's GASDocumentation</a> — a reference, not a book; keep it open from week 2 on.</li>
+<li>"What does a clean, minimal, maintained GAS setup look like — especially the InitAbilityActorInfo handshake on server and client, and the ASC on PlayerState versus Pawn?" → <a href="shelf.html#gas">the Narxim GAS example</a> — it shows both placements.</li>
+<li>"What do ASC, Attributes, GameplayEffects, and GameplayTags officially do — the vocabulary to hold before community lore layers detail on top?" → <a href="shelf.html#gas">Epic's GAS documentation</a>.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Why can't your client just write Gerald's health itself? → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a></li>
+    <li>Which character owns which fact — and what is the PlayerState's day job? → <a href="concept-anatomy.html#cast">concept-anatomy.html#cast</a></li>
+    <li>What do 80 goose accounts cost the server, and what does Minimal mode save? → <a href="concept-perf.html#cost-model">concept-perf.html#cost-model</a></li>
+    <li>Where does the ledger first pass through your hands? → <a href="week-02.html">week-02.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

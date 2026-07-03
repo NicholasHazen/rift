@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 10 · Feel and legibility — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Arc</div>
+  <h1>Feel and legibility</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 10</span><span>Phase: Arc</span><span>Budget: 5 sessions</span><span>Decisions due: lighting &amp; mood</span><span>resolution: sketch</span><span data-state="valve"></span>
+</div>
+
+<p><em>This page sharpens when week 9's gate passes — do not elaborate it before then.</em></p>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — Nothing new was built; everything got louder. A stranger harvested, built, angered the rift, and extracted without asking a single question. Award for Legibility: the HUD.</blockquote>
+
+<p class="lede">By Friday the slice will hit like a game instead of a demo — hitstop, real sound, a real HUD, a front door that connects — and a stranger will have read the whole design with zero instruction. You will understand why feel is a tuning pass here and not a construction project.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">A stranger joins with no instruction and, within one session, demonstrably understands harvest, build, ire, and extract — the exam runs on the VPS with packaged clients, same as every real session since week 7. And the Friday perf gate stays green with the new UI in play.</p></div>
+
+<p id="two-crafts">The systems work; now strangers have to <em>feel</em> them. Two crafts this week, and both are tuning. <strong>Game feel</strong> first: combat reads as impactful through feedback in the ~100 ms band — a few frames of hitstop, real impact sounds, damage numbers, screen shake used like hot sauce. None of that is new construction, because the JuiceKit built in week 1 means every mechanic already carries the hooks; that bill was pre-paid, and this week collects.</p>
+
+<p><strong>Legibility</strong> second: the design runs on <em>informed greed</em>, and players can only choose risk they can read. Ire, instability, and haul weight must be readable at a glance by someone who has never heard the elevator pitch — and that someone arrives on Friday. Mystery in content is strategy; opacity in systems is just bad UI.</p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Five sessions, sketched on purpose — the hands split and the done-whens sharpen when week 9 closes. One instruction covers all five: tune, don't add.</p>
+
+<h3 id="s1">S1 — Hitstop &amp; shake</h3>
+<p>Hitstop and screen shake through the JuiceKit — the hooks already sit on every mechanic, so tonight is turning dials, not writing systems. <em>Done when:</em> a melee hit reads as impact in the ~100 ms band without one new system written.</p>
+
+<h3 id="s2">S2 — The SFX pass</h3>
+<p>A real sound for every verb — harvest, build, hit, kill, extract — from free CC0 packs, and the siege track from week 9 gains intro and outro states. Gerald's scream, remastered. <em>Done when:</em> eyes closed, you can still tell harvest from hit from kill from extraction.</p>
+
+<h3 id="s3">S3 — The real HUD</h3>
+<p><span class="ember">Ire</span> stages, the <span class="storm">instability</span> clock, haul weight, the session timer — UMG from C++, with benui open as the desk reference (shelf pull below). <em>Done when:</em> all four read at a glance mid-siege, not just in a quiet lobby.</p>
+
+<h3 id="s4">S4 — The front door &amp; the beacon</h3>
+<p>Menu → connect flow, plus the respawn beacon deployable. Death now has geography — where you planted it matters. <em>Done when:</em> a fresh packaged client reaches the rift through the menu, and dying returns you to the beacon you chose.</p>
+
+<h3 id="s5">S5 — The legibility exam</h3>
+<p>One fresh person, zero verbal instruction, one session on the VPS. Watch. Don't ask — observe. The exam grades the HUD, not the stranger; every hesitation is a tuning note. It also opens a verdict window: do vague stages in-world hold the screen, or do the optimizers need exact numbers? → <a href="register.html#oq-05">register.html#oq-05</a>. <em>Done when:</em> the gate's first condition passes in front of your eyes.</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — the game starts feeling like a game</h5><p style="margin:0"><b>Player:</b> the kill-confirm ding, the extraction-success fanfare, and a death screen that quotes the Chronicle's narrator in real time — <i>"Nick has died as he lived: holding too much Goose Down."</i> From this week that line is generated by the real templates, not authored. <b>Builder:</b> this whole week is the payload, and its receipt is the before/after pair — the same encounter in week-9 footage and week-10 footage, posted side by side, the most satisfying Friday Clip of the run. Both go into the reel. Where does the pair live forever? → <a href="clips.html">clips.html</a></p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+<p>Nothing new — that's what tuning means. Four callbacks, each a system you already own being read instead of built.</p>
+
+<p><strong>The JuiceKit collects.</strong> Week 1 wired floating text, stingers, pops, and hitstop hooks into every mechanic as it shipped, which is the only reason feel can be a one-week tuning pass. What exactly does the kit owe every mechanic? → <a href="fun-engines.html#juicekit">fun-engines.html#juicekit</a></p>
+
+<p><strong>The HUD is a reader.</strong> Ire stages, haul weight, the clocks — every number on screen is a fact the server already replicates, so the widget owns nothing worth stealing. Why can't the client own a number that matters? → <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a></p>
+
+<p><strong>The death screen is the Chronicle, live.</strong> The narrator's templates already exist; quoting one at the moment of death is a hook, not a new system. Whose voice is it, and what is it allowed to say? → <a href="fun-engines.html#chronicle">fun-engines.html#chronicle</a></p>
+
+<p><strong>The perf gate doesn't pause for a feel week.</strong> The new HUD plays under the full week-8 load on Friday, and green stays the only acceptable color. What does the gate actually measure, and how? → <a href="concept-perf.html#gate-protocol">concept-perf.html#gate-protocol</a></p>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-05">OQ-05 — ire display: stages in-world, exact numbers in the Chronicle?</a> · the default ships on this week's HUD; verdict at the legibility exam and the fun test</li>
+  <li>The slice's lighting-and-mood identity — the first art question the gray-box law allows, parked until now on purpose. One skybox and a fog pass is cheap and transforms everything · one evening, hard cap → <a href="register.html#oq-22">register.html#oq-22</a></li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"Which cheap feedback layers turn a correct-but-dead interaction into a satisfying one?" → <a href="shelf.html#feel">Juice It or Lose It</a> — fifteen minutes, live-coded; watch before S1.</li>
+  <li>"How much hitstop and shake is enough before it's noise?" → <a href="shelf.html#feel">The Art of Screenshake</a> — the calibration reference for tune, don't add.</li>
+  <li>"UMG from C++, and which UPROPERTY specifier while you're in there?" → <a href="shelf.html#tools">benui (with Unreal Garden, its successor)</a> — S3's desk reference.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>What does every mechanic already owe the JuiceKit? → <a href="fun-engines.html#juicekit">fun-engines.html#juicekit</a></li>
+    <li>Whose voice is on the death screen? → <a href="fun-engines.html#chronicle">fun-engines.html#chronicle</a></li>
+    <li>Why does every hit the SFX pass celebrates ride one ledger? → <a href="concept-gas.html#ledger">concept-gas.html#ledger</a></li>
+    <li>Where do the before/after clips live? → <a href="clips.html">clips.html</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+    <li>What goes on trial the moment strangers can read the game? → <a href="week-11-12.html">week-11-12.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 02 · Teaching the world to fight (GAS) — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Core loop</div>
+  <h1>Teaching the world to fight (GAS)</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 02</span><span>Phase: Core loop</span><span>Budget: 6 sessions, one pre-spent</span><span>resolution: full</span><span data-state="valve"></span>
+</div>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — Gerald absorbed 412 recorded blows and one orbital launch. Awarded: Employee of the Rift. Gerald did not attend.</blockquote>
+
+<p class="lede">By Friday you will have two clients trading abilities and fighting Gerald across a dedicated server, and you will understand why no number in this game ever gets edited directly again. This is the steepest week of the twelve — the worst effort-to-visible-progress ratio in the plan — so it is planned like a climb: six sessions, one of them deliberately empty.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">Two clients exchange abilities and fight Gerald in PIE with the dedicated-server option; health replicates; death and respawn survive 100&nbsp;ms simulated lag; every hit makes a sound and a number. The gate is functional, not feel — feel is week 10's job, and PvP feel is Stage 2's.</p></div>
+
+<p>The rift needs combat, and an RPG's combat means <em>abilities</em> — attacks, dodges, storm damage-over-time, elite specials, and eventually (per your proc-gen belief) <em>generated combinations</em> of all of the above. You could hand-roll damage in a day. You're not going to, and here's the straight version of why, because mid-week you will be tempted to bail: the <strong>Gameplay Ability System</strong> is over-engineered for week 2 and <em>correctly</em>-engineered for week 40. It ships networked prediction, cooldowns, costs, stacking, and status effects as configuration. Rolling your own means re-solving networked ability prediction — one of the genre's genuinely hard problems — by hand, later, under pressure. <span class="ember">Pay the tax now, while the codebase is small and forgiving.</span></p>
+
+<p>One piece of honesty before the first swing, because it protects the gate's wording: GAS prediction covers <em>your own</em> ability activation, your own costs and cooldowns, and effects you apply to yourself — it does not predict the damage you deal to anyone else. Damage to Gerald arrives a round-trip later, and that latency is normal, not a bug; the JuiceKit's local activation feedback is the honest fix. What exactly gets predicted, what round-trips, and why is the boundary drawn there? → <a href="concept-gas.html#prediction-scope">concept-gas.html#prediction-scope</a></p>
+
+<p>The trap this week: mistaking that round-trip for brokenness. You'll know you're in it when you're tuning hit-feel in a duel instead of hitting Gerald. The move: believe the gate — functional, not feel — and do not burn a valve session chasing PvP hit-feel that stock GAS cannot deliver; combat identity is a Stage-2 question and the register is already holding it.</p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Six sessions. S1 through S5 are the climb; S6 is deliberately empty, and the reason it exists is written under it. Done-marks land as sessions close, per the week-0 convention.</p>
+
+<h3 id="s1">S1 — Socket</h3>
+<p><strong>[NICK — by hand]</strong> Enable the GameplayAbilities plugin, then make the placement decision once, while it costs nothing to make: players get the AbilitySystemComponent on the <strong>PlayerState</strong>, so attributes survive respawn — and bump the PlayerState's <code>NetUpdateFrequency</code> to around 100, because its default is far too lazy for combat state. NPCs get theirs on the Pawn: disposable body, disposable state. Crib the initialization order shamelessly from <a href="shelf.html#gas">Narxim-GAS-Example</a> — a durable, maintained repo that shows both placements; the order is famously fiddly and this is not where your learning budget goes. Where should the ASC live, and what breaks on respawn if you choose wrong? → <a href="concept-gas.html#asc-placement">concept-gas.html#asc-placement</a>. <em>Done when:</em> <code>InitAbilityActorInfo</code> has provably run on the server <em>and</em> on each client — log line or breakpoint, your pick — because the gotcha box below is what happens when it hasn't.</p>
+<p><strong>[FLEET]</strong> S1 touches <code>Build.cs</code> with new module dependencies, so the fleet refreshes <code>compile_commands.json</code> the same evening — the week-0 rule about stale databases applies from the first header.</p>
+
+<h3 id="s2">S2 — Ledger</h3>
+<p><strong>[NICK — by hand]</strong> The AttributeSet (Health, Stamina), one damage GameplayEffect, and Gerald the target dummy to absorb the transactions. Two rules live inside the set itself: clamp values in <code>PreAttributeChange</code>, and detect death in <code>PostGameplayEffectExecute</code> — rules belong with the numbers they govern, not scattered across abilities. Why is every damage number a transaction on a ledger? → <a href="concept-gas.html#ledger">concept-gas.html#ledger</a>. <em>Done when:</em> a server-applied effect moves Gerald's Health and both clients watch the same number change.</p>
+
+<h3 id="s3">S3 — First verb</h3>
+<p><strong>[NICK — by hand]</strong> The melee ability: activate → trace → apply the GameplayEffect. This is the project's first GameplayAbility, and first-of-pattern work is yours — no delegating this one. Wire it into the JuiceKit: hit sound, floating damage number. It is also the whack that week 1 promised the nodes. <em>Done when:</em> both clients see the same damage number float off Gerald. LitRPG appetite: fed.</p>
+
+<h3 id="s4">S4 — Second verb</h3>
+<p><strong>[NICK — by hand]</strong> The ranged ability — projectile, not hitscan, because a projectile teaches more replication. Cooldown and stamina cost ride GameplayEffects, so you touch the cost/cooldown machinery exactly once — at Commit, which is where the lifecycle checks and pays them. Where do cost and cooldown actually get paid? → <a href="concept-gas.html#lifecycle">concept-gas.html#lifecycle</a>. Whether stamina stays in the slice at all is the register's question, not this session's; tonight it exists so the machinery gets learned. <em>Done when:</em> the projectile fires on a client that isn't the server, costs Stamina, and refuses to fire during its cooldown.</p>
+<p><strong>[FLEET]</strong> After S3 the first ability exists, so the pattern is open for replication: the fleet may scaffold the projectile from the melee ability's shape. The cost/cooldown wiring stays in your hands.</p>
+
+<h3 id="s5">S5 — Death &amp; Yeet</h3>
+<p><strong>[NICK — by hand]</strong> Health reaches zero → death → ragdoll → respawn — and because the ASC lives on the PlayerState, the trip loses no state: S1's placement decision, paying out. Then build <strong>Yeet</strong>. <em>Done when:</em> a player dies and respawns cleanly under 100&nbsp;ms simulated lag — PIE's network emulation supplies the lag — and <strong>Clip #003</strong> exists, which is obviously Gerald in orbit.</p>
+
+<h3 id="s6">S6 — Buffer</h3>
+<p>GAS always overruns. This session is pre-spent so the calendar doesn't panic: the trough is budgeted, which is what keeps a low-dopamine week from reading as a failed one. This is the pre-spent-buffer pattern, and week 2 is its home — any future week built around a system famous for eating an extra session copies it from here. <em>Done when:</em> the gate is green, whether this session got used or not. An overrun you already paid for is a plan.</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — Yeet, and Gerald</h5><p style="margin:0"><b>Player:</b> <b>Yeet</b> — a shove with comically overtuned knockback that launches ragdolls into low orbit. Physics comedy is free, and Yeet is sneakily your first knockback GameplayEffect, which sieges will reuse forever. Per the physics doctrine it graduates from gag to <b>first-class verb</b>: shoving the horde off a chunk, off a wall line, or into a hazard is legitimate tactics, and because it rides the CharacterMovementComponent's existing networked prediction, it costs Tier-2 prices. <b>Builder:</b> the target dummy is named <b>Gerald</b>, Gerald has a nameplate, and Gerald screams (one free SFX) when hit. You will spend dozens of hours with Gerald; he deserves a personality. His career starts this week, and his canon lives in <a href="fun-engines.html#bestiary">the bestiary</a>.</p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+<p>Five ideas run this week, and one page owns all of them. The <strong>AbilitySystemComponent</strong> is the socket that makes a character a citizen of the rules engine — and where it lives is a real decision, made in S1. <strong>Attributes</strong> are numbers with rules, living in an AttributeSet that clamps and judges its own values. <strong>GameplayEffects</strong> are the only legal way attributes change — signed ledger transactions, and nobody edits the account balance directly. <strong>GameplayTags</strong> are hierarchical adjectives (<code>State.Stunned</code>, <code>Damage.Type.Storm</code>) the whole system can query — <span class="storm">the shared vocabulary the director and the storm will interrogate from week 9 on</span>. And <strong>abilities have a lifecycle</strong>, from CanActivate through Commit to the work and the End — the machinery S4 touches once and then reuses forever. How do the five ideas fit into one told story, with Gerald as the worked example? → <a href="concept-gas.html">concept-gas.html</a></p>
+
+<div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
+  <li>Abilities work on the server but sit dead on clients → <code>InitAbilityActorInfo</code> must run on possess <em>and</em> again on the client after PlayerState replication — the #1 GAS beginner wall; Narxim shows the shape. Why twice? → <a href="concept-gas.html#init-order">concept-gas.html#init-order</a></li>
+  <li>Do <b>not</b> open Lyra this week. It is the best GAS reference — at shipped-game scale — and it will bury a week-2 learner. It stays on <a href="shelf.html#gas">the shelf's deferred tier</a> until week 8+.</li>
+  <li>If GAS takes nine days instead of seven: the calendar flexes, the gate doesn't.</li>
+</ul></div>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-16">OQ-16 — combat identity: weighty, fast, or hybrid?</a> · parked — playtest feel decides after week 12; this week's action-lite kit is scaffolding, not the answer</li>
+  <li><a href="register.html#oq-08">OQ-08 — stamina in the slice, or Health-only until it earns its place?</a> · verdict from combat feel once real fights exist — it must not gate this week</li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"The official docs run out fast — where does the real GAS answer live?" → <a href="shelf.html#gas">tranek/GASDocumentation</a> — the community bible; a reference, not a book. Keep it open from this week on.</li>
+  <li>"What does a clean, minimal, maintained GAS setup look like — especially the <code>InitAbilityActorInfo</code> timing on server and client?" → <a href="shelf.html#gas">Narxim-GAS-Example</a> — crib the setup in S1; it shows the ASC on PlayerState and on Pawn.</li>
+  <li>"What do ASC, Attributes, GameplayEffects, and GameplayTags officially do?" → <a href="shelf.html#gas">Epic docs — Gameplay Ability System</a> — the vocabulary to hold before the community lore layers detail on top.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>How do the five GAS ideas fit into one story, with Gerald as the worked example? → <a href="concept-gas.html">concept-gas.html</a></li>
+    <li>Why does Yeet get networked prediction for free? → <a href="doctrine-physics.html#cmc">doctrine-physics.html#cmc</a></li>
+    <li>Who is Gerald, canonically? → <a href="fun-engines.html#bestiary">fun-engines.html#bestiary</a></li>
+    <li>Minute 91 on an initialization bug? → <a href="stuck.html">stuck.html</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+    <li>What do these abilities get used on next week? → <a href="week-03.html">week-03.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

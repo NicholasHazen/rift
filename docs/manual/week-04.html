@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 04 · The heart: ire and the director — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Core loop</div>
+  <h1>The heart: ire and the director</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 04</span><span>Phase: Core loop</span><span>Budget: 5 sessions</span><span>Fun engine unlock: Director's Remote</span><span>resolution: full</span><span data-state="valve"></span>
+</div>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — The party idled for three minutes and drew two geese. The party gorged for three minutes and drew nineteen. The rift itemized the difference.</blockquote>
+
+<p>You take your hands off the keyboard for three minutes, and the rift sends two bored geese. Then you harvest like the vein closes at midnight, and the pool fattens on every tick while the meter walks its stages. By the time the words read <code>The rift is FURIOUS.</code> the ridge is a honking wedge three waves deep — and every goose in it is a bill you ran up yourself. Clip #005 is rolling.</p>
+
+<p class="lede">By Friday you will have a rift that answers greed with violence — three greedy minutes buy visibly bigger waves than three idle ones, retuned from a text file with no recompile. And you will understand the machine that does it: a wallet, a spender, and a meter that speaks.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">Demonstrable causality: greed for three minutes produces visibly bigger waves than idling — in PIE with the dedicated-server checkbox, under the net emulation that has been on permanently since week 3. Retuned from JSON with no recompile. The Remote works. <b>Record this clip carefully — it's the first artifact of the actual game.</b></p></div>
+
+<p>This is the week the manual exists for. Everything so far was parts — a node that breaks, a ledger that settles, a horde that walks; this week is <em>the idea</em>: the greed dial becomes code. It lands deliberately early, partly because every later system tunes against it, and mostly because from Friday onward you're not doing engine exercises anymore — you're building your game. That distinction is fuel, and you need the tank full for the eight weeks that remain.</p>
+
+<p>One prerequisite listen, same as week 1's: before S1, hear <a href="concept-ire.html">the dungeon-master-with-a-wallet page</a> through once, start to finish — it holds the economy, its Unreal shapes, the spawn table, the cap, and the lineage, and this week is its lab.</p>
+
+<p>The trap this week: building Valve's director instead of yours. You'll know you're in it when the spend loop grows a pacing state machine before the causality demo has run once. The move: ship the deliberately dumb loop, run the ritual, and let the JSON do the escalating — the deck on the shelf is for stealing the skeleton, not the org chart. Tune, don't add.</p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Five sessions: a wallet, a schema, a spender, a voice, and the controls. Each carries its done-when, per the week-0 convention; done-marks land as sessions close.</p>
+
+<h3 id="s1">S1 — The pool</h3>
+<p><strong>[NICK — by hand]</strong> Hand-write <code>UIreSubsystem</code> — rule 4, and this week carries the last firsts for a while: the subsystem here, the codebase's first DataAsset in S2. Give it accrual functions for the three mint families — harvest ticks, kills, structure-minutes — called via a small event bus or direct calls; direct is fine at this size. The pool itself stays server-side, and the current value mirrors onto GameState as an ordinary replicated property whose one-line authority read writes itself: the server mints and writes, clients only read. Why GameState and not PlayerState? → <a href="concept-ire.html#shapes">concept-ire.html#shapes</a>. <em>Done when:</em> you set ire-per-kill to a number you'll recognize, put Gerald down, and the mirror jumps by exactly that much on both clients.</p>
+
+<h3 id="s2">S2 — The knobs</h3>
+<p><strong>[NICK — by hand]</strong> <code>URiftTuningDataAsset</code> and the import path — the project's first DataAsset, so the class is yours. The mechanism is a split that decides what stays cheap forever: scalars and curves — ire per harvest tick, per kill, per structure-minute, the wave budget curves — ride runtime JSON, reloaded live by <code>ire.ReloadTuning</code>, the first Remote command, arriving three sessions before the Remote. Anything that names an asset — spawn-table rows pointing at NPC classes — rides DataTables and accepts the cook. That split is what makes S5's retune-without-recompiling true tonight and still true on the packaged VPS from week 7 on. Why two pipelines instead of one? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a></p>
+<p><strong>[FLEET]</strong> The first tuning file, fleet-authored the day the schema stands; you review it like it's an EMURJ metafield spec, because it basically is. <em>Done when:</em> you edit a rate in the JSON, run <code>ire.ReloadTuning</code>, and the next mint uses the new number — no recompile, no cook.</p>
+
+<h3 id="s3">S3 — The spender</h3>
+<p><strong>[NICK]</strong> <code>DirectorComponent</code>: every N seconds, convert the accumulated pool into a wave budget and buy goons from the spawn table until it's spent. The loop is deliberately dumb and stays that way — escalation comes from the tuning curves, not from cleverness in the C++. Week 3's <code>WaveSpawner</code> was the tap; the director takes over the faucet, and the plumbing underneath doesn't change. What are the rows it shops — costs, weights, tiers? → <a href="concept-ire.html#spawn-tables">concept-ire.html#spawn-tables</a>. <em>Done when:</em> waves arrive sized by the pool instead of by a constant — a fat pool buys a visibly bigger wave, in PIE + dedicated.</p>
+<p><strong>[FLEET]</strong> Spawn-table rows in S2's schema — the goon plus week 3's second variant, costed and weighted, so the director has something to choose between.</p>
+
+<h3 id="s4">S4 — The voice</h3>
+<p><strong>[NICK]</strong> Debug ire meter plus the escalating flavor stages, wired through the JuiceKit — stage transitions get a sound. The stage strings live in the payload box below and ship exactly as written; the meter reads the GameState mirror, never the subsystem. <em>Done when:</em> crossing a stage threshold changes the text on every client and fires its stinger.</p>
+<p><strong>[FLEET]</strong> Stinger wiring through the established <a href="fun-engines.html#juicekit">JuiceKit hooks</a>, and the stage thresholds into the tuning file — boundaries are scalars, so they hot-reload like everything else.</p>
+
+<h3 id="s5">S5 — The Remote</h3>
+<p><strong>[NICK]</strong> Assemble the god panel: console commands first — <code>ire.Give 500</code>, <code>ire.ForceWave</code>, <code>ire.SpawnElite</code>, <code>KillAllGeese</code> — debug UMG only if it fits inside the evening. Then the ritual demo, which is the gate: idle three minutes, note the waves; harvest greedily three minutes, note the waves. If the difference isn't <em>visceral</em>, tune the JSON until it is — without recompiling, which is the whole point. <em>Done when:</em> the causality is undeniable on camera and Clip #005 is posted.</p>
+<p><strong>[FLEET]</strong> Command implementations drafted from the <code>ire.ReloadTuning</code> pattern, each logged onto <a href="fun-engines.html#remote">the accumulating command list</a> the day it's born.</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — the Director's Remote</h5><p style="margin:0"><b>Builder:</b> a god panel — debug UMG or console commands: <code>ire.Give 500</code>, <code>ire.ForceWave</code>, <code>ire.SpawnElite</code>, <code>KillAllGeese</code>. It's test tooling that happens to be the most fun object in the project — you get to play DM over your own world, and in week 11 you'll do it <em>live on your friends</em>, the single most memorable playtest trick a solo dev has. Fun engine #2; its command list accumulates in exactly one place → <a href="fun-engines.html#remote">fun-engines.html#remote</a>. <b>Player:</b> the ire meter speaks. Escalating flavor stages instead of just a number: <code>The rift stirs.</code> → <code>The rift notices you.</code> → <code>The rift is FURIOUS.</code> Cheap text, real dread — and it quietly opens a design door, because mystery is one of your load-bearing beliefs; whether the stages ever give way to exact numbers is <a href="register.html#oq-05">OQ-05</a>'s to answer.</p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+<p>Five ideas, all orientation, one link each — the system's teaching home is <a href="concept-ire.html">concept-ire.html</a>.</p>
+
+<p><strong>The wallet.</strong> Ire is currency players mint by being greedy — every harvest tick, every kill, every structure standing — and the director spends that currency on violence: difficulty stops being a setting and becomes a consequence. Minting runs on <span class="ember">the players' clock</span>; the answer arrives on <span class="storm">the world's</span>. How does greed become geese, box by box? → <a href="concept-ire.html#economy">concept-ire.html#economy</a></p>
+
+<p><strong>The shared pool.</strong> Ire pools expedition-wide — one number for the whole table, standing law with a date on it. Why is a shared pool a feature instead of a griefing vector? → <a href="register.html#d-ire-pool">register.html#d-ire-pool</a></p>
+
+<p><strong>The shapes.</strong> <code>UIreSubsystem</code> is a World Subsystem — an engine-managed, world-scoped singleton, server-only — with the pool's value mirrored onto GameState for clients; <code>DirectorComponent</code> is the spender beside it. Which shape owns which job, and what may a client never read directly? → <a href="concept-ire.html#shapes">concept-ire.html#shapes</a></p>
+
+<p><strong>Tuning as text.</strong> Every tuning value this week — rates, curves, costs, weights, the wake interval — lives in text, never in a constant: rule 6 at full power, and from this week forward your agents author game balance as files. Your proc-gen belief just grew hands. By what path does a text edit become live tuning, in PIE and on a packaged server? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a></p>
+
+<p><strong>The lineage.</strong> The spend loop has ancestors — Left 4 Dead's director, Deep Rock's swarm pacing, Risk of Rain's time-scaling — and one deliberate difference: theirs mint their own budgets from time and intensity, yours is minted by the players. Steal the pacing skeleton; keep the twist. When does the canonical director relent, and which knobs did Valve expose? → <a href="concept-ire.html#lineage">concept-ire.html#lineage</a></p>
+
+<div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
+  <li>The server's pool is fat and every HUD reads zero → the client is asking the server-only subsystem; read the GameState mirror. → <a href="concept-ire.html#shapes">concept-ire.html#shapes</a></li>
+  <li>Greedy play and idle play produce the same waves → check the JSON before the C++: mint events not landing, or tier thresholds wrong. → <a href="concept-ire.html#economy">concept-ire.html#economy</a></li>
+  <li>A tuning edit works in PIE and a packaged server ignores it → check which pipeline the value rides: runtime JSON ships as a file, DataTables ship in the cook. → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a></li>
+</ul></div>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-04">OQ-04 — does ire decay when the expedition lays low, or only ratchet up?</a> · default: slow decay; verdict after the week-9 test nights</li>
+  <li><a href="register.html#oq-05">OQ-05 — ire display: vague stages or exact numbers?</a> · default: stages in-world, exact in the Chronicle</li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"How does the canonical director decide when to spawn and when to relent — which build-up / peak / relax knobs did Valve expose?" → <a href="shelf.html#ai">the Left 4 Dead director deck</a> — read before S3's spend loop; the pacing skeleton is proven, the mint is yours.</li>
+  <li>"What is the official path for driving gameplay from external text — rule 6's mechanical how?" → <a href="shelf.html#tools">Epic's data-driven gameplay docs</a> — open beside S2's import path.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>How does greed become geese — the economy, the shapes, the spawn table, the cap, the lineage? → <a href="concept-ire.html">concept-ire.html</a></li>
+    <li>By what path does a JSON edit become live tuning on a packaged server? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a></li>
+    <li>Where does every Remote command accumulate? → <a href="fun-engines.html#remote">fun-engines.html#remote</a></li>
+    <li>Where do the two clocks converge on one decision? → <a href="the-slice.html#two-clocks">the-slice.html#two-clocks</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+    <li>What does the expedition build for the director to besiege? → <a href="week-05.html">week-05.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

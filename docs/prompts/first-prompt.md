@@ -1,7 +1,7 @@
 # First prompt — paste this as your opening message in Claude Code
 # (Run from the repo root. Delete this file after use, or move it to docs/prompts/.)
 
-Read CLAUDE.md and docs/field-manual.html in full before doing anything else. Confirm you've read both by telling me the current week's gate and the three hard rules most relevant to today.
+Read CLAUDE.md and docs/manual/ (the wiki; formerly docs/field-manual.html) in full before doing anything else. Confirm you've read both by telling me the current week's gate and the three hard rules most relevant to today.
 
 Then execute Week 0 bootstrap, session 1 — scoped strictly to what you can do before the UE project exists:
 

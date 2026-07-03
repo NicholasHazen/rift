@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- ===========================================================================
+  _meta/template.html — the canonical page skeleton. COPY this file into
+  docs/manual/ to start any new page; do not link to it. Paths (manual.css,
+  state.js, index.html) assume the page lives flat in docs/manual/.
+
+  Before authoring, read _meta/style-guide.md in full — it is the contract.
+  Delete every slot this page doesn't need; a slot is an option, not a quota.
+  Device budgets per page: ≤1 .sys window, ≤1 .predict, ≤1 neurochemistry
+  reference. Nothing collapsed by default: no <details> without `open`.
+============================================================================ -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Title pattern: "Page Title — The Rift" -->
+<title>Page Title — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<!-- state.js: the save file — fills the [data-state] slots; pages stay fully
+     readable without it (style-guide.md: the strip is enhancement, the prose
+     is truth). -->
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<!-- Masthead: identical on every page (style-guide.md §HTML conventions).
+     The empty save-strip span is invisible until state.js fills it. -->
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<!-- Page header: mono eyebrow (section · kind of page) over the display h1. -->
+<header style="padding-top:56px">
+  <div class="eyebrow">Section · Kind of page</div>
+  <h1>Page Title</h1>
+  <!-- Concept pages open with one "when to (re)read this" line here
+       (style-guide.md §Pedagogy — the problem-first rule). -->
+  <p class="lede">One-paragraph lede: what this page is for, in the mentor's voice.</p>
+</header>
+
+<!-- ========================= WEEK-PAGE SLOTS ================================
+     Fixed slot order for week pages (style-guide.md §Week-page skeleton).
+     Non-week pages: delete this whole block down to CONTENT. -->
+
+<!-- wk-meta strip: week · phase · budget · resolution: full|sketch · valve.
+     Weeks 7–12 add the standing sharpens-when line after this strip. -->
+<div class="wk-meta">
+  <span class="num">Week N</span><span>Phase name</span><span>Budget: n sessions</span><span>resolution: full</span><span data-state="valve"></span>
+</div>
+
+<!-- Chronicle epigraph: 1–2 lines, deadpan campaign journal, attributed
+     "— Chronicle fragment, run [unlogged]". Infrastructure weeks (0, 7, 8)
+     keep dry openers instead — the dryness is the joke. -->
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — Epigraph text.</blockquote>
+
+<!-- Two-sentence hook: "By Friday you will have X running and understand Y." -->
+<p class="lede">The hook.</p>
+
+<!-- Gate one-liner: moss box; full definition-of-done lives ONLY here, the
+     index tracker carries glyph + link. Name the test topology explicitly. -->
+<div class="box dod"><h5>▣ Gate</h5><p style="margin:0">Definition of done, with test topology (PIE+dedicated / listen / VPS).</p></div>
+
+<!-- Expanded session list: visible h3-headed prose (no <details>), done-marks,
+     ▶ you-are-here on the current session, per-session done-when, and the
+     [NICK — by hand] vs [FLEET] split (rule 4: first-of-pattern is Nick's). -->
+<h2 id="sessions">The sessions</h2>
+<h3>✓ S1 — Done session title</h3>
+<p>What happened, one honest paragraph.</p>
+<h3>▶ S2 — Current session title</h3>
+<p>[NICK — by hand] The work. Done when: the observable check.</p>
+<p>[FLEET] The parallel agent work.</p>
+
+<!-- Fun payload: ember box, one thing for the player + one for the builder.
+     Payloads roll forward via fun-engines.html#fun-debt — never silently die. -->
+<div class="box fun"><h5>⚑ Fun payload</h5><p style="margin:0">Player: X. Builder: Y.</p></div>
+
+<!-- Teaching layer: ≤3 orienting sentences per idea + a question-shaped link
+     to the canonical home (style-guide.md §Say once, link everywhere). -->
+<h2 id="concepts">What this week teaches</h2>
+<p>Orientation sentences. Why can't the client just decrement health? → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a></p>
+
+<!-- Optional .predict callout: one spoken-sentence question, answer in the
+     NEXT visible paragraph. ≤1 per page, ~6 wiki-wide — check the budget. -->
+<div class="predict" data-tag="[ PREDICT ]">The one-sentence question.</div>
+<p>The answer, in full view, immediately after.</p>
+
+<!-- Optional .sys window: fires on a STATE CHANGE, never as decoration.
+     ≤1 per page (index excepted). Diegetic mono text only. -->
+<div class="sys" data-tag="[ SYSTEM MESSAGE ]">Diegetic game-system text.</div>
+
+<!-- Gotcha seeds: one-liners linking canonical homes; earned fixes go to
+     UE-GOTCHAS.md at gate pass (T3 step 7). -->
+<div class="box gotcha"><h5>Gotcha seeds</h5><ul>
+  <li>One-line symptom → <a href="concept-netcode.html#ownership">where it's explained</a></li>
+</ul></div>
+
+<!-- Open questions: link boxes only — the question TEXT lives in
+     register.html under its OQ-id. Resolution is transaction T2. -->
+<div class="box oq"><h5>Open questions</h5><ul>
+  <li><a href="register.html#oq-00">OQ-00 — the question, one line</a> · due week N</li>
+</ul></div>
+
+<!-- Shelf pulls: ≤3, linking shelf.html anchors, each phrased as the question
+     it answers (style-guide.md §Resource rules). -->
+<h4>Shelf pulls</h4>
+<ul>
+  <li>"The question this resource answers?" → <a href="shelf.html#anchor">Resource name</a></li>
+</ul>
+
+<!-- ========================= END WEEK-PAGE SLOTS =========================== -->
+
+<!-- CONTENT (non-week pages): narrative paragraphs first; prose before card;
+     bullets only for true enumerations; every figure ships a prose twin. -->
+
+<!-- See-also block: bottom of every page, above the back-to-board link.
+     Question-shaped links only, ≥2 targets. -->
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Question the target answers? → <a href="concept-netcode.html#authority">concept-netcode.html#authority</a></li>
+    <li>Another question? → <a href="register.html">register.html</a></li>
+  </ul>
+</aside>
+
+<!-- Back-to-board footer: every page ends here. -->
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Register — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Reference · Decisions &amp; open questions</div>
+  <h1>The register</h1>
+  <p class="lede">One page, two sections, one lifecycle. Standing law sits above: flat statements with dates. Live questions sit below: stable OQ-ids the whole wiki links against. When reality answers a question, the answer moves up the page and the question disappears.</p>
+</header>
+
+<h2 id="lifecycle">How this page works</h2>
+<p>A decision here reads as law — one statement, one date, no argument attached. A question here is anything genuinely undecided, each carrying an OQ-id that never changes and never gets reused; the id is the grep handle every other page links through. Week pages carry compact OQ-id link boxes only — one line and a pointer into this page. The question text lives here and nowhere else, because a second copy is how a plan grows scar tissue.</p>
+<p>Resolving a question is a transaction. Run it exactly, every time:</p>
+<ol>
+  <li>Rewrite the question as a present-tense, dated decision and move it up into the Decisions section.</li>
+  <li>Delete the question in place — no resolved tags, no strikethroughs, no residue.</li>
+  <li>Fold the decided design into the owning page's prose as a plain statement.</li>
+  <li>Grep the OQ-id across every page and update each link box that carried it.</li>
+  <li>Append one row to <a href="changelog.html">changelog.html</a>.</li>
+</ol>
+<p>Two standing rules ride along. A proposed change to the plan enters this page as a question, not as an edit — even when it arrives certain it's a correction. And a question with a decide-by week gets a <code>decisionsDue</code> entry in <code>state.js</code>, which is how it surfaces in the index's save-file window — rendered from the save file, never retyped into prose. Provenance is a date, not a story.</p>
+
+<h2 id="decisions">Standing decisions</h2>
+<p>The law, one statement per line, each with its date. Nothing here is defended — if a line surprises you, follow the links after the list to where the idea is taught.</p>
+<ul>
+  <li id="d-codename"><b class="ember">OneMoreRock.</b> The codename — the exit decision in three words. It names the <code>.uproject</code> and the primary C++ module; it does not pre-commit the Bit. — Jul 2026</li>
+  <li id="d-expedition-size"><b class="ember">Twenty-four players, ceiling thirty-two.</b> 24 is the design target per rift; 32 is the engineered ceiling; <code>MaxExpeditionSize</code> is config from the first commit, never a constant. — Jul 2026</li>
+  <li id="d-carry"><b class="ember">Carry is per-player and physical.</b> The who-hauls-the-rares negotiation happens in the world, with your hands full. — Jul 2026</li>
+  <li id="d-stakes"><b class="ember">Haul-at-risk, gear-safe.</b> The haul banks only when it physically crosses the portal threshold; die and you drop what you carry. Gear stays with you — tension, not gear-fear. — Jul 2026</li>
+  <li id="d-ire-pool"><b class="ember">Ire pools expedition-wide.</b> “WHO built a fourth extractor?” is a feature. — Jul 2026</li>
+  <li id="d-walls"><b class="ember">Walls block and are gnawable.</b> Mazes will be degenerate; playtesters get to find and enjoy that before it gets fixed. — Jul 2026</li>
+  <li id="d-storm-shape"><b class="ember">The storm is a shrinking safe radius.</b> The legible shape; roaming hazard cells stay parked as a Stage-2 rift-modifier idea. — Jul 2026</li>
+  <li id="d-melee-only"><b class="ember">The horde is melee-only until week 9.</b> Ranged pressure reshapes camp design, so it arrives with the elites, not before. — Jul 2026</li>
+  <li id="d-physics-budget"><b class="ember">The physics budget is Tier 2.</b> Capsule collision, CMC impulses, replicated attachment, kinematic hazards — plus exactly one sanctioned Tier-3 spike in week 5, hard-timeboxed. — Jul 2026</li>
+  <li id="d-cpp-systems"><b class="ember">C++ for systems, Blueprints for wiring.</b> State, logic, and replication live in C++; tuning and content ship as JSON into DataAssets. — Jul 2026</li>
+  <li id="d-graybox"><b class="ember">Gray-box until week 10.</b> No art tasks, no asset-store browsing before then; charm comes from the Fun Mandate, not meshes. — Jul 2026</li>
+  <li id="d-tailscale"><b class="ember">Friend tests run over Tailscale.</b> Everyone joins the tailnet and connects direct; NAT and matchmaking are deferred to the week they matter. — Jul 2026</li>
+  <li id="d-manual-home"><b class="ember">The manual lives at <code>docs/manual/</code>.</b> Flat filenames, one page per concern; this register is the single home for standing law and open questions. — Jul 2026</li>
+</ul>
+<p>Flat is deliberate. Where do 24 and 32 come from? → <a href="the-slice.html#three-numbers">the-slice.html#three-numbers</a>. What exactly does Tier 2 permit and forbid? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a>. Why do systems live in C++ while Blueprints only wire? → <a href="doctrine-os.html">doctrine-os.html</a>. The register states; the owning pages argue.</p>
+
+<h2 id="questions">The open questions</h2>
+<p>Every entry below answers the same five things: the question, the context that makes it real, the default where the manual already leans, the trigger that decides it, and where it surfaces in the plan. Four groups — dated questions the quest log watches, experiments with named defaults, infrastructure waiting for its week, and the deliberately parked. Most of these are supposed to sit untouched until their trigger fires; this is a registry, not a backlog.</p>
+
+<h3>On the clock</h3>
+<p>The questions here carry dates and feed the index's quest log. They're the only entries allowed to nag, because each one blocks something concrete if it slips.</p>
+<div class="box oq"><h5>? Dated — the quest log watches these</h5><ul>
+  <li id="oq-02"><b>OQ-02 · The IDE.</b> Rider, or Xcode with clangd? The dev machine is a Mac, so Visual Studio is not on the ballot. Cheap to choose, expensive to churn. <b>Decide by:</b> week 0, session 1. <b>Surfaces on:</b> <a href="week-00.html">week 0</a>.</li>
+  <li id="oq-03"><b>OQ-03 · The build host.</b> Week 7 ships a Linux dedicated server and Windows clients, and this Mac can build neither — wrong OS, wrong architecture, and the launcher engine lacks the server target besides. So where do shipping builds happen: a home-lab x86 box, a cloud builder, or a Windows machine? Why can't the Mac do it? → <a href="concept-shipping.html#build-host">concept-shipping.html#build-host</a>. This one takes your sign-off, not a fleet default. <b>Decide by:</b> week 1, so week 7 is a deploy week instead of a discovery week. <b>Surfaces on:</b> <a href="week-00.html">week 0</a> · <a href="week-06.html">week 6</a> · <a href="week-07.html">week 7</a>.</li>
+  <li id="oq-01"><b>OQ-01 · The Bit, and its retirement plan.</b> The horde needs a committed placeholder identity — geese, garden gnomes, crabs, rubber ducks, or whatever the kids are currently obsessed with. Front-runner: geese — a honk is free, a doppler honk while charging is comedy, and it suits a Pacific Northwest studio. The retirement lean: when real creature design arrives, the generators and the Chronicle voice carry over, and one goose stays as a legacy elite; players will riot otherwise. The bit is disposable; the charm systems aren't. <b>Decide by:</b> Friday of week 3. <b>Surfaces on:</b> <a href="week-03.html">week 3</a> · <a href="fun-engines.html#bestiary">the bestiary</a>.</li>
+  <li id="oq-06"><b>OQ-06 · The chunk budget.</b> Loose bodies must be bounded: how many live chunks per rift, and what happens past the cap — auto-despawn into the nearest crate after N minutes at rest, or merged stacks? What contract is the budget protecting? → <a href="doctrine-physics.html#chunk-contract">doctrine-physics.html#chunk-contract</a>. <b>Decide by:</b> before week 8's scale pass, not during it. <b>Surfaces on:</b> <a href="week-01.html">week 1</a> · <a href="week-08.html">week 8</a>.</li>
+</ul></div>
+
+<h3>Experiments</h3>
+<p>The questions here mostly have a named default already living in the design. The default ships; the playtests deliver the verdict. Change these on evidence, not on mood.</p>
+<div class="box oq"><h5>? Defaults awaiting verdicts</h5><ul>
+  <li id="oq-04"><b>OQ-04 · Ire decay.</b> Does ire decay when the expedition lays low, or only ratchet up? Decay means stealth-and-recovery play exists; ratchet means commitment. <b>Default:</b> slow decay — it makes the dial feel more like a dial. <b>Verdict:</b> after the week-9 test nights. <b>Surfaces on:</b> <a href="week-04.html">week 4</a> · <a href="week-09.html">week 9</a> · <a href="concept-ire.html#economy">the ire economy</a>.</li>
+  <li id="oq-05"><b>OQ-05 · Ire display.</b> Vague stages preserve mystery; exact numbers feed optimizers. <b>Default:</b> stages in-world, exact numbers in the Chronicle — mystery holds the screen, and the optimizers get their ledger at debrief. <b>Verdict:</b> the week-10 legibility exam and the fun test. <b>Surfaces on:</b> <a href="week-04.html">week 4</a> · <a href="week-10.html">week 10</a>.</li>
+  <li id="oq-07"><b>OQ-07 · Resource names.</b> Placeholder taxonomy, or is the Bit allowed to infect the resources too? (+3 Goose Down is objectively funnier.) <b>Default:</b> placeholders until the Bit commits. <b>Verdict:</b> with <a href="#oq-01">OQ-01</a>, once the Bit is chosen. <b>Surfaces on:</b> <a href="week-01.html">week 1</a> · <a href="week-03.html">week 3</a>.</li>
+  <li id="oq-08"><b>OQ-08 · Stamina in the slice.</b> A real pressure, or Health-only until stamina earns its place? Week 2 touches stamina cost once so the machinery gets learned; whether any slice verb deserves a stamina gate is the open part. <b>Verdict:</b> combat feel, once real fights exist — it must not gate week 2. <b>Surfaces on:</b> <a href="week-02.html">week 2</a> · <a href="concept-gas.html#ledger">the ledger</a>.</li>
+  <li id="oq-09"><b>OQ-09 · Session length.</b> The slice needs one good default, not a menu. <b>Default:</b> 45–75 minutes — a weeknight unit. Sprint, standard, and persistent rift classes are a Stage 2/3 axis. <b>Verdict:</b> the first full-session nights. <b>Surfaces on:</b> <a href="week-06.html">week 6</a> · <a href="week-11-12.html">weeks 11–12</a>.</li>
+  <li id="oq-10"><b>OQ-10 · Does the storm damage structures?</b> Terrifying and thematic; possibly miserable. <b>Verdict:</b> test it once with the Remote and decide by feel. <b>Surfaces on:</b> <a href="week-09.html">week 9</a>.</li>
+  <li id="oq-11"><b>OQ-11 · Chronicle tone.</b> Deadpan LitRPG narrator, or unhinged goose-war correspondent? <b>Verdict:</b> prototype both template sets; keep whichever gets screenshotted. <b>Surfaces on:</b> <a href="week-06.html">week 6</a> · <a href="fun-engines.html#chronicle">the Chronicle voice bible</a>.</li>
+</ul></div>
+
+<h3>Infrastructure</h3>
+<p>The questions here wait for their week because the deciding evidence doesn't exist yet. Answering them early would be guessing with extra confidence.</p>
+<div class="box oq"><h5>? Decided in the week that needs them</h5><ul>
+  <li id="oq-12"><b>OQ-12 · VPS vendor and spec.</b> Start at 4–8 vCPU and measure before buying bigger; the home-lab x86 box may be the staging server. <b>Decide:</b> week 7, when the first server artifact needs a home. <b>Surfaces on:</b> <a href="week-07.html">week 7</a> · <a href="concept-shipping.html">concept-shipping</a>.</li>
+  <li id="oq-13"><b>OQ-13 · Artifact storage.</b> Object storage now, or scp-and-pray until it hurts? <b>Decide:</b> week 7, when artifacts exist. <b>Surfaces on:</b> <a href="week-07.html">week 7</a> · <a href="concept-shipping.html#pipeline">the pipeline</a>.</li>
+  <li id="oq-14"><b>OQ-14 · The bot-fleet home.</b> LAN boxes, spot instances, or both with the Spark conducting? <b>Decide:</b> week 8, when the fleet gets built. <b>Surfaces on:</b> <a href="week-08.html">week 8</a> · <a href="concept-perf.html">concept-perf</a>.</li>
+  <li id="oq-15"><b>OQ-15 · Playtest recruiting.</b> Which communities get invites — friends-of-friends first, then a LitRPG or gamedev Discord or two? Draft the pitch paragraph early; it doubles as the Steam-page copy rehearsal. <b>Decide:</b> by week 11's first structured test. <b>Surfaces on:</b> <a href="week-11-12.html">weeks 11–12</a>.</li>
+</ul></div>
+
+<h3>Beyond the slice</h3>
+<p>The questions here belong to the game, not to a week. Answer them when reality provides evidence — not because a quiet evening made one of them look tractable.</p>
+<div class="box oq"><h5>? Parked — evidence first</h5><ul>
+  <li id="oq-16"><b>OQ-16 · Combat identity.</b> Weighty and Souls-ish, fast and Fortnite-ish, or hybrid — and tab-target's fate. The slice runs action-lite (trace melee plus one projectile), and that is scaffolding, not the answer. <b>Decide:</b> from playtest feel, after week 12. <b>Surfaces on:</b> <a href="week-02.html">week 2</a> · <a href="week-11-12.html">weeks 11–12</a>.</li>
+  <li id="oq-17"><b>OQ-17 · The stakes ladder.</b> The slice's stance is law — <a href="#d-stakes">haul-at-risk, gear-safe</a>. The open half: the harsher rift-tier modifiers for players who want to sweat. <b>Decide:</b> before Stage-2 economy work. <b>Surfaces on:</b> <a href="week-06.html">week 6</a> · <a href="the-slice.html">the-slice</a>.</li>
+  <li id="oq-18"><b>OQ-18 · Stranger matchmaking.</b> Friends need no build permissions; strangers need plot claims, squad ownership, or contribution-gated placement. Write down what the stranger version needs while building the friend version, so Stage 2 isn't designing from scratch. <b>Decide:</b> only after two clean friend-and-Discord test cycles. <b>Surfaces on:</b> <a href="week-05.html">week 5</a> · <a href="week-11-12.html">weeks 11–12</a>.</li>
+  <li id="oq-19"><b>OQ-19 · Tier-3 ambitions.</b> Dribbled objectives, rolling siege boulders as mob weapons, physics puzzles. Parked behind the week-5 spike's verdict and the maturity of the engine's networked physics prediction. What separates the tiers? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a>. <b>Decide:</b> Stage 2, with the spike's evidence in hand. <b>Surfaces on:</b> <a href="week-05.html">week 5</a>.</li>
+  <li id="oq-20"><b>OQ-20 · LLM runtime experiments.</b> The Chronicle stays offline and season-time; the city rumor-NPC experiment waits for a city to exist. <b>Decide:</b> Stage 2 at the earliest. <b>Surfaces on:</b> <a href="fun-engines.html#chronicle">the Chronicle</a>.</li>
+  <li id="oq-21"><b>OQ-21 · The real name.</b> Codename now. The real one arrives after playtesters start describing the game in their own words — steal their language. <b>Decide:</b> after the fun test. <b>Surfaces on:</b> <a href="week-11-12.html">weeks 11–12</a>.</li>
+  <li id="oq-22"><b>OQ-22 · The slice's lighting-and-mood identity.</b> The first art question the gray-box law allows: one skybox and a fog pass is cheap and transforms everything. One evening, hard cap. <b>Decide:</b> week 10. <b>Surfaces on:</b> <a href="week-10.html">week 10</a>.</li>
+</ul></div>
+
+<p>If a parked question starts blocking a session, it isn't parked anymore: give it a date, feed it to <code>decisionsDue</code>, and let the index nag until it's law.</p>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Where does every edit, resolution, and gate row get logged? → <a href="changelog.html">changelog.html</a></li>
+    <li>Where do dated decisions surface at 9pm? → <a href="index.html">index.html</a>, whose save-file window renders them from state.js</li>
+    <li>What's the full editing contract behind the transaction above? → <a href="_meta/style-guide.md">_meta/style-guide.md</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

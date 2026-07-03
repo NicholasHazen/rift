@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The destination — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Target · The greed-dial slice</div>
+  <h1>The destination</h1>
+  <p><em>When to (re)read this:</em> any evening the week has collapsed into plumbing and the why has gone quiet — and before you describe the game to anyone who hasn't played it.</p>
+  <p class="lede">Week 12: <strong>the greed-dial slice.</strong> One rift map. Twenty-plus concurrent players — friends plus headless bots. A camp built from deployables. A visible <strong class="ember">ire</strong> meter that rises as the expedition harvests, builds, and kills, and an invisible director spending that ire on escalating violence. A two-front siege. A <strong class="storm">storm</strong> that closes in as the rift destabilizes, opening the late rare window. A portal, an exit decision, a haul that only counts if it makes it out. And a Chronicle that tells the story afterward.</p>
+</header>
+
+<h2 id="hypothesis">The hypothesis</h2>
+
+<p>The slice exists to answer one question: <strong>is the greed dial fun?</strong> Does "we set our own difficulty by how hard we push, and the world answers proportionally" produce the tension and the war stories we believe it does? Everything else in the vision — the city, seasons, rift variety, LLM lore — multiplies fun that exists. Nothing downstream can create it. Twelve weeks buys the answer.</p>
+
+<p>Hold the word <em>dial</em>; it is doing precise work. Nobody selects a difficulty from a menu. The expedition sets the world's hostility with its hands — every vein harvested, every extractor placed, every kill mints ire, and the director spends the balance on violence — so pushing harder and turning the dial up are the same physical act. Difficulty stops being a setting and becomes a consequence.</p>
+
+<h2 id="two-clocks">Two clocks, one decision</h2>
+
+<p>A dial with no deadline is a dial nobody has to answer for — harvest slowly, build carefully, never die. So the slice's emotional engine runs on two clocks, not one. <strong class="ember">Ire</strong> is the clock the expedition winds: it climbs in steps, one for every greedy act, and it answers to you. <strong class="storm">Instability</strong> is the clock the world winds: smooth, accelerating, indifferent to anything you do — the storm tightens, and the rift will close whether you're ready or not. You play the first clock. You can only race the second.</p>
+
+<p>The figure reads left to right across session time. The ember line is ire: a staircase, flat while the expedition holds back, stepping up each time somebody acts. The storm line is instability: a curve that starts shallow and accelerates all session long. Two dashed verticals mark the late game — <em>rares emerge</em>, where peak instability unlocks elite spawns and rare nodes, and <em>rift closes</em>, where the session ends with or without you. Between them runs the exit decision window, and the window is the whole design: ire steps up when players act, instability curves up on its own, and the two converge exactly where the best loot lives inside the storm — at the moment leaving is smartest. How long does the axis run? That's an open question with one good default — 45 to 75 minutes, a weeknight unit → <a href="register.html#oq-09">register.html#oq-09</a>.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 300" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The session arc</title><desc>Two rising pressure curves over session time: ire, stepped and player-driven; instability, smooth and accelerating. Rares emerge late, then an exit decision window before the rift closes.</desc>
+<line x1="70" y1="28" x2="94" y2="28" stroke="#ff8a5c" stroke-width="2"/>
+<text x="100" y="32" font-family="IBM Plex Mono" font-size="12" fill="#ff8a5c">Ire — your greed</text>
+<line x1="290" y1="28" x2="314" y2="28" stroke="#a08fe8" stroke-width="2"/>
+<text x="320" y="32" font-family="IBM Plex Mono" font-size="12" fill="#a08fe8">Instability — the world's clock</text>
+<text x="440" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#e0a83e">rares emerge</text>
+<text x="577" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#e06a6a">rift closes</text>
+<line x1="60" y1="60" x2="60" y2="248" stroke="#2e3242" stroke-width="1"/>
+<line x1="60" y1="248" x2="622" y2="248" stroke="#4a4658" stroke-width="1"/>
+<line x1="440" y1="62" x2="440" y2="248" stroke="#e0a83e" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="590" y1="62" x2="590" y2="248" stroke="#e06a6a" stroke-width="1" stroke-dasharray="4 4"/>
+<path d="M60 238 H140 V210 H220 V182 H300 V150 H380 V118 H460 V90 H585" fill="none" stroke="#ff8a5c" stroke-width="2"/>
+<path d="M60 244 C220 238 360 218 460 158 C520 120 560 88 585 60" fill="none" stroke="#a08fe8" stroke-width="2"/>
+<line x1="482" y1="264" x2="586" y2="264" stroke="#9d9aab" stroke-width="1"/>
+<text x="534" y="284" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#9d9aab">← exit decision window →</text>
+<text x="60" y="284" font-family="IBM Plex Mono" font-size="11.5" fill="#6f6c7e">session time →</text>
+</svg>
+<figcaption>Two clocks, one decision.</figcaption>
+</figure>
+
+<p>That convergence is what turns encounters into narratives. "We got greedy at the northern vein, the storm hit early, we barely made the portal" is a story the <em>system</em> wrote — mystery and drama produced by mechanics instead of authored content, which is the only way a team of one affords either. How does a harvested vein become a two-front siege — the minting, the banking, the director's spending? → <a href="concept-ire.html#economy">concept-ire.html#economy</a>. When does the second clock become code? → <a href="week-09.html">week-09.html</a>.</p>
+
+<h2 id="exit-decision">One more rock</h2>
+
+<p>The dial would stay abstract if greed were a number in a menu. It isn't. The node breaks into physical chunks; you grab them, carry them, and deliver them through a literal portal. Carrying slows you and blunts your fighting, so every chunk you pick up turns the dial with your own hands: <strong>encumbrance is the greed dial, physicalized.</strong> "One more rock?" gets played on every trip, and it's legible to anyone who has ever carried too many grocery bags in one go.</p>
+
+<p>The portal repeats the question at session scale. The haul banks only when it physically crosses the threshold — players channel out, but the loot goes through the hole the old-fashioned way: carried, hauled, chucked across the line. Die and you drop what you're carrying; your gear stays yours, because the slice builds tension, not gear-fear. What exactly is at risk, in one line of law? → <a href="register.html#d-stakes">register.html#d-stakes</a>. Heavy trips are slow and vulnerable. Light trips waste the window. There is no correct answer, only the one your party argues about on the way home.</p>
+
+<p>The carry is physical because Tier-2 physics is the fastest legible version of the mechanic — capsule collision, movement-component impulses, replicated attachment, nothing the engine hasn't already networked for you. Where does the tier line sit, and why does discrete beat continuous under latency? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a>. When does the portal become code? → <a href="week-06.html">week-06.html</a>. The codename says it in three words.</p>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-17">OQ-17 — the stakes ladder: harsher rift-tier modifiers for players who want to sweat</a> · decided before Stage-2 economy work</li>
+</ul></div>
+
+<h2 id="three-numbers">Three numbers to hold</h2>
+
+<p><strong>24</strong> is the design target for players per rift, and the number is social before it is technical. One shared basecamp with four to six squads sortieing out of it is the social condenser that makes twenty-four people feel like a living world: enough hands that the camp hums and the siege has fronts, few enough that the Chronicle can still name names.</p>
+
+<p><strong>32</strong> is the engineered ceiling — the headroom between what the design wants and what the code must survive. The discipline that keeps that gap honest: <code>MaxExpeditionSize</code> is a config value from the first commit. Never a constant. The night a test wants 28, the change is a config edit, not a rebuild.</p>
+
+<p>The third number is the one that actually breaks servers: the <strong>NPC budget</strong>. Player count gets the headlines, but 24 players plus 100 pathfinding attackers is what melts a server frame — so NPC count, not player count, is the real performance knob, and the director does all its spending under a hard entity cap. What do 24 players and 80 geese cost per frame? → <a href="concept-perf.html#cost-model">concept-perf.html#cost-model</a>. Where does the cap sit in the director's spending loop? → <a href="concept-ire.html#entity-cap">concept-ire.html#entity-cap</a>.</p>
+
+<p>These numbers have one home, and it is this page. <code>CLAUDE.md</code> carries an agent-readable mirror so the fleet quotes them correctly, re-synced whenever a gate pass changes a design number. If the mirror and this page ever disagree, this page wins.</p>
+
+<h2 id="verdict">The verdict has a date</h2>
+
+<p>The test is on the calendar, not in the someday pile: weeks 11 and 12 run two structured playtests with strangers, and between them the rule is tune, don't add. The metric that outranks every survey is who shows up to session two unprompted. What counts as passing, and what happens if the dial isn't fun yet? → <a href="week-11-12.html">week-11-12.html</a>.</p>
+
+<p>Until that Friday, every row on the mission board is one of two things: building the dial, or building the instrument that reads it. When a week stops feeling like either, come back to this page — it's the picture the plumbing serves.</p>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>How does minted ire become scheduled violence? → <a href="concept-ire.html#economy">concept-ire.html#economy</a></li>
+    <li>What does the physics budget permit, and why is the carry physical? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a></li>
+    <li>When do the two clocks get tuned against each other? → <a href="week-09.html">week-09.html</a></li>
+    <li>When does the hypothesis get its verdict? → <a href="week-11-12.html">week-11-12.html</a></li>
+    <li>Why am I doing this — what has the build already shipped? → <a href="clips.html">clips.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

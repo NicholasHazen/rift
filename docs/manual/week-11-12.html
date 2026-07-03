@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weeks 11–12 · The fun test — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Test</div>
+  <h1>The fun test</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Weeks 11–12</span><span>Phase: Test</span><span>Budget: 2 weeks — 2 test nights</span><span>Verdict due: the hypothesis</span><span>resolution: sketch</span><span data-state="valve"></span>
+</div>
+
+<p><em>This page sharpens when week 10's gate passes — do not elaborate it before then.</em></p>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — The strangers wiped rich at minute sixty-one, blamed the fourth extractor, and asked when the rift reopens. Award for Unprompted Return: pending.</blockquote>
+
+<p>Sixteen strangers drop into your rift and the voice channel is all lobby chatter. By minute forty it has gone quiet — the good kind, the kind with whispered arithmetic in it — and a squad you have never met is arguing about one more rock while the storm walks toward their camp. Your cursor rests on <code>elite.Spawn</code>. You wait for the worst possible moment, the way any good DM does. Somewhere past the portal, the Chronicle is already taking names.</p>
+
+<p class="lede">By the second Friday you will have run two structured playtests — strangers included, the build on trial as-is — and you will hold the hypothesis's verdict in writing: one honest paragraph on what's fun and what isn't. These two weeks produce signal, not features.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — Stage 1 exit</h5><p style="margin:0">Two structured playtests have run — the test topology is the VPS, strangers over the real internet. At least 60% of testers return unprompted, and you can write one honest paragraph on what's fun and what isn't. If the dial isn't fun yet, hear this clearly: <b>iterating here for another month is the plan working, not failing.</b> Stage 2 — biomes, rift modifiers, the city stub, progression — multiplies fun. It has never once created it.</p></div>
+
+<p>Twelve weeks ago the greed dial was a paragraph of theory; now it's a build, and these two weeks put it on trial: <strong class="storm">is the greed dial fun?</strong> Two structured Discord playtests deliver the answer — the first seats 8–12 humans with bots filling toward 24, the second seats 16–24 humans. Between them you <strong>tune, don't add</strong>: spawn tables, ire rates, storm timing, haul weights. New features are quarantined for the duration, because a fun test contaminated by fresh bugs answers nothing.</p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Two weeks, two test nights, and everything else orbits them. The per-session grid sharpens when week 10 closes; the shape below is already firm.</p>
+
+<h3 id="night-one">Test night one — 8–12 humans, bots toward 24</h3>
+<p>Recruited from the <a href="register.html#oq-15">OQ-15</a> communities, briefed in one paragraph, scheduled like an event. The <a href="week-08.html">week-8 bot fleet</a> fills the remaining seats toward the design target. <em>Done when:</em> the night ran end to end on the VPS, the survey came back, and your observation notes are written down while the memory is fresh.</p>
+
+<h3 id="between">Between nights — tune, don't add</h3>
+<p>Spawn tables, ire rates, storm timing, haul weights: every lever the first night exposed, and nothing that isn't a lever. <em>Done when:</em> the diff between the two nights contains tuning files and nothing else.</p>
+
+<h3 id="night-two">Test night two — 16–24 humans</h3>
+<p>The full-house night, mostly human, same protocol. The count that matters starts here: who came back from night one without being asked. <em>Done when:</em> the night ran at 16–24 humans and the return count is on paper.</p>
+
+<h3 id="verdict">The verdict</h3>
+<p>Write the <span class="ember">one honest paragraph</span> — what's fun, what isn't — in your own words, before the survey numbers get a chance to write it for you. It is the gate's second condition, and it is the sentence Stage 2 either builds on or waits for. <em>Done when:</em> the paragraph exists in the repo.</p>
+
+<h2 id="signal">Running a playtest that produces signal</h2>
+<p>Schedule it like an event with a start time — appointment gameplay is the muscle you'll flex all the way to seasonal launches, and it was first trained on the friends nights. How does an appointment-shaped test night get run? → <a href="week-06.html">week-06.html</a>. Brief players in one paragraph, maximum. During the run you observe and write, nothing else: hesitations, ignored systems, laughs, the good kind of quiet.</p>
+
+<p>After each night, a five-minute survey — four questions, no more:</p>
+<ul>
+  <li><em>Did you feel in control of the difficulty?</em> — the dial, in disguise.</li>
+  <li><em>Describe your exit decision.</em></li>
+  <li><em>What confused you?</em></li>
+  <li><em>Would you play again tomorrow?</em></li>
+</ul>
+<p>Then watch the only metric that matters: <strong>who shows up to session two unprompted.</strong></p>
+
+<p>Half the survey is already answered by the machine: the event log knows retention, session length, and wipe causes — Chronicle data is playtest telemetry wearing a costume. Decide before night one what gets measured automatically and what only a human can tell you. Where does the event schema live? → <a href="fun-engines.html#chronicle">fun-engines.html#chronicle</a></p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — Nick, live at the Remote</h5><p style="margin:0">The party trick the whole plan has been assembling: for one session per test night, <b>you DM the rift live</b> — Director's Remote in hand, spawning the elite at the worst possible moment, easing off when a squad's about to break, raining ducks when morale needs it. <b>Player:</b> an invisible, clearly-present dungeon master is an experience nobody forgets. <b>Builder:</b> it is the highest-bandwidth design research available — you will <em>feel</em> where the automated director should push and where it should yield. Close each night with the Chronicle awards ceremony read aloud: the community's first tradition, born before the game has art. Which commands are in your hand by now? → <a href="fun-engines.html#remote">fun-engines.html#remote</a></p></div>
+
+<h2 id="concepts">What these weeks teach</h2>
+<p>Nothing new — the same quarantine that protects the build protects the reading list. Three callbacks, one link each.</p>
+
+<p><strong>The question on trial.</strong> The slice exists to answer exactly one thing, and these are the nights it gets asked with strangers in the room. What is the hypothesis, word for word, and what does passing buy? → <a href="the-slice.html#hypothesis">the-slice.html#hypothesis</a></p>
+
+<p><strong>Tuning is a text edit.</strong> Every change between nights is a JSON edit — spawn tables, ire rates, storm timing, haul weights — which is what makes tune-don't-add cheap enough to obey. How does a JSON edit become live tuning? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a></p>
+
+<p><strong>One more rock, witnessed.</strong> The exit decision the testers argue about on the way to the portal is the mechanic under test, played by people who never read this manual. Where does encumbrance become the hypothesis? → <a href="the-slice.html#exit-decision">the-slice.html#exit-decision</a></p>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-15">OQ-15 — playtest recruiting: which communities get invites?</a> · decide by night one</li>
+  <li><a href="register.html#oq-09">OQ-09 — session length: is 45–75 minutes the right weeknight unit?</a> · the default ships; these nights deliver the verdict</li>
+  <li><a href="register.html#oq-21">OQ-21 — the real name</a> · after the fun test — steal the testers' language</li>
+  <li><a href="register.html#oq-16">OQ-16 — combat identity: weighty, fast, or hybrid?</a> · decide from playtest feel, after week 12</li>
+  <li><a href="register.html#oq-18">OQ-18 — stranger matchmaking</a> · only after two clean friend-and-Discord test cycles</li>
+</ul></div>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Where does "one more rock?" become the hypothesis these nights test? → <a href="the-slice.html#exit-decision">the-slice.html#exit-decision</a></li>
+    <li>What can the Remote do by test night, command by command? → <a href="fun-engines.html#remote">fun-engines.html#remote</a></li>
+    <li>Where do the Chronicle's event taxonomy and voice bible live? → <a href="fun-engines.html#chronicle">fun-engines.html#chronicle</a></li>
+    <li>How does the expedition's greed become the director's violence? → <a href="concept-ire.html#economy">concept-ire.html#economy</a></li>
+    <li>What made the build legible enough to hand to strangers? → <a href="week-10.html">week-10.html</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

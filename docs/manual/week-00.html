@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 00 · Rig the workshop — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Rig</div>
+  <h1>Rig the workshop</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 00</span><span>Phase: Rig</span><span>Budget: ½ week — hard box</span><span>resolution: full</span><span data-state="valve"></span>
+</div>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — The expedition hung tools in an empty workshop and named the mountain. Zero rocks were harvested.</blockquote>
+
+<p class="lede">By Friday you will have a UE 5.7 project running two clients against a dedicated server in PIE, a pushed repo, and an agent that builds the code from the command line — and you will know where code lives in an Unreal project because you read it yourself. None of it is the game; all of it is the workshop, which is why this week gets the tightest box in the manual.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">The character runs in PIE with 2 clients plus the dedicated-server option — the week's test topology is PIE + dedicated from the very first Play. The repo is pushed and a fresh clone opens clean in the editor. An agent builds from the CLI and correctly answers "where is player input handled in this project?" Clip #001 is posted. Setup week does not get an encore.</p></div>
+
+<p>An empty shop, and you hanging tools. The only goal is a running project, a healthy repo, and an agent that can build the code — which is exactly why the box is hard. The trap this week: perfecting the workshop instead of using it. You'll know you're in it when editor settings are open before the gate passes. The move: you get oriented by needing things.</p>
+
+<p>The project is <strong>OneMoreRock</strong> — the exit decision in three words. The codename names the <code>.uproject</code> and the primary C++ module, and it exists before the project does because renaming a UE project later is misery. <a href="register.html#d-codename">The register carries the dated decision</a>; it doesn't pre-commit <a href="register.html#oq-01">the Bit</a>, which keeps its week-3 date.</p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Week 0 runs four sessions, and the marks below are the manual's convention everywhere: <span class="ember">✓</span> is a session closed, <span class="ember">▶</span> is where you are, <strong>[NICK — by hand]</strong> is work that belongs to your hands, <strong>[FLEET]</strong> is work you delegate the moment its trigger fires. Every item carries its done-when, because "done" is an observation, not a feeling.</p>
+
+<h3 id="s1"><span class="ember">✓</span> S1 — Scaffold, audit, codename</h3>
+<p>Done. The environment audit passed — git 2.49, git-lfs 3.7, gh 2.86, all present. The repo exists with LFS hooks and a first commit, the scaffold survived a three-agent red-team, and OneMoreRock went into the register as a dated decision. One session in, zero engine installed — on plan: the engine install is a download, and downloads belong at the start of an evening, not the end of one.</p>
+
+<h3 id="s2"><span class="ember">▶</span> S2 — Engine, project, first networked run</h3>
+<p><strong>[NICK — GUI]</strong> All five items below are yours, and nothing on the fleet's list unblocks until item three lands.</p>
+<ul>
+  <li><strong>Install UE 5.7 via the Epic Games Launcher</strong> — the binary build, not source; the source build is week 7's job. <em>Done when:</em> the launcher Library shows 5.7 and the editor reaches the Project Browser.</li>
+  <li><strong>While the engine downloads, link the Epic account to GitHub</strong> and accept the EpicGames org invite. Approval latency is exactly why this happens now instead of blocking week 7. <em>Done when:</em> <code>github.com/EpicGames/UnrealEngine</code> renders instead of a 404, logged in as NickHazen.</li>
+  <li><strong>Create the project:</strong> Third Person template, C++, named <strong>OneMoreRock</strong>, into this repo root. Read the gotcha box below before opening the Project Browser — it will not create into a folder that already exists. <em>Done when:</em> <code>OneMoreRock.uproject</code> and <code>Source/</code> sit at the repo root next to <code>CLAUDE.md</code> and the editor opens the project.</li>
+  <li><strong>First PIE run, multiplayer-shaped from minute one:</strong> before the first Play, set Number of Players to 2 and enable the dedicated-server option in the PIE multiplayer settings. <em>Done when:</em> the character runs with 2 clients plus a dedicated server — the gate's first condition.</li>
+  <li><strong>Decide the IDE:</strong> Rider, or Xcode with clangd — Visual Studio is not on this Mac's ballot (<a href="register.html#oq-02">OQ-02</a>). Cheap to choose, expensive to churn; decide the first time an editor opens and don't revisit. <em>Done when:</em> the choice is recorded in <code>CLAUDE.md</code> and OQ-02 moves up the register as a dated decision.</li>
+</ul>
+<p><strong>[FLEET]</strong> The moment <code>OneMoreRock.uproject</code> exists at the repo root, hand the fleet three jobs:</p>
+<ul>
+  <li><strong>First-commit hygiene and the push:</strong> audit the generated tree against <code>.gitignore</code>, confirm <code>git lfs ls-files</code> carries every committed <code>.uasset</code> and <code>.umap</code>, extend <code>.gitattributes</code> if the template ships other large binaries, create the private remote, push. <em>Done when:</em> the repo is pushed and a fresh clone opens clean in the editor.</li>
+  <li><strong>Real build commands into <code>CLAUDE.md</code> §Build:</strong> the exact macOS UnrealBuildTool invocation (Editor target, Development config), proven by running it, with <code>scripts/build.sh</code> made real. <em>Done when:</em> the recorded commands just succeeded on this machine.</li>
+  <li><strong>The clang database:</strong> <code>UnrealBuildTool -Mode=GenerateClangDatabase</code> → <code>compile_commands.json</code> at the repo root, refresh command recorded. <em>Done when:</em> jump-to-definition on the template Character class resolves from it and the file stays out of git.</li>
+</ul>
+
+<h3 id="s3">S3 — Read the map, prove the build</h3>
+<p><strong>[NICK — by hand]</strong> Read the generated template C++ top to bottom, once. It's short, and it's your first map of where code lives — the two-worlds split with the actual files in front of you. <em>Done when:</em> you can answer "where is player input handled?" before the agent does.</p>
+<p><strong>[FLEET]</strong> Four jobs run in parallel with your reading:</p>
+<ul>
+  <li><strong>The gate proof:</strong> build from the CLI, then answer "where is player input handled in this project?" citing file and line. <em>Done when:</em> the answer names the Enhanced Input mapping plus <code>SetupPlayerInputComponent</code> and matches what you found in your own read-through.</li>
+  <li><strong>A folder-by-folder explainer of the project root</strong> — the first real test of whether the context files work. <em>Done when:</em> you read it and nothing in it contradicts what the editor shows.</li>
+  <li><strong>The ASCII splash logo,</strong> delivered ahead of S4. <em>Done when:</em> logo delivered; you wire it GUI-side.</li>
+  <li><strong>Optional — skip freely:</strong> evaluate the experimental Unreal MCP plugin or UnrealClaude as an agent–editor bridge. Editor-driving agents are a garnish, not a dependency — the tooling is a year old. <em>Done when:</em> evaluated-and-adopted, or skipped — either is a pass.</li>
+</ul>
+
+<h3 id="s4">S4 — Ceremony &amp; clip</h3>
+<p><strong>[NICK — GUI]</strong> Wire the splash so OneMoreRock renders on editor and PIE boot. Put the traffic-cone hat on the mannequin if it stays inside a ten-minute timebox, and skip it without guilt at minute eleven. <em>Done when:</em> the splash renders on boot and the hat is on or explicitly skipped — a screenshot or clip exists either way. Then record and post <strong>Friday Clip #001</strong> — the character doing literally anything. <em>Done when:</em> it's posted to the friends' Discord — the gate's last condition. Close the laptop when the gate passes.</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — the codename ceremony</h5><p style="margin:0"><b>Builder:</b> a splash screen with a terrible agent-generated ASCII logo, and the cone hat if it fits the timebox — the project should make you smirk on boot from day one. <b>Player (that's you, for now):</b> Friday Clip #001, the character doing literally anything, posted. The ritual starts before the game does.</p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+<p>Five ideas, all of them orientation — where an idea has a deeper home, its paragraph carries the one link; the other two are already the whole week-0 lesson.</p>
+
+<p><strong>The two worlds.</strong> An Unreal project splits into <code>Source/</code>, where C++ schema lives, and <code>Content/</code>, where binary assets live — the split is why Git LFS exists and why agents can author content without ever touching the schema layer. Your template read-through is the first walk through both. Where exactly does everything live, and why does the split match how you already build software? → <a href="concept-anatomy.html#two-worlds">concept-anatomy.html#two-worlds</a></p>
+
+<p><strong>The build toolchain.</strong> UnrealBuildTool drives every build; on this Mac the entry point is <code>Build.sh</code>, not the <code>Build.bat</code> most tutorials name; and Live Coding exists — knowing that much is this week's whole requirement. The exact commands land in <code>CLAUDE.md</code> §Build the day the fleet proves them, so they're never folklore.</p>
+
+<p><strong>PIE test topologies.</strong> The Number-of-Players field and the dedicated-server option are the week's entire networking lesson: from the very first Play, there is a server, and it isn't you. Which test topology tells the truth about which bugs — and when does the convenient one lie? → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a></p>
+
+<p id="enhanced-input"><strong>Enhanced Input.</strong> The Third Person template is built on Enhanced Input — mapping contexts and input actions rather than hard-wired key bindings — and week 2's ability binding routes through it. This week you only need to know it exists and recognize it in the template code you're reading.</p>
+
+<p><strong>The build host.</strong> One question this week seeds instead of answers: this Mac develops the game fine, but it cannot produce the Linux dedicated server or the Windows clients that weeks 6–7 need. Deciding where shipping builds happen is cheap now and expensive in week 7, so <a href="register.html#oq-03">OQ-03</a> carries a week-1 date — and it takes your sign-off, not a fleet default. Why can't this Mac ship week 7's artifacts? → <a href="concept-shipping.html#build-host">concept-shipping.html#build-host</a></p>
+
+<div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
+  <li>The Unreal Project Browser creates <code>&lt;Location&gt;/&lt;ProjectName&gt;/</code> and errors if that folder already exists — create at a temp location, quit, move the <em>contents</em> (<code>.uproject</code>, <code>Source/</code>, <code>Content/</code>, <code>Config/</code>) into the repo root, reopen. If it bites differently, it's the first entry in <a href="../../UE-GOTCHAS.md">UE-GOTCHAS.md</a>.</li>
+  <li><code>compile_commands.json</code> goes stale after module or header changes — re-run the generate command, or the fleet navigates last week's code.</li>
+  <li>Do not source-build the engine this week — the launcher binary is the point. Source is week 7's problem, on whatever hardware answers <a href="register.html#oq-03">OQ-03</a>.</li>
+</ul></div>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-02">OQ-02 — the IDE: Rider, or Xcode with clangd?</a> · due week 0 — decide in S2, record in <code>CLAUDE.md</code></li>
+  <li><a href="register.html#oq-03">OQ-03 — the build host: where do the Linux server and Windows clients get built?</a> · due week 1 · needs your sign-off, not a fleet default</li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"What actually happens between launching the game and my actor's BeginPlay?" → <a href="shelf.html#tools">Alex Forsythe — From int main() to BeginPlay</a> — week 0's Friday hour, right after reading the template code.</li>
+  <li>"How do UE's C++ idioms differ from what my systems instincts expect?" → <a href="shelf.html#tools">Tom Looman — Unreal Engine C++ Complete Guide</a> — skim once now; return as a lookup when the compiler surprises you.</li>
+  <li>"What is the input system the template already uses, before week 2 binds abilities to it?" → <a href="shelf.html#gas">Epic docs search: Enhanced Input</a></li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Where does code live, and where does content live? → <a href="concept-anatomy.html#two-worlds">concept-anatomy.html#two-worlds</a></li>
+    <li>Why can't this Mac ship week 7's artifacts? → <a href="concept-shipping.html#build-host">concept-shipping.html#build-host</a></li>
+    <li>What does a healthy two-hour session look like, from open to close? → <a href="doctrine-os.html#ritual">doctrine-os.html#ritual</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+    <li>What gets built the moment the workshop is rigged? → <a href="week-01.html">week-01.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

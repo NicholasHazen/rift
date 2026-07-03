@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Editor to Fleet — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Concept · Shipping &amp; infrastructure</div>
+  <h1>From editor to fleet</h1>
+  <p><em>When to (re)read this:</em> whenever — this page has the fewest prerequisites in the manual. Read it once before the build-host decision lands in week 1, and again the week before week 7 turns it into commands.</p>
+  <p class="lede">The project spends its first six weeks as an editor toy: it runs where it was written. Shipping is the act of turning it into artifacts that run somewhere else — and every stage of that trip is something you already do for a living, wearing an Unreal name. This page states the one hardware fact the plan cannot ignore, maps the pipeline into your own vocabulary, annotates the one command that runs all of it, explains why shipping a server means building the engine from source, and paints the lane markings for the machines involved.</p>
+</header>
+
+<h2 id="build-host">Where builds can physically happen</h2>
+
+<p>Start with the fact, because it gates weeks 6 and 7 and it is cheapest to handle now: <strong>this Mac cannot produce either artifact week 7 promises.</strong> Week 7 ships a Linux dedicated server and Windows clients. Epic's Linux cross-compilation toolchain runs on Windows hosts, not macOS; packaging a Win64 client requires a Windows machine outright. "Package Linux server plus Windows client," issued from this desk, is a sentence, not a command.</p>
+
+<p>None of this touches daily work. The Mac stays the development machine: the editor, PIE with the dedicated-server checkbox, every session between here and week 7 — and it can package a macOS client natively, which is one reason week 6's playtest doubles as a census of what your friends actually play on, before week 7 promises them artifacts. The gap opens only at shipping time, and only for the two platforms that matter most.</p>
+
+<p><span class="storm">So where do shipping builds happen?</span> The pragmatic path: a home-lab x86 Linux box, which builds the engine from source and the Linux server natively — and the server artifact is the one the whole plan leans on — plus a Windows machine or containerized builds for the Win64 clients. The ideal path: containerized CI on Epic's official Linux images, where a build is a job you submit instead of a machine you own; the Unreal Containers project on the shelf documents that whole practice. My recommendation: <span class="ember">the Linux box now, containers when the deploy outgrows scp</span>. The pipeline below is identical either way — only the room it runs in changes.</p>
+
+<p>This is a register question with a date, and the one entry there that takes your sign-off rather than a fleet default. What's on the ballot, and when is it due? → <a href="register.html#oq-03">register.html#oq-03</a>. Week 6 checks the friends' platforms; week 7 executes whatever you chose. Decided in week 1 it costs a conversation; discovered in week 7 it costs the week.</p>
+
+<h2 id="pipeline">The pipeline, translated</h2>
+
+<p>The pipeline is five stages, and you have run all five a thousand times under different names. <strong>Build:</strong> UnrealBuildTool compiles the Server and Client targets — the ordinary compile step. <strong>Cook:</strong> the cooker bakes every asset from <code>.uasset</code> editor format into the target platform's optimized format — asset compilation, the one stage without a common name in ordinary CI. It cooks by reference: starting from the maps the project names, it walks the reference graph and bakes what it can reach — an asset loaded only by a bare string path is invisible to that walk and quietly absent from the artifact. <strong>Stage:</strong> staging assembles binaries and cooked content into a runnable directory layout. <strong>Package:</strong> packaging packs the thousands of loose cooked files into <code>.pak</code> archives and bundles the result into something shippable. <strong>Deploy:</strong> scp and a systemd unit on a rented Linux box. A build step, an asset-compile step, an assembly, a zip, a release.</p>
+
+<p>The figure draws the line. Five stations run left to right — build, cook, stage, package, deploy — with your names for them written underneath: compile, asset compile, assemble, zip, release. Source code and content enter at the left. The finished artifacts, a Linux server and a Win64 client, exist from the package station onward; deploy carries the server artifact onto the VPS and puts it under systemd. One command drives the whole line, and it is the next section's subject.</p>
+
+<figure>
+<svg width="100%" viewBox="0 0 680 240" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The shipping pipeline</title><desc>Five stages run left to right: build, cook, stage, package, deploy. Source code and content enter at build. The packaged server and client artifacts exist from the package stage onward; deploy places the server artifact on the VPS under systemd. One command, RunUAT BuildCookRun, drives the whole line.</desc>
+<defs><marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="64" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9d9aab">Source/ + Content/</text>
+<line x1="64" y1="40" x2="64" y2="82" stroke="#9d9aab" stroke-width="1.2" marker-end="url(#arp)"/>
+<rect x="4" y="88" width="120" height="76" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="64" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ff8a5c">BUILD</text>
+<text x="64" y="131" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">UBT compiles</text>
+<text x="64" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">the game targets</text>
+<text x="64" y="184" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6f6c7e">compile</text>
+<line x1="126" y1="126" x2="137" y2="126" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arp)"/>
+<rect x="140" y="88" width="120" height="76" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="200" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ff8a5c">COOK</text>
+<text x="200" y="131" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">editor assets →</text>
+<text x="200" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">platform format</text>
+<text x="200" y="184" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6f6c7e">asset compile</text>
+<line x1="262" y1="126" x2="273" y2="126" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arp)"/>
+<rect x="276" y="88" width="120" height="76" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="336" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ff8a5c">STAGE</text>
+<text x="336" y="131" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">assemble the</text>
+<text x="336" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">runnable layout</text>
+<text x="336" y="184" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6f6c7e">assemble</text>
+<line x1="398" y1="126" x2="409" y2="126" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arp)"/>
+<rect x="412" y="88" width="120" height="76" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="472" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ff8a5c">PACKAGE</text>
+<text x="472" y="131" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">pak + archive</text>
+<text x="472" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">the artifact</text>
+<text x="472" y="184" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6f6c7e">zip</text>
+<line x1="534" y1="126" x2="545" y2="126" stroke="#ff8a5c" stroke-width="1.3" marker-end="url(#arp)"/>
+<rect x="548" y="88" width="120" height="76" rx="8" fill="#1b1e28" stroke="#2e3242"/>
+<text x="608" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" fill="#ff8a5c">DEPLOY</text>
+<text x="608" y="131" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">systemd on</text>
+<text x="608" y="146" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9d9aab">the VPS</text>
+<text x="608" y="184" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#6f6c7e">release</text>
+<text x="340" y="222" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#ff8a5c">one command runs the line: RunUAT BuildCookRun</text>
+</svg>
+<figcaption>Build, cook, stage, package, deploy — with your names for them underneath.</figcaption>
+</figure>
+
+<p>The card below compresses the stages into a row each — the prose above is the real teaching.</p>
+
+<table>
+  <tr><th>Stage</th><th>What runs</th><th>In your vocabulary</th><th>What comes out</th></tr>
+  <tr><td><b>Build</b></td><td>UnrealBuildTool compiles the Server and Client targets</td><td>the compile step</td><td>binaries per target</td></tr>
+  <tr><td><b>Cook</b></td><td>editor-format assets baked into platform format</td><td>asset compilation</td><td>cooked content</td></tr>
+  <tr><td><b>Stage</b></td><td>binaries + cooked content assembled</td><td>artifact assembly</td><td>a runnable layout</td></tr>
+  <tr><td><b>Package</b></td><td>loose cooked files packed into <code>.pak</code>, bundled</td><td>the zip</td><td>the shippable artifact</td></tr>
+  <tr><td><b>Deploy</b></td><td>scp + a systemd unit on the VPS</td><td>the release</td><td>a live server</td></tr>
+</table>
+
+<p>Now run three real changes through the line, because the line is really three routes. Route one: C++. You tighten the range check in <code>Server_Harvest</code>'s validation — a build-stage change, so UnrealBuildTool recompiles the targets and everything downstream reruns; the full line, both artifacts. Route two: an asset. The honk stinger gets a longer doppler tail — no compile at all; the cooker re-bakes one <code>.uasset</code> and the change rides the line from cook onward. Route three: a number. The ire decay rate never enters the pipeline, because scalar tuning rides runtime JSON the packaged server re-reads live — which is exactly why it lives there. Which knobs ride live JSON, and which accept the cook? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a>.</p>
+
+<p>Deploy stays deliberately dumb in Stage 1: copy the server artifact to the VPS, write a systemd unit, open the port. Vendor and spec, and where artifacts live between builds, are open questions with week-7 due dates — the link box below carries them. The VPS matters beyond convenience: it is the only test topology that never lies, the table every gate from week 7 onward is scored at. Why do PIE and listen servers fib where the dedicated server tells the truth? → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a>.</p>
+
+<h2 id="buildcookrun">One command, annotated</h2>
+
+<p>Every stage answers to one conductor: <code>RunUAT</code>, the Unreal Automation Tool, which lives in the engine's <code>Engine/Build/BatchFiles/</code> directory, and its <code>BuildCookRun</code> command. This is the canonical invocation, the one the <code>scripts/</code> wrappers encode:</p>
+
+<p><code>RunUAT.sh BuildCookRun -project=OneMoreRock.uproject -platform=Win64 -clientconfig=Development -server -serverplatform=Linux -serverconfig=Development -build -cook -stage -pak -archive -archivedirectory=Builds/</code></p>
+
+<p>Read it flag by flag. <code>-project</code> names the game. <code>-platform=Win64</code> sets the client artifact's operating system, and <code>-clientconfig=Development</code> its build configuration — Development until there is a reason to say Shipping. <code>-server -serverplatform=Linux -serverconfig=Development</code> says: also produce the dedicated server, targeting Linux, same configuration.</p>
+
+<p>Then the verbs, in pipeline order. <code>-build</code> compiles the targets with UnrealBuildTool. <code>-cook</code> bakes the content for each named platform. <code>-stage</code> assembles binaries and cooked content into a runnable layout under <code>Saved/StagedBuilds</code>. <code>-pak</code> packs the loose cooked files into <code>.pak</code> archives. <code>-archive -archivedirectory=Builds/</code> copies the finished artifacts out to a clean folder — the thing that actually ships. One caveat closes the loop: the invocation only succeeds on a host that can build what it names, which is why the build host is this page's first section.</p>
+
+<p>The command is long, which is why nobody types it. It gets wrapped: a script in <code>scripts/</code> that takes nothing and produces artifacts, owned and maintained by the fleet, run weekly from week 7 to Early Access. The contract is the whole standard: one command in, artifacts out. Ugly scripts are fine; un-automated steps are not.</p>
+
+<h2 id="why-source">Why the launcher engine can't ship a server</h2>
+
+<p>An engine fact, stated once so it never surprises you: <strong>the engine installed by the Epic launcher cannot build dedicated servers.</strong> The launcher ships precompiled engine binaries, and those binaries omit the Server target — your project can declare a <code>Server.Target.cs</code>, but compiling it means recompiling engine modules, and that requires the engine's source. So shipping a server means linking your Epic account to GitHub, cloning the engine, and building it: hours of machine time, a start-it-and-walk-away job, not a watch-it job. It runs once per engine version, on the build host — and it is most of why the build host must exist at all. The shelf's engine-source entry is the exact click path when week 7 arrives.</p>
+
+<h2 id="spark">The Spark's lane</h2>
+
+<p>The DGX Spark looks like the obvious build host — it is the beefiest machine in the house — and it is disqualified by its architecture: ARM. Unreal's desktop clients and Linux dedicated servers are x86-64 territory, and no amount of patience cross-compiles around that usefully in Stage 1. The Spark's jobs are the ones that fit the silicon: orchestration, conducting the week-8 bot fleet, and — eventually — the Chronicle-polishing LLMs (what does the Chronicle want a local model for? → <a href="fun-engines.html#chronicle">fun-engines.html#chronicle</a>). Never engine builds. Don't burn a session discovering this the hard way. The Spark conducts; it does not carry.</p>
+
+<div class="box gotcha"><h5>⚠ Symptom index</h5><ul>
+<li>Works in PIE, missing from the packaged build → the cooker bakes only what the reference walk reaches → <a href="#pipeline">the pipeline</a>.</li>
+<li>No Server target anywhere in the platform list → you are on the launcher engine; the target exists only in source builds → <a href="#why-source">the engine fact</a>.</li>
+<li>Hunting for a Linux cross-toolchain that installs on macOS → it does not exist; a build happens where the target OS lives → <a href="#build-host">the build host</a>.</li>
+<li>The pipeline needs "one more elegant touch" before it ships → sprawl gravity; timebox it. Ship ugly. The box is the feature.</li>
+<li>A build-host candidate fails at the first configure step → check the architecture before blaming the toolchain → <a href="#spark">the Spark's lane</a>.</li>
+</ul></div>
+
+<div class="box oq"><h5>? Open questions</h5><ul>
+<li><a href="register.html#oq-03">OQ-03 — the build host</a> · due week 1, and it takes your sign-off</li>
+<li><a href="register.html#oq-12">OQ-12 — VPS vendor and spec</a> · decided week 7</li>
+<li><a href="register.html#oq-13">OQ-13 — artifact storage: object storage, or scp until it hurts</a> · decided week 7</li>
+</ul></div>
+
+<h4>Shelf pulls</h4>
+<ul>
+<li>"How do I link Epic to GitHub and clone the engine — the prerequisite for any dedicated-server build, and week 7's first action?" → <a href="shelf.html#shipping">Epic's engine-source download doc</a>.</li>
+<li>"What are the exact steps to add a Server target, compile from source, and package a Linux server plus client — week 7's spine?" → <a href="shelf.html#shipping">Epic's dedicated-server setup doc</a>.</li>
+<li>"What do cook, stage, package, and archive each actually do, and what invocation should the <code>scripts/</code> wrappers encode?" → <a href="shelf.html#shipping">Epic's Build Operations doc</a>.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Where does the build-host question first surface, in the week deciding is cheap? → <a href="week-00.html">week-00.html</a></li>
+    <li>Which platforms do the friends actually play on — the census that shapes the client artifact? → <a href="week-06.html">week-06.html</a></li>
+    <li>Where does this page become five sessions of commands? → <a href="week-07.html">week-07.html</a></li>
+    <li>Why is the dedicated server the only test topology that never lies? → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a></li>
+    <li>What's on the ballot for the build host, and when is it due? → <a href="register.html#oq-03">register.html#oq-03</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,215 @@
+/* ============================================================================
+   manual.css — the ONE shared stylesheet for docs/manual/
+   Extracted from docs/field-manual.html; the aesthetic is load-bearing.
+   Extend, never restyle (style-guide.md §HTML conventions).
+
+   THE TWO-CLOCK COLOR LAW (style-guide.md, Part 1)
+   Color is meaning, not decoration — the manual is painted in the game's own
+   scheme:
+     .ember — the player-driven clock: builds, fun payloads, answers, things
+              Nick pushes.
+     .storm — the world's clock: concepts, systems, open questions the world
+              will answer.
+     .moss  — gates: the definition-of-done.
+   Before coloring anything, answer "whose clock is this?" — if you can't,
+   don't color it. No inline color styles, ever; use the utility classes below.
+   ========================================================================== */
+
+/* ---- Vendored fonts (fonts/, latin subsets, zero network requests) ------ */
+@font-face{
+  font-family:'Fraunces';
+  font-style:normal;
+  font-weight:500 600;             /* variable: opsz 9..144, wght 500–600 */
+  font-display:swap;
+  src:url(fonts/fraunces-latin-var.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Atkinson Hyperlegible';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(fonts/atkinson-latin-400.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Atkinson Hyperlegible';
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url(fonts/atkinson-latin-700.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Atkinson Hyperlegible';
+  font-style:italic;
+  font-weight:400;
+  font-display:swap;
+  src:url(fonts/atkinson-latin-400italic.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'IBM Plex Mono';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(fonts/plexmono-latin-400.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'IBM Plex Mono';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url(fonts/plexmono-latin-500.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ---- Palette & base (verbatim from the old manual) ----------------------- */
+:root{
+  --bg:#14161d; --panel:#1b1e28; --panel2:#232736; --line:#2e3242;
+  --ink:#e9e5d9; --muted:#9d9aab; --faint:#6f6c7e;
+  --ember:#ff8a5c; --ember-deep:#b45034; --ember-dim:#3a2620;
+  --storm:#a08fe8; --storm-dim:#262238;
+  --moss:#9dc088; --moss-dim:#20291f;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --disp:'Fraunces','Iowan Old Style',Georgia,serif;
+  --body:'Atkinson Hyperlegible','Avenir Next',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.75}
+.wrap{max-width:840px;margin:0 auto;padding:0 24px 120px}
+a{color:var(--ember);text-decoration:none;border-bottom:1px solid var(--ember-deep)}
+a:hover{color:#ffb08d}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--storm);outline-offset:3px;border-radius:2px}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(38px,6vw,58px);line-height:1.08;margin:.2em 0 .3em;letter-spacing:-.01em}
+h2{font-family:var(--disp);font-weight:600;font-size:30px;line-height:1.2;margin:2.6em 0 .5em}
+h3{font-family:var(--disp);font-weight:500;font-size:21px;margin:2em 0 .4em}
+h4{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:1.8em 0 .5em}
+p{margin:.9em 0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ember)}
+.lede{font-size:20px;color:#cfcbdd;line-height:1.7}
+code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2px 6px;border-radius:4px;color:#d7d2e8}
+hr{border:0;border-top:1px solid var(--line);margin:64px 0}
+strong{color:#fff}
+blockquote.note{margin:1.6em 0;padding:2px 20px;border-left:2px solid var(--storm);color:#c9c4dc;font-style:italic}
+blockquote.note em{color:var(--storm);font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase}
+/* LitRPG system windows — the signature device.
+   .sys stays GENERIC: the tag comes from data-tag, so one class serves all
+   five sanctioned windows — [ SYSTEM MESSAGE ], [ SAVE FILE ],
+   [ FUN PAYLOAD — CONTRACT ], [ GATE CLEARED ], the send-off
+   (style-guide.md §System windows). [ PREDICT ] is NOT a .sys window —
+   it has its own class, .predict, below. */
+.sys{font-family:var(--mono);font-size:14.5px;line-height:1.7;background:linear-gradient(var(--panel),var(--panel));border:1px solid var(--ember-deep);border-radius:6px;padding:18px 22px;margin:1.6em 0;color:#f3ded2;position:relative}
+.sys::before{content:attr(data-tag);display:block;color:var(--ember);letter-spacing:.18em;font-size:11.5px;margin-bottom:8px}
+.sys ul{margin:6px 0 0;padding-left:18px}
+.sys li{margin:4px 0}
+/* Boxes */
+.box{border:1px solid var(--line);border-radius:8px;padding:18px 22px;margin:1.4em 0;background:var(--panel)}
+.fun{border-color:var(--ember-deep);background:linear-gradient(var(--ember-dim),var(--panel))}
+.fun h5{color:var(--ember)}
+.oq{border-color:#4a4370;background:linear-gradient(var(--storm-dim),var(--panel))}
+.oq h5{color:var(--storm)}
+.dod{border-color:#44573f;background:linear-gradient(var(--moss-dim),var(--panel))}
+.dod h5{color:var(--moss)}
+.gotcha{border-color:var(--line)}
+.gotcha h5{color:var(--muted)}
+.box h5{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin:0 0 10px}
+.box p,.box li{font-size:15.5px;line-height:1.7}
+.box ul{margin:.4em 0;padding-left:20px}
+/* Week header */
+.week{margin-top:96px;border-top:1px solid var(--line);padding-top:8px}
+.wk-meta{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:24px}
+.wk-meta .num{color:var(--ember);font-size:13px}
+/* Goals two-column */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:1.2em 0}
+.goals .box{margin:0}
+@media(max-width:640px){.goals{grid-template-columns:1fr}}
+/* details — TTS contract: never author <details> without the open attribute */
+details{border:1px solid var(--line);border-radius:8px;margin:1.2em 0;background:var(--panel)}
+summary{cursor:pointer;padding:14px 20px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#cfcbdd;list-style:none}
+summary::before{content:'▸ ';color:var(--ember)}
+details[open] summary::before{content:'▾ '}
+details .inner{padding:4px 22px 18px;border-top:1px solid var(--line)}
+details .inner p,details .inner li{font-size:15.5px}
+details .inner ol{padding-left:20px}
+details .inner li{margin:.6em 0}
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:1.2em 0}
+.card{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--panel);font-size:14.5px;line-height:1.55}
+.card b{display:block;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:#fff;margin-bottom:6px}
+.card .k{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--storm);margin-bottom:8px}
+.card a{border-bottom:none}
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:1.4em 0;font-size:15px}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+/* TOC mission board */
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:2em 0}
+.toc a{display:block;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel);font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#d9d5e6;border-bottom:1px solid var(--line)}
+.toc a:hover{border-color:var(--ember-deep);color:#fff}
+.toc .ph{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:4px}
+figure{margin:2em 0}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em;margin-top:10px;text-align:center}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:1.2em 0}
+@media(max-width:640px){.split{grid-template-columns:1fr}}
+table{display:block;overflow-x:auto}
+.top{margin:2.4em 0 0;font-family:var(--mono);font-size:12px}
+.top a{color:var(--faint);border-bottom:none;letter-spacing:.12em}
+.top a:hover{color:var(--ember)}
+.tracker{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px;margin:1.2em 0}
+.tracker label{display:flex;gap:9px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:9px 11px;background:var(--panel);font-family:var(--mono);font-size:12px;color:#cfcbdd;cursor:pointer}
+.tracker label:hover{border-color:var(--ember-deep)}
+.tracker input{accent-color:#9dc088;margin:0}
+/* .res — register styling only; retired from week pages */
+.res{color:var(--moss);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+@media(prefers-reduced-motion:no-preference){
+  .sys{animation:emberline 4s ease-in-out infinite}
+  @keyframes emberline{0%,100%{border-color:var(--ember-deep)}50%{border-color:#e0704a}}
+}
+
+/* ============================================================================
+   Wiki additions — everything below is new for docs/manual/.
+   ========================================================================== */
+
+/* ---- Two-clock utility classes (the ONLY legal way to color prose) ------- */
+.ember{color:var(--ember)}  /* player clock: builds, fun payloads, answers, things Nick pushes */
+.storm{color:var(--storm)}  /* world clock: concepts, systems, open questions the world will answer */
+.moss{color:var(--moss)}    /* gates: the definition-of-done */
+
+/* ---- [ PREDICT ] callout --------------------------------------------------
+   Its own class, NOT a .sys window (style-guide.md §The `[ PREDICT ]`
+   device). Storm-tinted: a question the world will answer — the answer lands
+   in the next visible paragraph. At most one per page; ~6 wiki-wide.
+   Usage: <div class="predict" data-tag="[ PREDICT ]">…one spoken-sentence
+   question…</div> */
+.predict{font-family:var(--mono);font-size:14.5px;line-height:1.7;background:linear-gradient(var(--storm-dim),var(--panel));border:1px solid #4a4370;border-radius:6px;padding:18px 22px;margin:1.6em 0;color:#d9d3ec;position:relative}
+.predict::before{content:attr(data-tag);display:block;color:var(--storm);letter-spacing:.18em;font-size:11.5px;margin-bottom:8px}
+
+/* ---- Masthead -------------------------------------------------------------
+   Thin top strip on every page: project mark · ◈ Mission board · I'm stuck →
+   · position strip (style-guide.md §HTML conventions). Muted by design —
+   it's wayfinding, not content. */
+.masthead{display:flex;gap:20px;align-items:baseline;flex-wrap:wrap;padding:16px 0 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;letter-spacing:.08em}
+.masthead .mark{color:var(--muted);letter-spacing:.14em}
+.masthead a{color:var(--muted);border-bottom:none}
+.masthead a:hover{color:var(--ember)}
+
+/* ---- Save strip -----------------------------------------------------------
+   The position line rendered by state.js into [data-state="position"].
+   Empty (and invisible) when JS is absent — the strip is enhancement, the
+   prose is truth. */
+.save-strip{margin-left:auto;color:var(--faint);font-size:11.5px;letter-spacing:.06em;text-align:right}
+.save-strip a{color:var(--faint);border-bottom:1px solid var(--line)}
+.save-strip a:hover{color:var(--ember)}
+.save-strip:empty{display:none}
+
+/* ---- See-also block -------------------------------------------------------
+   Bottom of every page, above the back-to-board link. Links are
+   question-shaped ("Why can't the client just decrement health? →
+   concept-netcode.html#authority"), never bare "see also" prose. */
+.seealso{margin-top:72px;padding:18px 22px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.seealso h4{margin:0 0 10px}
+.seealso ul{list-style:none;margin:0;padding:0}
+.seealso li{margin:.5em 0;font-size:15px;line-height:1.6}

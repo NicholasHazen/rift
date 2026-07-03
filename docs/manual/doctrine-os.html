@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Operating System — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Doctrine · The operating system</div>
+  <h1>The operating system</h1>
+  <p class="lede">Eight standing rules and the machinery of a working week. The rules are guardrails, each one placed where a specific cliff is; the machinery — the session ritual, the Friday close, the bad-week floor — is how two-hour evenings compound into a shipped slice instead of leaking away at the edges. The other doctrines decide what gets built. This one decides whether the building survives contact with a calendar.</p>
+</header>
+
+<h2 id="rules">The eight rules</h2>
+
+<p>Each rule below gets a spoken paragraph — the rule, its practice, and why it protects you — and then one more pass, compressed, on the card at the bottom. The numbers are load-bearing: every page in this manual cites them bare ("rule 5 says the checkbox stays on"), so a rule keeps its number for life. If a ninth rule ever earns its place, it takes the number nine; nothing renumbers.</p>
+
+<h3 id="rule-1">Rule 1 · Problem-first media</h3>
+<p>Never open a video or a doc without a written question it must answer. Video gets one hour a week, batched into Friday's learning hour. The why is blunt: video feels like progress and produces almost none — an hour of watching leaves nothing in the repo unless a question was waiting to be answered. The shelf is this rule applied to the manual itself: every resource on it is filed under the question it answers, so the question comes first by construction. What already has a sanctioned answer? → <a href="shelf.html">shelf.html</a></p>
+
+<h3 id="rule-2">Rule 2 · The session ritual</h3>
+<p>A session is a 10/100/10 block: ten minutes loading context, one hundred minutes on one problem, ten minutes committing and writing the tomorrow-note — one line in <code>docs/tomorrow-note.md</code> naming the next session's first concrete action. A session without a note isn't closed; that is the whole mandate, and it is non-negotiable. The full machinery — the open, the shape, the one-sentence close — is <a href="#ritual">this page's next section</a>.</p>
+
+<h3 id="rule-3">Rule 3 · The 90-minute valve</h3>
+<p>When a problem has ground for ninety minutes, stop pushing and pull the valve. The exits are pre-chosen, because deciding on a fallback while stuck is itself a task, and it won't happen — so this page states the law, and the procedure lives on a page built to be read on one screen at minute 91. One wall must never eat a session; momentum is the resource. What are the three exits, in order? → <a href="stuck.html">stuck.html</a></p>
+
+<h3 id="rule-4">Rule 4 · First-of-pattern by hand</h3>
+<p>The first replicated property, the first RPC, the first GameplayAbility, the first StateTree, the first DataAsset — you write each of those by hand, and agents replicate the pattern only after a first exists. Agents generate UE code that compiles and is subtly wrong about authority, and your mental model is the only firewall — which is why every replicated property and every RPC in the codebase also ships with a one-line authority explanation you can personally vouch for. How do you prove the explanations are true rather than hopeful? → <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a></p>
+
+<h3 id="rule-5">Rule 5 · Multiplayer from hour one</h3>
+<p>PIE runs at least two clients plus the dedicated-server option from the very first Play, and network emulation — 100&nbsp;ms latency, 2% packet loss — is permanently on from week 3. That is a checkbox, not folklore: the editor's Play settings carry a network-emulation section with per-profile latency and loss values; set the profile once and stop thinking about it. Single-player-only code is a bug written today and found in week 8, at scale. Which test topology lies about which bugs? → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a></p>
+
+<h3 id="rule-6">Rule 6 · C++ systems, Blueprint wiring</h3>
+<p>State, logic, and replication live in C++; Blueprints do asset hookup, tuned values, and UI layout; game content — tuning, spawn tables, word lists — flows from JSON into DataAssets and DataTables. The reason is fleet-shaped: C++ and JSON are text, so your agents can read, diff, and author them, while a Blueprint is an opaque binary no diff can see into. Where exactly do the two worlds split? → <a href="concept-anatomy.html#two-worlds">concept-anatomy.html#two-worlds</a>. And how does tuning stay text end to end? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a></p>
+
+<h3 id="rule-7">Rule 7 · Friday = playtest &amp; learn</h3>
+<p>On Friday the build gets played — bots or humans — then measured, then clipped, and the week closes with Monday's tomorrow-note already written. The learning hour lives here too: rule 1's video budget spends itself on Friday, against the week's accumulated questions. The first belief on your list, operationalized weekly: games are meant to be played. The full close, both tiers of it, is printed below at <a href="#friday">the Friday close</a>.</p>
+
+<h3 id="rule-8">Rule 8 · Gray-box till week 10</h3>
+<p>Capsules, cubes, and free sound effects until week 10 — no art tasks, no Fab browsing, no "just looking." The Fun Mandate exists so this rule costs nothing to obey: charm comes from committed bits, juice, and text, none of which need a mesh. Art-before-fun is procrastination wearing a render pipeline. Where does graybox charm actually come from? → <a href="doctrine-fun.html">doctrine-fun.html</a></p>
+
+<h3 id="card">The card</h3>
+<p>The eight, compressed to one screen. Print it, pin it, obey it.</p>
+
+<table>
+  <tr><th style="width:210px">Rule</th><th>The practice</th><th style="width:260px">Why it protects you</th></tr>
+  <tr><td><b>1 · Problem-first media</b></td><td>Never open a video/doc without a written question. Video ≤ 1 hr/week, batched Friday.</td><td>Video feels like progress and produces almost none.</td></tr>
+  <tr><td><b>2 · The session ritual</b></td><td>10 min load context → 100 min one problem → 10 min commit + <em>tomorrow-note</em> naming the next concrete action.</td><td>Re-entry is where sessions die; the note is the countermeasure.</td></tr>
+  <tr><td><b>3 · The 90-minute valve</b></td><td>Stuck past 90 min: pull the valve — agent end-to-end explainer, community post, or the week's parallel task → <a href="stuck.html">stuck.html</a>.</td><td>One wall must never eat a session. Momentum is the resource.</td></tr>
+  <tr><td><b>4 · First-of-pattern by hand</b></td><td>You write the first replicated property, first RPC, first ability, first StateTree, first DataAsset. Agents replicate the pattern after.</td><td>Agents generate UE code that compiles and is subtly wrong about authority. Your mental model is the only firewall.</td></tr>
+  <tr><td><b>5 · Multiplayer from hour one</b></td><td>PIE always ≥ 2 clients + the dedicated-server option. Net emulation (100 ms, 2% loss) permanently on from week 3.</td><td>Single-player-only code is a bug written today, found in week 8, at scale.</td></tr>
+  <tr><td><b>6 · C++ systems, Blueprint wiring</b></td><td>State, logic, replication in C++. Blueprints: asset hookup, tuned values, UI layout. Content = DataAssets/DataTables from JSON.</td><td>C++ and JSON are text — your fleet can read, diff, author. Blueprints are opaque binaries.</td></tr>
+  <tr><td><b>7 · Friday = playtest &amp; learn</b></td><td>Run the build (bots or humans) → measure → batched learning hour → record the Friday Clip → write Monday's tomorrow-note.</td><td>The first belief on your list, operationalized weekly: games are meant to be played.</td></tr>
+  <tr><td><b>8 · Gray-box till week 10</b></td><td>Capsules, cubes, free SFX. No Fab browsing. Charm via the Fun Mandate, not assets.</td><td>Art-before-fun is procrastination wearing a render pipeline.</td></tr>
+</table>
+
+<hr>
+
+<h2 id="ritual">The session ritual</h2>
+
+<p>The open is three clicks. Click one: <a href="index.html">the mission board</a>, where the save-file window says where you stand and names <span class="ember">the next concrete action</span> — the first line of <code>docs/tomorrow-note.md</code>, rendered live so the front door never rots. Click two: the current week's page, straight from that line. Click three: the <span class="ember">▶</span> session row, which carries tonight's work and its done-when. Target: under five minutes from opening the manual to the first keystroke, because deciding what an evening is for is the most expensive thing you can do at 9pm.</p>
+
+<p>The block itself is the 10/100/10 shape. Ten minutes loading context — the week page, the note, the last commit. One hundred minutes on one problem: not the week, not the roadmap, one problem. Ten minutes closing — commit, then write the tomorrow-note naming the next session's first concrete action. Re-entry is where ADHD sessions die. The tomorrow-note parks the car on a downhill slope.</p>
+
+<p>The close costs one sentence: say "close the session." The fleet drafts the tomorrow-note from the session's commits, updates the save file, appends the session row — and the clip row, if one exists — to <a href="clips.html">clips.html</a>, and commits; you edit one line and approve. The mandate stays; the cost drops to near zero.</p>
+
+<h2 id="friday">The Friday close</h2>
+
+<p>Friday is rule 7 run as a procedure, and the procedure comes in exactly two sizes — both printed here, so no Friday ever has to improvise its own standard. The full close is the good-week shape. The floor is the law that keeps a bad week from breaking the chain.</p>
+
+<h3 id="full-close">The full close</h3>
+<ol>
+  <li><strong>Playtest.</strong> Run the build — bots or humans — on the topology the week's gate names.</li>
+  <li><strong>Measure.</strong> Record what <span class="moss">the gate</span> counts. Done is an observation, not a feeling.</li>
+  <li><strong>Clip.</strong> Twenty seconds of this week's build, recorded and posted.</li>
+  <li><strong>Approve the paperwork.</strong> The fleet drafts the changelog row — the one honest sentence: what shipped, what slipped, what surprised — runs the gate audit against the week page's definition of done, and sharpens the next week's page. You read, correct, approve.</li>
+  <li><strong>Tomorrow-note.</strong> Monday's first concrete action, one line, written before the laptop closes.</li>
+</ol>
+
+<p>A passed gate flips its glyph on the mission board's tracker and earns a gate-cleared window in the archive; the honest sentence lands in <a href="changelog.html">changelog.html</a>. Only the <em>next</em> week's page sharpens — the pages beyond it stay sketches until the evidence that sharpens them exists. And any fun payload the week didn't ship rolls forward to the next one — payloads never silently die. Where does fun debt get tracked? → <a href="fun-engines.html#fun-debt">fun-engines.html#fun-debt</a></p>
+
+<h3 id="floor">The bad-week floor</h3>
+<p>Printed law, so a depleted Friday never has to negotiate with itself: the minimum viable close is twenty seconds of anything on screen — a bug is a valid clip — plus a one-line tomorrow-note. The fleet back-fills the rest on Monday: the changelog row, the session bookkeeping, the tidy-up. The floor is not a lowered standard; it is the recognition that the chain matters more than any single link, and one minute of Friday keeps the clip archive, the note, and the save file unbroken. A bad week that hits the floor still counts.</p>
+
+<blockquote class="note" id="scheduling"><em>Scheduling reality</em> — This plan assumes ~10–12 focused hours across five-ish 2-hour blocks. You have a day job shipping EMURJ and a family; some weeks will give you six hours. The contract: <strong>the calendar flexes, the gates don't.</strong> A week that takes two weeks is the plan working. A gate that quietly shrinks is the plan dying.</blockquote>
+
+<h4>Shelf pulls</h4>
+<ul>
+  <li>"How do I actually turn on 100 ms latency and 2% loss in PIE, so rule 5 is a checkbox instead of folklore?" → <a href="shelf.html#netcode">Epic docs — Using Network Emulation</a></li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Where does tonight's session actually start? → <a href="index.html">index.html</a></li>
+    <li>Minute 91 — what are the three exits, in order? → <a href="stuck.html">stuck.html</a></li>
+    <li>Where do the Friday clips and session rows accumulate? → <a href="clips.html">clips.html</a></li>
+    <li>Where does the one honest Friday sentence get logged? → <a href="changelog.html">changelog.html</a></li>
+    <li>Why do rules 4 and 5 exist — what does agent code get wrong about authority, and which test topology lies? → <a href="concept-netcode.html">concept-netcode.html</a></li>
+    <li>Why does rule 6 split C++ from Blueprints? → <a href="concept-anatomy.html#two-worlds">concept-anatomy.html#two-worlds</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

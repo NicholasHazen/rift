@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reel — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Workflow · Clips &amp; sessions</div>
+  <h1>The Reel</h1>
+  <p class="lede">The manual's other pages plan; this one accumulates. Every session gets a row — one line and a commit range. Every Friday Clip gets an archived slot with a Chronicle-voiced caption. Newest first, one stream, growing for twelve weeks. When you want proof the slice exists beyond the plan, it's here or nowhere.</p>
+</header>
+
+<h2 id="why">What the reel is for</h2>
+
+<p>Three jobs, in the order they'll matter. First, the scheduled comeback: rewatching the week-1 waddle during the week-7 trough is a printed move in the plan, not something you'll have to invent at your lowest — two minutes of what the plumbing is for, on file, one click away. Second, deep re-entry: after a two-week gap, the save file's one-line next action tells you what to type, but the last few rows here tell you what the build has become — richer when you need it, skippable when you don't. Third, the long game: by week 12 this page is the trailer shot list, for free. The plan promises; the reel shows.</p>
+
+<p>The clip ritual this page archives is one of the four fun engines: twenty seconds of this week's build, recorded every Friday, posted to the friends' Discord — non-negotiable, especially in ugly weeks. Twenty seconds of moving build a week, where friends can see it, is the project's dopamine schedule, and the reel is where the schedule compounds into a record. Why is the clip non-negotiable? → <a href="doctrine-fun.html#engines">doctrine-fun.html#engines</a></p>
+
+<h2 id="format">How to read it — and who writes it</h2>
+
+<p>Two kinds of row share one stream. A <strong>session row</strong> is small: date, one line distilled from that evening's tomorrow-note, and the commit range that backs the line — so "what did I actually do" always has an answer a stranger could audit. A <strong>clip row</strong> is the highlighted kind: clip number, week, a Chronicle-voiced caption, and the link to the footage. Sessions number globally across the run — S001 is the project's first evening, and the save window's "sessions n/~55" counts the same series. Every row carries a numbered anchor — <code>clip-001</code>, <code>session-001</code> — immutable once published, so any page in the manual can point at a specific Friday forever.</p>
+
+<p>Nobody maintains this page by hand. Saying "close the session" appends the session row — and the clip row, when there is one — in the same commit that writes the tomorrow-note and updates the save file, and the mission board's save window carries the reel's running counts. Keeping this archive alive costs no new ritual. What does the one-sentence close actually do? → <a href="doctrine-os.html#ritual">doctrine-os.html#ritual</a></p>
+
+<p>And a bad week still feeds the reel. The floor is printed law: twenty seconds of anything on screen counts, and a bug is a valid clip. What is the minimum a depleted Friday owes? → <a href="doctrine-os.html#floor">doctrine-os.html#floor</a></p>
+
+<h2 id="reel">The reel — newest first</h2>
+
+<p>The stream reads downward into history; the bottom row is day one. Right now it is one session and one open slot long, which is what day one looks like.</p>
+
+<!-- APPEND CONVENTION (close-session transaction, T4):
+     New rows are inserted directly below this comment, newest first.
+     Clip row:    <div class="box fun" id="clip-NNN"><h5>🎬 Clip #NNN — week W · YYYY-MM-DD</h5>
+                  <p style="margin:0">Chronicle-voiced caption. <a href="...">the footage</a>.</p></div>
+     Session row: <h3 id="session-NNN">SNNN · YYYY-MM-DD · week W — one line from the tomorrow-note</h3>
+                  <p>Detail, then: Commits: <code>abc1234..def5678</code>.</p>
+     Anchors are immutable once published. An owed clip keeps its id when the footage lands —
+     rewrite the row in place. -->
+
+<div class="box fun" id="clip-001"><h5>🎬 Clip #001 — the slot is open</h5><p style="margin:0">The reel's first debt. <span class="moss">Week 0's gate</span> holds the slot: the character doing literally anything, posted to the friends' Discord — the gate's last condition, so the reel and the game start on the same Friday. When the footage lands, this row gets its Chronicle caption and its link. What else does that gate demand? → <a href="week-00.html#gate">week-00.html#gate</a></p></div>
+
+<h3 id="session-001">S001 · 2026-07-02 · week 0 — the repo is rigged</h3>
+<p>Environment audit passed; the repo went up with LFS hooks, scaffolding, and context files; the scaffold survived a three-agent red-team; and the codename landed in the register as a dated decision — OneMoreRock names the <code>.uproject</code> before the project exists. Zero engine installed, on plan: downloads belong at the start of an evening, not the end of one. No clip — the debt above is week 0's to pay. Commits: <code>04afbc8</code>.</p>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Where do the reel's counts surface, and where does tonight's session start? → <a href="index.html">index.html</a></li>
+    <li>What does Friday owe — the full close and the bad-week floor? → <a href="doctrine-os.html#friday">doctrine-os.html#friday</a></li>
+    <li>What are the four machines whose output lands here? → <a href="fun-engines.html">fun-engines.html</a></li>
+    <li>Why is the Friday Clip non-negotiable, even in ugly weeks? → <a href="doctrine-fun.html#engines">doctrine-fun.html#engines</a></li>
+    <li>What is all this footage evidence <em>for</em>? → <a href="the-slice.html">the-slice.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

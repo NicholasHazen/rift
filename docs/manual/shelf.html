@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The shelf — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Reference · The problem-first library</div>
+  <h1>The shelf</h1>
+  <p class="lede">Every external resource in the plan lives on this page, filed under the question it answers. Nothing here is homework. The shelf exists so that at the moment a question bites, the answer is already filed — and so no doc or video ever gets opened out of vague ambition. No question, no shelf space.</p>
+</header>
+
+<h2 id="entry-template">How an entry earns its place</h2>
+<p>Rule 1 of the operating system says never open a doc or a video without a written question it must answer. This page is that rule applied to the manual itself: the question comes first by construction, because the entry cannot exist without one. Why does problem-first beat curriculum-first? → <a href="doctrine-os.html#rule-1">doctrine-os.html#rule-1</a>.</p>
+<div class="box"><h5>The entry template</h5>
+<p>Every entry carries three fields, in this order. An entry without a question is rejected at review.</p>
+<ul>
+  <li><b>The question</b> — phrased as the moment of need ("My property silently never replicates — why?"), never as a topic.</li>
+  <li><b>Reach for it</b> — the week or the trigger that makes the entry live.</li>
+  <li><b>Durability</b> — one of the three classes below, plus the link itself.</li>
+</ul></div>
+
+<h2 id="durability">Durability, and how this page stays true</h2>
+<p>Links rot at different speeds, so every entry declares its class. There are exactly three.</p>
+<ul>
+  <li><b>Durable repo</b> — GitHub repositories, long-lived community sites, and vendor-hosted originals. They move rarely and break loudly; trust the bookmark.</li>
+  <li><b>Official-docs deep link</b> — Epic's <code>/documentation/</code> pages. They drift when Epic reshuffles the tree, so every entry's title doubles as its docs-search phrase — the search is the stable interface, the deep link is the convenience.</li>
+  <li><b>Search-query link</b> — anything video-shaped or otherwise non-canonical. The link is a search, so it cannot rot; the question in hand does the filtering.</li>
+</ul>
+<p>Maintenance law, for the fleet: new links land verified or search-query-shaped, nothing else. Epic <code>/documentation/</code> URLs verify by fetch; Epic <code>/community/</code> URLs sit behind bot protection and never auto-verify, so nothing on this page links there directly — anything living behind that wall gets a search-query link instead. When a durable link dies, fix it here once. Every pull in the manual points at this page, so one edit heals them all.</p>
+<p>And the pull budget: week pages carry at most three shelf pulls, concept pages close with two or three, and a pull is always the question plus a link to an anchor here — never a restated entry. If a week seems to need a fourth pull, it doesn't. The shelf keeps the rest.</p>
+
+<h2 id="tools">Tools, language, and pipeline</h2>
+<p>The standing toolbox: the engine's plumbing, the language's idioms, the repo's hygiene. Most of it gets installed or bookmarked in week 0 and consulted forever after — entries here are keyed to triggers as much as weeks.</p>
+
+<h3 id="forsythe-framework">Alex Forsythe — "From int main() to BeginPlay"</h3>
+<p><b>The question:</b> "What actually happens between launching the game and my actor's <code>BeginPlay</code> — who creates the GameMode, the PlayerController, and the Pawn, in what order?" <b>Reach for it:</b> week 0's Friday hour, right after reading the template code — the talk names the machinery you just walked past. <b>Durability:</b> search-query link — <a href="https://www.youtube.com/results?search_query=alex+forsythe+unreal+engine+int+main+beginplay">YouTube: alex forsythe int main beginplay</a>.</p>
+
+<h3 id="looman-cpp-guide">Tom Looman — Unreal Engine C++ Complete Guide</h3>
+<p><b>The question:</b> "How do UE's C++ idioms — UPROPERTY lifetimes, garbage collection, TObjectPtr, modules — differ from what my systems instincts expect?" <b>Reach for it:</b> skim once in week 0–1; return as a lookup whenever the compiler or the garbage collector surprises you. <b>Durability:</b> durable repo — <a href="https://www.tomlooman.com/unreal-engine-cpp-guide/">tomlooman.com</a>.</p>
+
+<h3 id="actionroguelike">tomlooman/ActionRoguelike — and the course</h3>
+<p><b>The question:</b> "What does well-architected multiplayer UE C++ look like at project scale — the codebase to diff my structure against when mine starts to smell?" <b>Reach for it:</b> week 2 onward, as a pattern library; the paid course only if you're flailing for structure, and not before. <b>Durability:</b> durable repo — <a href="https://github.com/tomlooman/ActionRoguelike">github.com/tomlooman/ActionRoguelike</a> · <a href="https://courses.tomlooman.com/">courses.tomlooman.com</a>.</p>
+
+<h3 id="epic-data-driven">Epic docs — Data Driven Gameplay Elements</h3>
+<p><b>The question:</b> "What is the official path for driving gameplay from external text — how does a JSON or CSV file the fleet wrote become a DataTable the director can read?" <b>Reach for it:</b> week 4's import path, and again whenever a tuning file outgrows its first schema. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/data-driven-gameplay-elements-in-unreal-engine">Data Driven Gameplay Elements</a>.</p>
+
+<h3 id="benui">benui — with Unreal Garden, its successor</h3>
+<p><b>The question:</b> "UMG from C++, and which UPROPERTY specifier while I'm in there?" <b>Reach for it:</b> week 10's HUD session as the desk reference; the UPROPERTY page earns its bookmark in week 0. <b>Durability:</b> durable repo — <a href="https://benui.ca/unreal/uproperty/">benui.ca/unreal/uproperty</a> · <a href="https://unreal-garden.com/">unreal-garden.com</a>. The migration-proof pair: the same author's work lives at both, so if one moves, the other holds.</p>
+
+<h3 id="rider">JetBrains Rider</h3>
+<p><b>The question:</b> "Which IDE actually understands UPROPERTY macros, .uproject files, and Blueprint references on a Mac?" <b>Reach for it:</b> week 0, session 2 — Rider is the candidate weighed against Xcode-plus-clangd in <a href="register.html#oq-02">OQ-02</a>. <b>Durability:</b> durable repo — <a href="https://www.jetbrains.com/rider/">jetbrains.com/rider</a>.</p>
+
+<h3 id="repo-hygiene">Git LFS + the UE .gitignore</h3>
+<p><b>The question:</b> "How does a repo full of multi-megabyte binary .uasset files stay healthy — what gets LFS-tracked and what never gets committed?" <b>Reach for it:</b> week 0, before the first commit; retrofitting LFS onto a bloated history is misery on a payment plan. <b>Durability:</b> durable repo — <a href="https://git-lfs.com/">git-lfs.com</a> · <a href="https://github.com/github/gitignore/blob/main/UnrealEngine.gitignore">the UnrealEngine.gitignore</a>.</p>
+
+<h3 id="unreal-mcp">Unreal MCP + UnrealClaude</h3>
+<p><b>The question:</b> "Can an agent reach into the running editor — and is that bridge load-bearing yet?" <b>Reach for it:</b> week 0's experimental garnish, strictly timeboxed — it is garnish, not gate. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-mcp-in-unreal-editor">Unreal MCP</a> · durable repo — <a href="https://github.com/Natfii/UnrealClaude">github.com/Natfii/UnrealClaude</a>.</p>
+
+<h2 id="netcode">Netcode</h2>
+<p>Weeks 1, 3, and 5 pull from here, and so does every netcode wall after them. This is the deepest section on the page, because replication is the discipline the whole slice stands on.</p>
+
+<h3 id="compendium">Multiplayer Network Compendium</h3>
+<p><b>The question:</b> "What's the one sanctioned full read on UE networking?" Cedric Neukirchen's community text — short, dense, and canonical. <b>Reach for it:</b> week 1, where the week's problem gives every page a hook. <b>Durability:</b> durable repo — <a href="https://cedric-neukirchen.net/docs/category/multiplayer-network-compendium/">cedric-neukirchen.net</a>.</p>
+
+<h3 id="forsythe-replication">Alex Forsythe — the network replication talk</h3>
+<p><b>The question:</b> "Before I hand-write my first replicated property: what are authority, ownership, RPC routing, and RepNotify as one coherent system, in under 25 minutes?" <b>Reach for it:</b> week 1's Friday hour, question in hand. <b>Durability:</b> search-query link — <a href="https://www.youtube.com/results?search_query=alex+forsythe+unreal+engine+network+replication">YouTube: alex forsythe unreal network replication</a>.</p>
+
+<h3 id="epic-quick-start">Epic docs — Multiplayer Programming Quick Start</h3>
+<p><b>The question:</b> "Where is the official minimal worked example of a replicated property plus a Server RPC that I can diff <code>AResourceNode</code> against when something silently fails?" <b>Reach for it:</b> week 1, sessions 1–2. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/multiplayer-programming-quick-start-for-unreal-engine">Multiplayer Programming Quick Start</a>.</p>
+
+<h3 id="epic-property-replication">Epic docs — Property Replication</h3>
+<p><b>The question:</b> "My property silently never replicates — why?" <code>GetLifetimeReplicatedProps</code>, replication conditions, and when OnRep does and doesn't fire. <b>Reach for it:</b> week 1 onward, whenever the server knows something a client can't see. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/property-replication-in-unreal-engine">Property Replication</a>.</p>
+
+<h3 id="epic-rpcs">Epic docs — Remote Procedure Calls</h3>
+<p><b>The question:</b> "Which flavor does this call need — Server, Client, or NetMulticast — and what does Reliable actually promise?" <b>Reach for it:</b> week 1's first RPC, and every new RPC after. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/remote-procedure-calls-in-unreal-engine">Remote Procedure Calls</a>.</p>
+
+<h3 id="epic-net-emulation">Epic docs — Using Network Emulation</h3>
+<p><b>The question:</b> "How do I turn on 100 ms latency and 2% loss in PIE, so rule 5 is a checkbox instead of folklore?" <b>Reach for it:</b> preview it in week 1; mandatory from week 3, and then it never turns off. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/using-network-emulation-in-unreal-engine">Using Network Emulation</a>.</p>
+
+<h3 id="vorixo">Vorixo — devtricks</h3>
+<p><b>The question:</b> "How do experienced UE netcode developers solve the mid-tier multiplayer problems the docs skip?" <b>Reach for it:</b> netcode walls — the property that won't replicate, the RPC that silently does nothing. This is the valve's first exit, self-served. <b>Durability:</b> durable repo — <a href="https://vorixo.github.io/devtricks/">vorixo.github.io/devtricks</a>.</p>
+
+<h3 id="gaffer-networked-physics">Gaffer On Games — Introduction to Networked Physics</h3>
+<p><b>The question:</b> "Why is Tier-3 networked physics genuinely hard — determinism versus snapshots versus state sync, and which flavor would the boulder be signing up for?" <b>Reach for it:</b> before the week-5 spike, so its verdict is informed rather than vibes. <b>Durability:</b> durable repo — <a href="https://gafferongames.com/post/introduction_to_networked_physics/">gafferongames.com</a>.</p>
+
+<h3 id="rocket-league-gdc">The Rocket League GDC physics talk</h3>
+<p><b>The question:</b> "What did shipping continuous player-versus-rigid-body under latency actually take?" The doctrine's primary evidence: years of bespoke prediction work, presented cheerfully. <b>Reach for it:</b> the spike week's Friday hour. <b>Durability:</b> search-query link — <a href="https://www.youtube.com/results?search_query=rocket+league+gdc+physics+networked">YouTube: rocket league gdc physics networked</a>.</p>
+
+<h2 id="gas">GAS</h2>
+<p>Week 2 onward; two of these entries stay open in tabs for the rest of the project. Lyra and GASShooter belong to this topic and are deliberately absent — they wait in <a href="#deferred">the deferred tier</a> at the bottom of this page, each with the reason it waits.</p>
+
+<h3 id="epic-gas">Epic docs — Gameplay Ability System</h3>
+<p><b>The question:</b> "What do ASC, Attributes, GameplayEffects, and GameplayTags officially do?" The vocabulary to hold before the community lore layers detail on top. <b>Reach for it:</b> week 2, session 1. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine">Gameplay Ability System</a>.</p>
+
+<h3 id="tranek">tranek/GASDocumentation</h3>
+<p><b>The question:</b> "One corner of GAS is confusing me — where is the community bible that answers point questions?" A reference, not a book; nobody reads it front to back and nobody should. <b>Reach for it:</b> keep it open from week 2 on. <b>Durability:</b> durable repo — <a href="https://github.com/tranek/GASDocumentation">github.com/tranek/GASDocumentation</a>.</p>
+
+<h3 id="narxim">Narxim-GAS-Example</h3>
+<p><b>The question:</b> "What does a clean, minimal, maintained GAS setup look like — especially the <code>InitAbilityActorInfo</code> handshake on server and client, and the ASC on PlayerState versus Pawn?" <b>Reach for it:</b> week 2, session 1 — crib the initialization order shamelessly; it is famously fiddly and not where the learning budget goes. <b>Durability:</b> durable repo — <a href="https://github.com/Narxim/Narxim-GAS-Example">github.com/Narxim/Narxim-GAS-Example</a>.</p>
+
+<h3 id="kaosspectrum">The Games Dev (KaosSpectrum)</h3>
+<p><b>The question:</b> "How does GAS actually behave under the hood when tranek and the official docs both run out?" <b>Reach for it:</b> GAS walls — the ability that misfires, the attribute that lies. <b>Durability:</b> durable repo — <a href="https://www.thegames.dev/">thegames.dev</a>.</p>
+
+<h3 id="enhanced-input">Epic docs search — Enhanced Input</h3>
+<p><b>The question:</b> "What is the input system the template already uses, before week 2 binds abilities to it?" <b>Reach for it:</b> week 0's template read-through, then again when week 2 wires ability activation to input actions. <b>Durability:</b> search-query link into the official docs — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine?query=enhanced+input">docs search: enhanced input</a>.</p>
+
+<h2 id="ai">The horde and the director</h2>
+<p>Weeks 3 through 5: the horde's brains, the navmesh under its feet, and the director that conducts the violence.</p>
+
+<h3 id="epic-statetree">Epic docs — StateTree</h3>
+<p><b>The question:</b> "What are StateTree's states, transitions, tasks, and evaluators — and how do I wire my first Idle → Chase → Attack tree?" <b>Reach for it:</b> week 3, session 2, open next to the empty tree. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/overview-of-state-tree-in-unreal-engine">Overview of StateTree</a>.</p>
+
+<h3 id="epic-navmesh-mod">Epic docs — Modifying the Navigation Mesh</h3>
+<p><b>The question:</b> "How do freshly placed walls change NPC pathing without full runtime regen?" <b>Reach for it:</b> week 5, session 4 — before forty walls eat the server. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/modifying-the-navigation-mesh-in-unreal-engine">Modifying the Navigation Mesh</a>.</p>
+
+<h3 id="l4d-director">The AI Systems of Left 4 Dead — Valve's director deck</h3>
+<p><b>The question:</b> "How does the canonical director decide when to spawn and when to relent — which build-up, peak, and relax knobs did Valve expose?" <b>Reach for it:</b> week 4, before writing the <code>DirectorComponent</code> spend loop. The pacing skeleton is proven; the mint is yours. <b>Durability:</b> durable repo — <a href="https://steamcdn-a.akamaihd.net/apps/valve/2009/ai_systems_of_l4d_mike_booth.pdf">Valve's own PDF</a>.</p>
+
+<h2 id="shipping">Shipping</h2>
+<p>Weeks 6 and 7: a real server built, deployed, and reachable by people who don't live in your house.</p>
+
+<h3 id="tailscale">Tailscale</h3>
+<p><b>The question:</b> "How do friends join a test server without port forwarding or NAT archaeology?" <b>Reach for it:</b> week 6's friend test — install, share the tailnet, done. <b>Durability:</b> durable repo — <a href="https://tailscale.com/">tailscale.com</a>.</p>
+
+<h3 id="epic-source-download">Epic docs — Downloading Unreal Engine Source Code</h3>
+<p><b>The question:</b> "How do I link Epic to GitHub and clone the engine — the prerequisite for any dedicated-server build?" <b>Reach for it:</b> week 7's first action, on whichever machine <a href="register.html#oq-03">OQ-03</a> names as the build host. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/downloading-unreal-engine-source-code">Downloading Unreal Engine Source Code</a>.</p>
+
+<h3 id="epic-dedicated-servers">Epic docs — Setting Up Dedicated Servers</h3>
+<p><b>The question:</b> "What are the exact steps to add a Server target, compile from source, and package a Linux server plus client?" <b>Reach for it:</b> week 7, sessions 1–2 — the week's spine. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-dedicated-servers-in-unreal-engine">Setting Up Dedicated Servers</a>.</p>
+
+<h3 id="epic-buildcookrun">Epic docs — Build Operations</h3>
+<p><b>The question:</b> "What do cook, stage, package, and archive each actually do, and what <code>BuildCookRun</code> invocation should the <code>scripts/</code> wrappers encode?" <b>Reach for it:</b> week 7, session 4's desk reference. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/build-operations-cooking-packaging-deploying-and-running-projects-in-unreal-engine">Build Operations</a>.</p>
+
+<h3 id="unrealcontainers">unrealcontainers.com</h3>
+<p><b>The question:</b> "What does containerized building look like, for the day the deploy outgrows scp?" <b>Reach for it:</b> a bookmark, not a this-week read; it becomes live if <a href="register.html#oq-13">OQ-13</a>'s artifact story gets serious. <b>Durability:</b> durable repo — <a href="https://unrealcontainers.com/">unrealcontainers.com</a>.</p>
+
+<h2 id="perf">Performance</h2>
+<p>Week 8 onward, and every Friday gate after it. Three official pages cover the passes; the escape hatch beyond them sits in <a href="#deferred">the deferred tier</a> with the trigger that unlocks it.</p>
+
+<h3 id="epic-relevancy">Epic docs — Actor Relevancy and Priority</h3>
+<p><b>The question:</b> "How does <code>NetCullDistanceSquared</code> decide which clients receive an actor, and how does priority split bandwidth during a siege?" <b>Reach for it:</b> week 8's relevancy pass. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/actor-relevancy-and-priority-in-unreal-engine">Actor Relevancy and Priority</a>.</p>
+
+<h3 id="epic-dormancy">Epic docs — Actor Network Dormancy</h3>
+<p><b>The question:</b> "How do I put finished walls and idle nodes to sleep, and what are the wake rules so a gnawed wall updates again?" The <a href="doctrine-physics.html#chunk-contract">chunk contract</a>'s net-dormant step, made official. <b>Reach for it:</b> week 8. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/actor-network-dormancy-in-unreal-engine">Actor Network Dormancy</a>.</p>
+
+<h3 id="epic-insights">Epic docs — Unreal Insights</h3>
+<p><b>The question:</b> "How do I capture a <code>-trace</code> from the loaded server and read which system ate the frame?" <b>Reach for it:</b> before week 8's first profiling session, not after the first mystery frame. <b>Durability:</b> official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-insights-in-unreal-engine">Unreal Insights</a>.</p>
+
+<h2 id="feel">Feel</h2>
+<p>Week 10, and any evening a verb lands correct but dead.</p>
+
+<h3 id="juice-it-or-lose-it">Juice It or Lose It</h3>
+<p><b>The question:</b> "Which cheap feedback layers turn a correct-but-dead interaction into a satisfying one?" Fifteen minutes, live-coded, and the whole argument for the JuiceKit in one sitting. <b>Reach for it:</b> before week 10's first session. <b>Durability:</b> search-query link — <a href="https://www.youtube.com/results?search_query=juice+it+or+lose+it+talk">YouTube: juice it or lose it talk</a>.</p>
+
+<h3 id="art-of-screenshake">The Art of Screenshake</h3>
+<p><b>The question:</b> "How much hitstop and shake is enough before it's noise?" The calibration reference for tune, don't add. <b>Reach for it:</b> week 10's tuning pass. <b>Durability:</b> search-query link — <a href="https://www.youtube.com/results?search_query=vlambeer+art+of+screenshake">YouTube: vlambeer art of screenshake</a>.</p>
+
+<h2 id="community">Community and the Friday hour</h2>
+<p>Ongoing: where the valve vents, and where Friday's one sanctioned video hour goes hunting.</p>
+
+<h3 id="unreal-source">Unreal Source</h3>
+<p><b>The question:</b> "Where does the valve vent when the community has to answer?" The Discord where UE's working engineers actually hang out. <b>Reach for it:</b> exit two of <a href="stuck.html">the valve</a>, any week — post while the context is hot, then close the tab; answers arrive on other people's clocks. <b>Durability:</b> durable repo — <a href="https://unrealsource.com/">unrealsource.com</a>.</p>
+
+<h3 id="epic-videos">Epic's official feature videos</h3>
+<p><b>The question:</b> "What does this engine feature look like in motion, before I decide whether it earns real study?" <b>Reach for it:</b> Friday's learning hour only, one video, question written down first — rule 1 has no exceptions for production values. <b>Durability:</b> search-query link — <a href="https://www.youtube.com/results?search_query=unreal+engine+official+feature+overview">YouTube: unreal engine official feature overview</a>.</p>
+
+<h2 id="deferred">The deferred tier — not yet, because</h2>
+<p>Everything below is good; that was never the question. Each entry waits behind a named trigger, because boarding early costs more than it teaches. When a trigger fires, the entry moves up into its topic section and gets a real question of its own.</p>
+<ul>
+  <li id="lyra"><b>Lyra.</b> Not yet, because it is shipped-game scale and buries a week-2 learner. Trigger: week 8 or later, arriving with one specific question. Mine it for patterns; never a base. Official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/lyra-sample-game-in-unreal-engine">the Lyra sample</a>.</li>
+  <li id="gasshooter"><b>GASShooter.</b> Not yet — same law as Lyra: mine, never a base. Trigger: stuck on a specific composed ability pattern that tranek describes and Narxim is too minimal to show. Durable repo — <a href="https://github.com/tranek/GASShooter">github.com/tranek/GASShooter</a>.</li>
+  <li id="replication-graph"><b>Replication Graph.</b> Not yet, because it is Fortnite-scale power at Fortnite-scale complexity. Trigger: a failed Friday perf gate that survived all six optimization passes and the entity cap — never speculatively. Official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/replication-graph-in-unreal-engine">Replication Graph</a>.</li>
+  <li id="iris"><b>Iris.</b> Not yet, because nobody switches replication systems mid-project. Trigger: Stage 2 at the earliest, evaluated fresh. Official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/iris-replication-system-in-unreal-engine">Iris</a>.</li>
+  <li id="mass"><b>Mass.</b> Not yet, because the slice's horde fits comfortably in actors under the entity cap. Trigger: an NPC ceiling the cap cannot hold — a Stage-3 conversation. Official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/mass-entity-in-unreal-engine">MassEntity</a>.</li>
+  <li id="mover"><b>Mover 2.0.</b> Not yet, because it is experimental and the CharacterMovementComponent is load-bearing doctrine — prediction for free. Trigger: engine maturity plus a Stage-2 reason to move. Official-docs deep link — <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/mover-in-unreal-engine">Mover</a>.</li>
+  <li id="eos"><b>Epic Online Services.</b> The Stage-2 matchmaking signpost; nothing in Stage 1 needs it. Official-docs deep link — <a href="https://dev.epicgames.com/docs/epic-online-services">EOS documentation</a>.</li>
+</ul>
+<p>Why good tech can still be the wrong day, in full — the standing inoculation against Replication Graph, Iris, and Mass → <a href="concept-perf.html#not-yet">concept-perf.html#not-yet</a>. And why the CharacterMovementComponent stance that parks Mover is doctrine rather than preference → <a href="doctrine-physics.html#cmc">doctrine-physics.html#cmc</a>.</p>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Why does the question have to come first? → <a href="doctrine-os.html#rule-1">doctrine-os.html#rule-1</a></li>
+    <li>Minute 91, the wall is winning — which exit do I take? → <a href="stuck.html">stuck.html</a></li>
+    <li>Which week is live, and which pulls does it carry? → <a href="index.html">index.html</a></li>
+    <li>Which decisions are still open, and when are they due? → <a href="register.html">register.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

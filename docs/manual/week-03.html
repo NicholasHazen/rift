@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 03 · The rift pushes back — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Core loop</div>
+  <h1>The rift pushes back</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 03</span><span>Phase: Core loop</span><span>Budget: 5 sessions</span><span>Decision due: the Bit</span><span>resolution: full</span><span data-state="valve"></span>
+</div>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — The rift grew an immune system this week. Gregory, Vice-Goose of the Storm, led fourteen others over the ridge and into the first line of the kill feed.</blockquote>
+
+<p>Fifteen geese crest the ridge in a wedge, honking in unison, the pitch bending as the charge closes. You plant yourself in a gray-box doorway and the wedge piles up against your capsule — a tank role nobody coded. The kill feed posts its first superlative. Two clients, one dedicated server, a hundred milliseconds of simulated lag, and nothing stutters. Clip #004 is already rolling.</p>
+
+<p class="lede">By Friday you will have fifteen NPCs chasing and biting two clients under a dedicated server and simulated lag, and you will understand why a horde costs so little: a brain in a jar, a walkable carpet, and a three-state flowchart. You will also have written down the project's first performance number — the baseline every later measurement argues against.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">Fifteen NPCs chase and melee two clients in PIE with the dedicated-server checkbox, under net emulation — on permanently from this week, per rule 5 — without visible stutter. The baseline server frame time is committed to the repo. The horde has a name, a noise, and a kill feed with jokes in it. Why is the convenient topology the one that lies? → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a></p></div>
+
+<p>Three weeks in, the world has value in it (nodes) and violence in it (abilities). Now the rift gets its immune system — the creatures that will, from next week, answer the expedition's greed. This week they're dumb chasers, and that's correct: the director makes them mean later; this week makes them exist, cheaply and reliably. One law rides along: <a href="register.html#d-melee-only">the horde is melee-only until week 9's ranged elite</a> — ranged pressure reshapes camp design, so it arrives with the elites, not before.</p>
+
+<p>One prerequisite listen, the week-1 pattern: before S1, hear <a href="concept-horde.html">the brains-on-the-carpet page</a> through once, start to finish — it assembles one goose from a rented brain, a disposable body, and a pre-baked carpet, with every price tag attached, and this week is its lab.</p>
+
+<p>The trap this week: making the horde smart. You'll know you're in it when the StateTree grows a fourth state before fifteen goons have chased anyone. The move: dumb chasers, en masse — menace is the director's job, and the director arrives next week.</p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Five sessions. The first four build one goon and a tap that pours more of them; the fifth writes down what they cost. Each carries its done-when, per the week-0 convention; done-marks land as sessions close.</p>
+
+<h3 id="s1">S1 — Body &amp; carpet</h3>
+<p><strong>[NICK]</strong> An NPC pawn, an AIController to possess it, a NavMesh bounds volume over the gray-box, and a MoveTo aimed at the nearest player. That is the whole session: one goon that walks. Spawn it on the server — the goon is world state, and clients meet it by replication, the same way they meet a rock. If the NavMesh won't build, read the gotcha box before you read anything else. <em>Done when:</em> one goon walks to the nearest player in PIE with two clients and the dedicated-server checkbox.</p>
+
+<h3 id="s2">S2 — Brain</h3>
+<p><strong>[NICK — by hand]</strong> Hand-write your first StateTree — rule 4: the first of a pattern belongs to you. Idle → Chase → Attack. Keep it three states; resist elaborateness — the tree earns a fourth state when a playtest demands one, not before. <em>Done when:</em> the goon idles until a player enters range, chases, and swings on contact — and you can narrate every transition from the tree you drew.</p>
+<p><strong>[FLEET]</strong> The moment your tree stands, the pattern is replicable: a second NPC variant built from it, body and brain, ready for S4's spawner to pour.</p>
+
+<h3 id="s3">S3 — Claws</h3>
+<p><strong>[NICK]</strong> The attack routes through your week-2 GameplayAbility, so every point of goose damage lands on the same ledger as player damage — one pipeline, not two, and the sound-and-number feedback you wired in week 2 fires for goose bites for free. NPCs get an ASC of their own, in Minimal replication mode: cheap now, essential in week 9 when elites need storm resistances. Point the first bite at Gerald — the ledger already knows how to hurt him. Where does an NPC's ASC live, and what does Minimal mode skip? → <a href="concept-gas.html#asc-placement">concept-gas.html#asc-placement</a>. <em>Done when:</em> a goose bite moves a player's health through the week-2 pipeline, and the hit makes a sound and a number like every other hit in the game.</p>
+
+<h3 id="s4">S4 — The tap</h3>
+<p><strong>[FLEET]</strong> <code>WaveSpawner</code>: N goons per interval from a spawn point. By week 3 this is boilerplate from your established patterns, so the fleet drafts it; you review it like you own it, because you do. The one-line authority read: the spawner is server-only — the goons it spawns replicate, the spawner itself never needs to. <em>Done when:</em> waves arrive on an interval in PIE + dedicated.</p>
+<p><strong>[NICK]</strong> If spawning hitches, add simple pooling; don't gold-plate the tap — the director takes it over next week. What does a spawn actually cost, and when does pooling earn its keep? → <a href="concept-horde.html#spawner">concept-horde.html#spawner</a>. <em>Done when:</em> spawning no longer hitches, or never did.</p>
+
+<h3 id="s5">S5 — Credit &amp; baseline</h3>
+<p><strong>[NICK — by hand]</strong> Per-player kill credit on PlayerState — quietly the embryo of contribution tracking, the thing that keeps a 24-player shared camp fair. The server increments it; clients only read it. Then the baseline: <code>stat unit</code> with 15 NPCs chasing 2 clients, and you read the profiler output yourself — the fleet can run stat commands, but only you can grow the reflex — and write the server frame time into the repo. How does Friday's number grow into week 8's recurring gate? → <a href="concept-perf.html#gate-protocol">concept-perf.html#gate-protocol</a>. <em>Done when:</em> the kill credit increments on PlayerState and the baseline number is committed. From here on you measure. Feelings about performance are banned.</p>
+<p><strong>[FLEET]</strong> The moment the Bit commits, the charm burst fires: name-and-title generator word lists, the superlative kill-feed strings, honk SFX wiring — the kill feed has jokes in it before Friday ends.</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — commit to the Bit</h5><p style="margin:0"><b>This is decision week.</b> The horde needs a dumb, committed placeholder identity; the ballot and the retirement plan live at <a href="register.html#oq-01">register.html#oq-01</a>, due Friday, and the index's quest log watches it all week. The pick itself is by-hand work — the fleet can charm up any winner, but it can't commit for you. Front-runner: <b>geese</b> — a honk is free, a doppler honk while charging is comedy, and it's on-brand for a Pacific Northwest developer. <b>Player:</b> whatever wins, the kill feed gets a superlative generator (<code>Gregory, Vice-Goose of the Storm, has been slain by Nick</code>) built from fleet-written <a href="fun-engines.html#generators">word lists</a> — charm infrastructure that outlives the bit itself. <b>Builder:</b> the first time fifteen of anything charge you honking in unison, record it. That's Clip #004, and it will be your most-replayed file.</p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+<p>Four ideas, all orientation — the horde's teaching home is <a href="concept-horde.html">concept-horde.html</a>, one link each.</p>
+
+<p><strong>The brain in a jar.</strong> An NPC is a Pawn possessed by an AIController — a brain in a jar, pluggable into any body. That one property is what the spawn tables will exploit for variety: one brain, many bodies. How does possession work, and why does it make variants nearly free? → <a href="concept-horde.html#brains">concept-horde.html#brains</a></p>
+
+<p><strong>The walkable carpet.</strong> Movement runs on the NavMesh: the engine bakes a walkable carpet over the level geometry, and every pathfinding query runs against the carpet, not the raw geometry — which is why a hundred pathfinders is even thinkable. What happens to the carpet when week 5's walls start landing on it? → <a href="concept-horde.html#navmesh">concept-horde.html#navmesh</a></p>
+
+<p><strong>The flowchart brain.</strong> StateTree is the brain model: a flowchart of states with enter and exit conditions, which maps onto how you already think about systems. Behavior Trees have far more written material, so the fallback criteria are explicit — retreat to BTs on missing community answers or repeated editor instability, never on conceptual discomfort. What are the states, tasks, and transitions in this week's actual tree? → <a href="concept-horde.html#statetree">concept-horde.html#statetree</a></p>
+
+<p><strong>Body-blocking.</strong> Mobs and players share capsule collision, so blocking is free — no rigid bodies, pure Tier 2. Tune capsule sizes, mass, and push interactions, and a tank role falls out of collision you already own. Why is a tank role free? → <a href="concept-horde.html#body-blocking">concept-horde.html#body-blocking</a></p>
+
+<div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
+  <li>NavMesh not building? It's the bounds volume. It's always the bounds volume. → <a href="concept-horde.html#navmesh">concept-horde.html#navmesh</a></li>
+  <li>Goose bites not moving health? The NPC's ASC needs <code>InitAbilityActorInfo</code> too — the same wall week 2 hit. → <a href="concept-gas.html#init-order">concept-gas.html#init-order</a></li>
+  <li>Smooth on a listen server proves nothing — the gate runs PIE + dedicated for a reason. → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a></li>
+</ul></div>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-01">OQ-01 — the Bit, and its retirement plan</a> · due Friday, this week</li>
+  <li><a href="register.html#oq-07">OQ-07 — resource names: may the Bit infect them?</a> · verdict rides with OQ-01</li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"What are StateTree's states, transitions, tasks, and evaluators — and how do I wire my first Idle → Chase → Attack tree?" → <a href="shelf.html#ai">Epic docs — StateTree</a> — open it in S2, next to the editor.</li>
+  <li>"How do I actually turn on 100 ms latency and 2% loss in PIE so rule 5 is a checkbox, not folklore?" → <a href="shelf.html#netcode">Epic docs — Using Network Emulation</a> — set it before S1's first run and never turn it off.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>How do a brain in a jar, a walkable carpet, and a flowchart make a horde cheap? → <a href="concept-horde.html">concept-horde.html</a></li>
+    <li>How does Friday's baseline become week 8's recurring perf gate? → <a href="concept-perf.html#gate-protocol">concept-perf.html#gate-protocol</a></li>
+    <li>Where do Gerald, the goose hierarchy, and the word lists live? → <a href="fun-engines.html#bestiary">fun-engines.html#bestiary</a> · <a href="fun-engines.html#generators">#generators</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+    <li>What makes the dumb chasers mean? → <a href="week-04.html">week-04.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>

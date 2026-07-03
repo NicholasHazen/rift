@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 08 · Earning the 24 — The Rift</title>
+<link rel="stylesheet" href="manual.css">
+<script src="state.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="masthead" aria-label="Manual navigation">
+  <span class="mark">⛰ OneMoreRock</span>
+  <a href="index.html">◈ Mission board</a>
+  <a href="stuck.html">I'm stuck →</a>
+  <span class="save-strip" data-state="position"></span>
+</nav>
+
+<header style="padding-top:56px">
+  <div class="eyebrow">Weeks · Steel</div>
+  <h1>Earning the 24</h1>
+</header>
+
+<div class="wk-meta">
+  <span class="num">Week 08</span><span>Phase: Steel</span><span>Budget: 5 sessions</span><span>Decisions due: the chunk budget · the bot-fleet home</span><span>resolution: sketch</span><span data-state="valve"></span>
+</div>
+
+<p><em>This page sharpens when week 7's gate passes — do not elaborate it before then.</em></p>
+
+<blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — Twenty-four expedition members arrived on schedule, and none of them were people. Gravel Auditor of the West Vein walked into the same wall for fifty minutes and harvested nothing. Award for Punctuality: all twenty-four, simultaneously.</blockquote>
+
+<p class="lede">By Friday you will have a fleet of named bots holding a 24-client siege against the VPS, the server frame measured under 33 milliseconds sustained, and the perf gate wired into every Friday from here to the end of the project. You will also know which levers bought the milliseconds — because you ranked them in advance and let the trace grade the ranking.</p>
+
+<div class="box dod" id="gate"><h5>▣ Gate — the perf gate, now recurring</h5><p style="margin:0">20–24 connected clients plus 60–80 NPCs mid-siege; server frame under 33&nbsp;ms sustained on the VPS — the test topology is the VPS itself, this week and every week after; numbers committed to the repo. <b>This gate reruns every Friday for the rest of the project.</b> Which six steps run every Friday, and which need hands? → <a href="concept-perf.html#gate-protocol">concept-perf.html#gate-protocol</a></p></div>
+
+<p>Concurrent social play is the product — where does 24 come from? → <a href="the-slice.html#three-numbers">the-slice.html#three-numbers</a>. This is the week the conviction gets paid for: 20–24 connected clients plus a siege-scale horde, on the VPS, under 33 milliseconds a frame. Measured. Not hoped.</p>
+
+<p>The shape of the week is a lab protocol, not a construction project: build the instrument, take the baseline, predict, pull one lever at a time, commit every number. The theory — the cost model, the six levers, the landmines printed on their handles — lives on one page, and this one will not repeat it. What does an unoptimized siege actually cost? → <a href="concept-perf.html#cost-model">concept-perf.html#cost-model</a></p>
+
+<h2 id="sessions">The sessions</h2>
+<p>Five sessions: two build the fleet, one takes the baseline, one pulls the levers, one wires the ritual and films the derby. Every session ends with numbers or footage in the repo.</p>
+
+<h3 id="s1">S1 — The headless client</h3>
+<p><strong>[NICK]</strong> Build the bot: a packaged client launched with <code>-nullrhi -nosound</code>, auto-connecting to the server from the command line — no window, no audio, no GPU, just a full network participant. <em>Done when:</em> one headless client connects to the VPS from a shell, and a normal client can stand next to it and watch it exist.</p>
+
+<h3 id="s2">S2 — The fleet</h3>
+<p><strong>[FLEET]</strong> The bot behavior script: wander, harvest, poke things — enough verbs that the load looks like play instead of a queue of statues.</p>
+<p><strong>[NICK]</strong> The fleet runner: launching, monitoring, and harvesting logs from twenty-plus bots across LAN x86 boxes or cheap spot instances is an orchestration problem — i.e., your idea of a good time. The Spark can conduct; where the fleet lives long-term is an open question, linked below. One cheap swap also lands tonight, before anything else gets bought: the NPC AIControllers switch to <code>CrowdFollowingComponent</code>. What happens when eighty geese share one wall? → <a href="concept-horde.html#crowds">concept-horde.html#crowds</a>. <em>Done when:</em> twenty named bots share one rift and their logs land somewhere you can read them.</p>
+
+<h3 id="s3">S3 — The baseline</h3>
+<p><strong>[NICK]</strong> Fill the rift and take its temperature: the fleet connects, the Remote forces a siege, and the instruments come out — <code>stat unit</code> for the frame, <code>stat net</code> for the wire, Unreal Insights via <code>-trace</code> for the flight recording. Which instrument names the system that ate the frame? → <a href="concept-perf.html#lab">concept-perf.html#lab</a>. <em>Done when:</em> the baseline under full load is committed to the repo.</p>
+
+<h3 id="s4">S4 — The levers, one at a time</h3>
+<p><strong>[NICK]</strong> One lever at a time, measuring between each, numbers into the repo.</p>
+
+<div class="predict" data-tag="[ PREDICT ]">Which of the six levers buys back the most milliseconds — ranked, committed next to the baseline, before any of them get pulled?</div>
+
+<p>No answer key prints here, on purpose: the trace grades the ranking, and being wrong here is the lesson. Why a wrong prediction teaches more than a right one → <a href="concept-perf.html#lab">concept-perf.html#lab</a></p>
+
+<p>The six, in the order they get pulled — each one's move and landmine are printed where it lives:</p>
+<ul>
+  <li><a href="concept-perf.html#passes">Relevancy</a> — attacks recipients.</li>
+  <li><a href="concept-perf.html#passes">Update frequency</a> — attacks the clock.</li>
+  <li><a href="concept-perf.html#passes">Dormancy</a> — attacks actor count; the strongest wire lever.</li>
+  <li><a href="concept-perf.html#passes">Anim tick</a> — attacks the frame's anim slice. The caveat rides the handle: on a dedicated server nothing ever renders, so anim-graph gameplay silently dies there.</li>
+  <li><a href="concept-perf.html#passes">Crowd following</a> — attacks the AI slice; pulled early, in S2, and measured here.</li>
+  <li><a href="concept-perf.html#passes">Minimal replication</a> — attacks properties: set the NPC ASCs to Minimal mode.</li>
+</ul>
+<p><em>Done when:</em> six deltas sit next to the prediction in the repo, and the fattest remaining slice has a name.</p>
+
+<h3 id="s5">S5 — The cap, the ritual, the derby</h3>
+<p><strong>[NICK]</strong> Three closings. The director gets its hard entity cap — which knob does the design itself own? → <a href="concept-ire.html#entity-cap">concept-ire.html#entity-cap</a> The perf gate gets wired into the Friday close permanently: same experiment, same way, every week from here. Then the derby — fly the drone cam over the siege and cut the footage. <em>Done when:</em> the gate runs green on the VPS and Clip #009 — the derby — is posted.</p>
+
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — the bot derby</h5><p style="margin:0"><b>Builder:</b> your load-testing army gets personality for free: bots draw names from the title generator, and a <b>spectator drone camera</b> — a flying spectator pawn — lets you film the swarm from above, which is both a debugging tool and your first source of trailer-grade footage. Twenty-four named bots and a honking horde colliding at a wall line is cinematic in a way gray capsules have no right to be. <b>Player:</b> siege population on the HUD ticks up like a storm warning. Numbers being scary is also juice.</p></div>
+
+<h2 id="concepts">What this week teaches</h2>
+<p>Almost nothing on this page, on purpose — this page is the lab notebook, and the theory lives on <a href="concept-perf.html">concept-perf.html</a>, one page, worth reading in full before S3. Three orientations, one link each.</p>
+
+<p><strong>The cost model.</strong> Replication bandwidth is a product of four factors — actors, properties, update frequency, recipients — and the server's CPU stacks movement, AI, and animation beside the wire. Every lever this week attacks exactly one line of that bill, which is why they get pulled one at a time. How bad is the napkin math before anyone optimizes? → <a href="concept-perf.html#cost-model">concept-perf.html#cost-model</a></p>
+
+<p><strong>Thirty-three milliseconds.</strong> The gate's number is one server tick at 30&nbsp;Hz with headroom held back. What lives inside those 33 milliseconds, and which tenant is which? → <a href="concept-perf.html#frame-budget">concept-perf.html#frame-budget</a></p>
+
+<p><strong>The Friday protocol.</strong> From this week the gate is a six-step experiment — deploy, load, pressure, measure, commit, verdict — written so an agent runs every step that doesn't need hands. What exactly happens every Friday from now on? → <a href="concept-perf.html#gate-protocol">concept-perf.html#gate-protocol</a></p>
+
+<p>And one inoculation, taken early: the names the forums will offer when a Friday runs red — Replication Graph, Iris, Mass — are all real and all wrong for this project right now. Read the refusal before the first bad trace, not after → <a href="concept-perf.html#not-yet">concept-perf.html#not-yet</a></p>
+
+<p id="lyra"><strong>One unshelving is sanctioned this week: Lyra</strong>, Epic's production-grade multiplayer sample. It stayed shelved until now for a reason — sample code reads as incantation until you've built the same machinery yourself, and by this week you have: replication, abilities, teams, all patterns you own. Mine it for team and replication patterns worth stealing, and log what you found — a one-line verdict on its shelf entry, so the next unshelving starts from evidence instead of a bookmark.</p>
+
+<div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
+  <li>Geese pop into existence mid-charge, or a multicast never arrives — relevancy tuned too tight; irrelevant means nonexistent → <a href="concept-perf.html#passes">concept-perf.html#passes</a></li>
+  <li>A gnawed wall stays pristine on every client — a dormant actor was mutated without <code>FlushNetDormancy()</code> → <a href="concept-perf.html#passes">concept-perf.html#passes</a></li>
+  <li>A fleet-written NPC variant that skips Minimal replication quietly re-buys the whole bill → <a href="concept-gas.html#asc-placement">concept-gas.html#asc-placement</a></li>
+</ul></div>
+
+<div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
+  <li><a href="register.html#oq-06">OQ-06 — the chunk budget: how many live chunks per rift, and what happens past the cap?</a> · decided before this week's scale pass, not during it</li>
+  <li><a href="register.html#oq-14">OQ-14 — the bot-fleet home: LAN boxes, spot instances, or both with the Spark conducting?</a> · decide this week, when the fleet gets built</li>
+</ul></div>
+
+<h4 id="shelf-pulls">Shelf pulls</h4>
+<ul>
+  <li>"How do I capture a <code>-trace</code> from the loaded server and read which system ate the frame?" → <a href="shelf.html#perf">Epic docs — Unreal Insights</a> — open before S3, not after the first mystery frame.</li>
+  <li>"How does <code>NetCullDistanceSquared</code> decide which clients receive an actor, and how does priority split bandwidth during a siege?" → <a href="shelf.html#perf">Epic docs — Actor Relevancy and Priority</a> — S4's relevancy pass.</li>
+  <li>"How do I put finished walls and idle nodes to sleep, and what are the wake rules so a gnawed wall updates again?" → <a href="shelf.html#perf">Epic docs — Actor Network Dormancy</a> — S4's dormancy pass.</li>
+</ul>
+
+<aside class="seealso">
+  <h4>See also</h4>
+  <ul>
+    <li>Where do the cost model, the six levers, the lab, and the Friday protocol get taught? → <a href="concept-perf.html">concept-perf.html</a></li>
+    <li>Why do NPC accounts replicate Minimal while players run Mixed? → <a href="concept-gas.html#asc-placement">concept-gas.html#asc-placement</a></li>
+    <li>What happens when eighty geese share one wall line? → <a href="concept-horde.html#crowds">concept-horde.html#crowds</a></li>
+    <li>Where do 24, 32, and the NPC budget come from? → <a href="the-slice.html#three-numbers">the-slice.html#three-numbers</a></li>
+    <li>What gets spent the moment this gate runs green? → <a href="week-09.html">week-09.html</a></li>
+    <li>What's decided, and what's still open? → <a href="register.html">register.html</a></li>
+  </ul>
+</aside>
+
+<p class="top"><a href="index.html">↑ back to the mission board</a></p>
+
+</div>
+</body>
+</html>
