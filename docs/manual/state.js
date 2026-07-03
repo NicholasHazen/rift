@@ -43,14 +43,14 @@ const MANUAL_STATE = {
   week: 0,
   session: 2,
   sessionsDone: 1,
-  lastPlayed: "2026-07-02",
-  nextAction: "Open the Epic Games Launcher and start the UE 5.7 install; while it downloads, link Epic account ↔ GitHub",
+  lastPlayed: "2026-07-03",
+  nextAction: "Rig the PC: install Git + gh + Claude Code, clone the repo, then start the UE 5.8 install",
   nextActionHref: "../tomorrow-note.md",
   gates: [],
   clips: [],
   decisionsDue: [
-    { oqId: "OQ-02", dueWeek: 0, line: "IDE: Rider vs Xcode/clangd — decide in S2" },
-    { oqId: "OQ-03", dueWeek: 1, line: "The build host — this Mac cannot ship week 7's artifacts" },
+    { oqId: "OQ-02", dueWeek: 0, line: "IDE: Visual Studio vs Rider — decide in S2" },
+    { oqId: "OQ-03", dueWeek: 1, line: "The build host — does the dev PC double as it? Needs sign-off" },
     { oqId: "OQ-01", dueWeek: 3, line: "Commit to the Bit" }
   ],
   valveByWeek: {

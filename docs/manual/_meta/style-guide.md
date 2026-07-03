@@ -37,9 +37,58 @@ provenance is a date on register.html, nothing more.
 exist if the manual had been written in one sitting yesterday? If it requires knowing
 the document's past, rewrite it from the conviction.
 
+### The flow law — a monologue, not a deck
+
+The register says how the mentor sounds; this law says how the mentor *moves*. The
+manual is spoken teaching — one continuous walk from what the reader already holds to
+what they need next — and the failure mode this law exists to kill is deck-speak:
+verdict-shaped fragments chained by semicolons and em-dashes, prose that reads like
+bullet points wearing a paragraph's clothes. A listener cannot hear an em-dash coming.
+Every unannounced pivot spends working memory the 9pm reader does not have.
+
+- **Full sentences carry the body.** A verbless fragment is budgeted like an aphorism:
+  at most one per section, first or last position in its paragraph, and only when the
+  compression earns its keep.
+- **Connect or cut.** Adjacent sentences state their relationship in words — because,
+  so, which means, but, instead, the result is. If the connection lives only in the
+  writer's head, write it down. A drumbeat of standalone declaratives ("Greed mints
+  ire. The pool funds the director.") is legal at most once per page, as a summary
+  *after* the same idea has been walked through in connected prose — never as the
+  walk-through itself.
+- **One pivot per sentence.** One em-dash aside or one semicolon, never both, never
+  stacked. A sentence that needs two pivots is two sentences.
+- **Familiar before new.** Open on a noun the reader already holds — the analogy, the
+  previous paragraph's subject — and land the new term at the end of the sentence,
+  where spoken emphasis falls.
+- **The breath test.** Read the paragraph aloud. Anywhere you re-breathe mid-sentence,
+  or a pivot arrives with no audible warning, rewrite. This is the sentence-level half
+  of the read-aloud gate.
+
+### The jargon on-ramp
+
+Every term of art gets a plain-words gloss at first use on each page — an appositive
+clause of roughly six words, not an explanation: "PIE (Play In Editor — running the
+game inside the editor)", "the CMC, the engine's built-in character mover". The gloss
+answers "what kind of thing is this?"; the canonical home still answers "how does it
+work?"; glossary.html still holds the pointers — so the on-ramp does not violate
+say-once. Listeners arrive at pages sideways, from the rail and from search, so no
+page may assume its jargon was learned somewhere earlier on the walk.
+
 ### Exemplars — pattern-match against lines, not abstractions
 
-Positive (this is the house voice):
+Positive — the base register, connected teaching. Most sentences in the manual look
+like these, each clause telling you how it hangs on the last:
+
+> "Then somebody places an extractor. It harvests on a timer, which means it mints on
+> a timer, and the walls that go up to protect it mint by the minute just by standing
+> there."
+> "The subsystem being server-only leaves one fact stranded: every HUD in the
+> expedition needs to show how angry the rift is, and a client cannot ask a service it
+> doesn't run."
+
+Positive — terminal compressions. These are the house punchlines: one per section at
+most, landing at the end of a passage that earned them in connected prose. They are
+the seasoning, never the base register:
 
 > "A chunk at rest is furniture, not a simulation."
 > "Ship ugly. The box is the feature."
@@ -168,7 +217,8 @@ document.
   card, the physics hypotheses table).
 - **Lead with narrative paragraphs; bullets only for true enumerations** (checklists,
   command lists, gotcha seeds). A bullet wall where a paragraph belongs is a defect.
-- Teaching passages: one idea per sentence, callbacks by name to previously-taught ideas
+- Teaching passages: one idea per sentence, with its connection to the previous idea
+  stated in words (the flow law), and callbacks by name to previously-taught ideas
   ("the ledger pays again", "the DM doesn't narrate other tables").
 
 ### Pedagogy (concept pages)
@@ -360,6 +410,9 @@ tomorrow-note; the fleet back-fills Monday. A week that hits the floor still cou
   `open`.
 - Voice lint: no banned moves (Part 1); device budgets respected (≤1 window, ≤1 predict,
   ≤1 neurochemistry reference per page; vignettes on payoff weeks only).
+- Flow lint: fragments within budget; no stacked pivots; sentence connections stated,
+  not implied; at most one summary drumbeat per page; every term of art glossed at
+  first use on the page (the on-ramp).
 - Say-once check: no explanation duplicated against the canonical-home table.
 - Two-clock check: every colored element answers "whose clock is this?"; no inline
   color styles.

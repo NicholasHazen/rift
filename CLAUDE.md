@@ -10,20 +10,20 @@ Codename: **OneMoreRock** — names the `.uproject` and primary C++ module. A mu
 - `docs/tomorrow-note.md` — the re-entry file. At the end of **every** working session, write the first concrete action of the next session. Non-negotiable ADHD infrastructure; if a session ends without it, the session isn't done.
 
 ## Current state: pre-week-0
-The UE project does not exist yet. Nick creates it via the Epic Games Launcher GUI (UE 5.8, Third Person template, **C++**) into this repo root. Until then: scaffolding, docs, and scripts only — no engine builds are possible. Fill in the Build section during week 0.
+The UE project does not exist yet. The dev machine is a **Windows 11 PC** (registered as decision `d-devbox`). Nick creates the project via the Epic Games Launcher GUI (UE 5.8, Third Person template, **C++**) into this repo root. Until then: scaffolding, docs, and scripts only — no engine builds are possible. Fill in the Build section during week 0.
 
 ## Engine: UE 5.8 (agents, read this before citing engine facts)
 UE 5.8 released 2026-06-17 and is reportedly the final UE5 release (UE6 previews ~late 2027), so Stage 1 rides one engine version — registered as decision `d-engine`. What 5.8 means for this project, so no agent reasons from stale 5.7-era assumptions:
 - **CMC is still the default and correct movement component.** Mover remains Experimental in 5.8; never propose it (doctrine: `docs/manual/doctrine-physics.html#cmc`).
 - **Classic replication is still the default.** Iris went production-ready in 5.8 but is opt-in and stays parked until Stage 2 (`docs/manual/concept-perf.html#not-yet`). GAS is unchanged; StateTree gained editor/compiler improvements; the Third Person template is unchanged from 5.7.
-- **No Live Coding on macOS.** The agent build loop is: editor closed → build from CLI → Nick relaunches. Never run a CLI build while the editor holds the modules.
-- **Xcode is pinned by the engine**, not by Software Update: `Engine/Config/Apple/Apple_SDK.json` in the 5.8 install is the authority (Epic hasn't published a 5.8 requirements row). A newer-than-blessed Xcode is a known build-breaker.
+- **Live Coding works on Windows** (Ctrl+Alt+F11) — Nick's in-editor loop for function-body edits; header/class-layout changes still need close → rebuild → relaunch. The agent build loop is unchanged: editor closed → build from CLI → Nick relaunches. Never run a CLI build while the editor holds the modules.
+- **The compiler is Visual Studio 2022** with the *Game development with C++* workload (5.8 docs bless 17.14, plus *Desktop development with C++* and *.NET desktop development*). UnrealBuildTool owns the toolchain pick: when a VS update outruns the engine, UBT warns about an unsupported MSVC toolset — install the exact toolset it names via the VS Installer's Individual Components rather than debugging a too-new compiler.
 - **The agent–editor bridge is first-party now**: 5.8 ships an experimental `ModelContextProtocol` engine plugin (loopback HTTP, disabled by default) and Epic publishes an official Claude Code plugin (`EpicGames/unreal-engine-skills-for-claude-code-plugin`). Optional garnish, evaluated in week 0 S3; its sanctioned uses are running automation tests and inspecting the world — never Blueprint logic authoring (hard rule 1 applies to robots too).
 - **Doc links:** `docs/ue-docs-index.md` is the agent-facing index of official 5.8 documentation per concept; use it before searching the web. Human-curated reading stays on `docs/manual/shelf.html`.
 - Known 5.8.0 launch bugs cluster in rendering (Lightmass, Nanite skeletal meshes, Toon Shader) — none intersect a gray-box multiplayer slice. If something engine-shaped breaks anyway, check for a 5.8.x hotfix before debugging deep.
 
 ## Build & run (fill in during week 0)
-- Editor/game build: TBD (UnrealBuildTool via `Engine/Build/BatchFiles/Mac/Build.sh` — record the exact proven invocation here in week 0)
+- Editor/game build: TBD (UnrealBuildTool via `Engine\Build\BatchFiles\Build.bat` — record the exact proven invocation here in week 0)
 - Agent code navigation: `UnrealBuildTool -Mode=GenerateClangDatabase` → keep `compile_commands.json` fresh after module/header changes
 - PIE testing is GUI-side (Nick). Headless/automation testing: TBD ~week 5+.
 - Server build/cook/deploy: week 7 (`RunUAT BuildCookRun …` wrappers live in `scripts/` when they exist)

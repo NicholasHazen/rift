@@ -104,7 +104,8 @@ page exists; use the given search query.
 | UAT overview | https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-automation-tool-overview-for-unreal-engine | What UAT is, how to invoke | V |
 | Dedicated servers | https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-dedicated-servers-in-unreal-engine | Source build, Server target, local cook/test | V |
 | Cooking & packaging | https://dev.epicgames.com/documentation/en-us/unreal-engine/packaging-your-project | Build/cook/stage/package/deploy stages | V |
-| Linux toolchain | https://dev.epicgames.com/documentation/en-us/unreal-engine/linux-development-requirements-for-unreal-engine | Cross-compile toolchain table (Windows-host only; the Mac builds Linux servers on a Linux box/CI) | V |
+| Linux toolchain | https://dev.epicgames.com/documentation/en-us/unreal-engine/linux-development-requirements-for-unreal-engine | Cross-compile toolchain table (Windows-host — the dev PC's lane, once the engine is source-built) | V |
+| VS setup (Windows) | https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine | VS 2022 17.14 + required workloads (Game development with C++, Desktop development with C++, .NET desktop development) — fetch-verified 2026-07-03 | V |
 | GenerateClangDatabase | — | No official page; community knowledge — `UnrealBuildTool -mode=GenerateClangDatabase compile_commands.json clangd` | S |
 
 ## G. Performance

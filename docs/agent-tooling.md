@@ -1,8 +1,9 @@
-# Agent tooling — Claude Code × UE 5.8 on this Mac
+# Agent tooling — Claude Code × UE 5.8 on the Windows 11 PC
 
-How the fleet plugs into the engine. Researched 2026-07-02 against UE 5.8 (released 2026-06-17).
-Companion file: `docs/ue-docs-index.md` (official docs per concept). Reader-facing resources stay
-on `docs/manual/shelf.html`.
+How the fleet plugs into the engine. Researched 2026-07-02 against UE 5.8 (released 2026-06-17);
+re-pathed for the Windows 11 dev machine 2026-07-03 (register: d-devbox). Companion file:
+`docs/ue-docs-index.md` (official docs per concept). Reader-facing resources stay on
+`docs/manual/shelf.html`.
 
 ## The stance
 
@@ -13,45 +14,46 @@ inspecting the live world; it never authors Blueprint logic (hard rule 1 applies
 
 ## Tier 1 — the CLI loop (week 0, required)
 
-Paths assume the launcher engine at `/Users/Shared/Epic Games/UE_5.8`; verify after install.
+Paths assume the launcher engine at `C:\Program Files\Epic Games\UE_5.8` and the repo at
+`C:\Code\rift`; verify both after install and correct here.
 
 **Build the editor target** (record the proven invocation in CLAUDE.md §Build once it succeeds):
 
 ```
-"/Users/Shared/Epic Games/UE_5.8/Engine/Build/BatchFiles/Mac/Build.sh" \
-  OneMoreRockEditor Mac Development \
-  -project="/Users/nick/Code/rift/OneMoreRock.uproject" -WaitMutex
+"C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\Build.bat" ^
+  OneMoreRockEditor Win64 Development ^
+  -project="C:\Code\rift\OneMoreRock.uproject" -WaitMutex
 ```
-
-Do not add `-architecture=x64` — that's pre-arm64-editor folklore; the 5.8 editor is native
-Apple Silicon.
 
 **Generate the clang database** (repeat after module/header changes; it's non-incremental by
 design — full regen every run is normal):
 
 ```
-"/Users/Shared/Epic Games/UE_5.8/Engine/Build/BatchFiles/Mac/Build.sh" \
-  -mode=GenerateClangDatabase -project="/Users/nick/Code/rift/OneMoreRock.uproject" \
-  OneMoreRockEditor Mac Development
+"C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\Build.bat" ^
+  -mode=GenerateClangDatabase -project="C:\Code\rift\OneMoreRock.uproject" ^
+  OneMoreRockEditor Win64 Development
 ```
 
-It writes `compile_commands.json` into the **engine** directory by default — symlink or copy it
-to the repo root, keep it out of git, and drop a `.clangd` file pointing at it
-(`CompilationDatabase: .`).
+It writes `compile_commands.json` into the **engine** directory by default — copy it to the repo
+root, keep it out of git, and drop a `.clangd` file pointing at it (`CompilationDatabase: .`).
+Unverified on this machine: the entries come out MSVC-flag-shaped; clangd handles clang-cl driver
+mode, but if it chokes, regenerate with `-Compiler=Clang` appended and note the result here.
 
-**The loop's one law: no Live Coding on macOS.** Editor closed → build → Nick relaunches.
-A CLI build while the editor holds module dylibs corrupts state. (Seeded in UE-GOTCHAS.md.)
+**The loop's one law: agents build with the editor closed.** Live Coding exists on Windows
+(Ctrl+Alt+F11) and is Nick's in-editor iteration path for function-body edits — but a CLI build
+while the editor holds the module DLLs corrupts state, and header/class-layout changes always
+take the full close → build → relaunch cycle. (Seeded in UE-GOTCHAS.md.)
 
 ## Tier 2 — headless automation tests (~week 5+, when tests exist)
 
-No plugin needed; works today on macOS:
+No plugin needed; works out of the box on Windows:
 
 ```
-"/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor-Cmd" \
-  "/Users/nick/Code/rift/OneMoreRock.uproject" \
-  -ExecCmds="Automation RunTests OneMoreRock.;Quit" \
-  -unattended -nopause -nosplash -nullrhi -nosound \
-  -testexit="Automation Test Queue Empty" -ReportExportPath=/tmp/onemorerock-tests -log
+"C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe" ^
+  "C:\Code\rift\OneMoreRock.uproject" ^
+  -ExecCmds="Automation RunTests OneMoreRock.;Quit" ^
+  -unattended -nopause -nosplash -nullrhi -nosound ^
+  -testexit="Automation Test Queue Empty" -ReportExportPath="%TEMP%\onemorerock-tests" -log
 ```
 
 `-ReportExportPath` emits JSON + HTML the fleet can parse. This is the backbone of the
@@ -68,9 +70,8 @@ with an official Claude Code plugin: `EpicGames/unreal-engine-skills-for-claude-
 Adoption steps, if the timebox says yes:
 
 1. Enable the `ModelContextProtocol` + `AllToolsets` engine plugins.
-2. Sanity-check the server from this Mac first (`ModelContextProtocol.StartServer` in the editor
-   console, then hit the endpoint with MCP Inspector) — no source verified it on macOS
-   specifically; trust it after it answers, not before.
+2. Sanity-check the server locally first (`ModelContextProtocol.StartServer` in the editor
+   console, then hit the endpoint with MCP Inspector) — trust it after it answers, not before.
 3. `ModelContextProtocol.GenerateClientConfig ClaudeCode` writes the client config; launch
    Claude Code from the repo root.
 4. Optionally install Epic's Claude Code plugin via `/plugin marketplace add`.

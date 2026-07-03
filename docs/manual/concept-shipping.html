@@ -26,29 +26,29 @@
 
 <h2 id="build-host">Where builds can physically happen</h2>
 
-<p>Start with the fact, because it gates weeks 6 and 7 and it is cheapest to handle now: <strong>this Mac cannot produce either artifact week 7 promises.</strong> Week 7 ships a Linux dedicated server and Windows clients. Epic's Linux cross-compilation toolchain runs on Windows hosts, not macOS; packaging a Win64 client requires a Windows machine outright. "Package Linux server plus Windows client," issued from this desk, is a sentence, not a command.</p>
+<p>Start with the fact, because it gates weeks 6 and 7 and it is cheapest to handle now: <strong>the dev PC can produce both artifacts week 7 promises.</strong> Week 7 ships a Linux dedicated server and Windows clients. Win64 is the PC's native platform, and Epic's Linux cross-compilation toolchain runs on Windows hosts — install the engine-matched toolchain and "package a Linux server plus Windows client" is a command, not a sentence. One catch survives the good news: the Server target exists only in a source-built engine (<a href="#why-source">the engine fact below</a>), and a source engine is a couple hundred gigabytes and hours of compile living beside the launcher install.</p>
 
-<p>None of this touches daily work. The Mac stays the development machine: the editor, PIE with the dedicated-server checkbox, every session between here and week 7 — and it can package a macOS client natively, which is one reason week 6's playtest doubles as a census of what your friends actually play on, before week 7 promises them artifacts. The gap opens only at shipping time, and only for the two platforms that matter most.</p>
+<p>None of this touches daily work. The PC stays the development machine: the editor, PIE with the dedicated-server checkbox, every session between here and week 7 — and the Win64 client it packages natively is the artifact most of the roster runs. Week 6's playtest still doubles as a census of what your friends actually play on, before week 7 promises them artifacts: a macOS client is the one artifact this desk doesn't produce, and the house Mac covers it if the census says so.</p>
 
-<p><span class="storm">So where do shipping builds happen?</span> The pragmatic path: a home-lab x86 Linux box, which builds the engine from source and the Linux server natively — and the server artifact is the one the whole plan leans on — plus a Windows machine or containerized builds for the Win64 clients. The ideal path: containerized CI on Epic's official Linux images, where a build is a job you submit instead of a machine you own; the Unreal Containers project on the shelf documents that whole practice. My recommendation: <span class="ember">the Linux box now, containers when the deploy outgrows scp</span>. The pipeline below is identical either way — only the room it runs in changes.</p>
+<p><span class="storm">So where do shipping builds happen?</span> The pragmatic path: the dev PC doubles as the build host — the source engine goes in beside the launcher engine, and engine builds run overnight, never during a session. The ideal path: containerized CI on Epic's official Linux images, where a build is a job you submit instead of a machine you own; the Unreal Containers project on the shelf documents that whole practice. My recommendation: <span class="ember">the PC doubles for now, containers when the deploy outgrows scp</span>. The pipeline below is identical either way — only the room it runs in changes.</p>
 
-<p>The figure paints the lane markings, one card per machine. This Mac develops: the editor, PIE, and a native macOS client — and can never produce the Linux server or a Win64 client. The build host — whichever machine <a href="register.html#oq-03">OQ-03</a> picks — builds: the engine from source and both shipping artifacts. The Spark conducts: the bot fleet and, eventually, the Chronicle's local models — never engine builds, because ARM. And the VPS runs the server artifact and builds nothing. Four machines, four lanes, and every week-7 surprise lives in a lane violation.</p>
+<p>The figure paints the lane markings, one card per machine. The dev PC develops, and — pending <a href="register.html#oq-03">OQ-03</a> — builds: the editor and PIE nightly, Win64 clients natively, the Linux server from the source engine, with one standing rule — engine builds run overnight, never mid-session. The Mac is the bench: it packages a macOS client if week 6's census asks, and it never touches the Linux server or a Win64 client. The Spark conducts: the bot fleet and, eventually, the Chronicle's local models — never engine builds, because ARM. And the VPS runs the server artifact and builds nothing. Four machines, four lanes, and every week-7 surprise lives in a lane violation.</p>
 
 <figure>
-<svg width="100%" viewBox="0 0 680 220" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The lane markings</title><desc>Four machines and their lanes. This Mac develops — the editor, PIE, and a macOS client — and never produces the Linux server or Windows clients. The build host builds the engine from source, the Linux server, and the Win64 clients, and is not for daily development. The ARM Spark conducts the bot fleet and the Chronicle's local models, never engine builds. The VPS runs the server artifact and builds nothing.</desc>
+<svg width="100%" viewBox="0 0 680 220" role="img" style="max-width:680px;display:block;margin:0 auto"><title>The lane markings</title><desc>Four machines and their lanes. The dev PC develops and, pending OQ-03, builds — the editor and PIE, native Win64 clients, the Linux server from a source engine — with engine builds run overnight, never mid-session. The Mac is the bench: a macOS client if the census asks, never the Linux server or Win64. The ARM Spark conducts the bot fleet and the Chronicle's local models, never engine builds. The VPS runs the server artifact and builds nothing.</desc>
 <rect x="15" y="30" width="150" height="170" rx="8" fill="#1b1e28" stroke="#2e3242"/>
-<text x="90" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THIS MAC</text>
-<text x="90" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">develops</text>
+<text x="90" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THE DEV PC</text>
+<text x="90" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">develops · builds (OQ-03)</text>
 <text x="90" y="100" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the editor · PIE</text>
-<text x="90" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">a native macOS client</text>
-<text x="90" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: Linux server, Win64</text>
+<text x="90" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">Win64 native</text>
+<text x="90" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">Linux server via toolchain</text>
+<text x="90" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: builds mid-session</text>
 <rect x="185" y="30" width="150" height="170" rx="8" fill="#1b1e28" stroke="#2e3242"/>
-<text x="260" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THE BUILD HOST</text>
-<text x="260" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">builds — OQ-03's pick</text>
-<text x="260" y="100" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the engine, from source</text>
-<text x="260" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the Linux server</text>
-<text x="260" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">the Win64 clients</text>
-<text x="260" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: daily development</text>
+<text x="260" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THE MAC</text>
+<text x="260" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">the bench</text>
+<text x="260" y="100" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">a macOS client,</text>
+<text x="260" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#9d9aab">if the census asks</text>
+<text x="260" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#e06a6a">never: Linux server, Win64</text>
 <rect x="355" y="30" width="150" height="170" rx="8" fill="#1b1e28" stroke="#2e3242"/>
 <text x="430" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#e9e5d9">THE SPARK</text>
 <text x="430" y="74" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#a08fe8">conducts — it is ARM</text>
@@ -132,7 +132,7 @@
 
 <p>Every stage answers to one conductor: <code>RunUAT</code>, the Unreal Automation Tool, which lives in the engine's <code>Engine/Build/BatchFiles/</code> directory, and its <code>BuildCookRun</code> command. This is the canonical invocation, the one the <code>scripts/</code> wrappers encode:</p>
 
-<p><code>RunUAT.sh BuildCookRun -project=OneMoreRock.uproject -platform=Win64 -clientconfig=Development -server -serverplatform=Linux -serverconfig=Development -build -cook -stage -pak -archive -archivedirectory=Builds/</code></p>
+<p><code>RunUAT.bat BuildCookRun -project=OneMoreRock.uproject -platform=Win64 -clientconfig=Development -server -serverplatform=Linux -serverconfig=Development -build -cook -stage -pak -archive -archivedirectory=Builds/</code></p>
 
 <p>Read it flag by flag. <code>-project</code> names the game. <code>-platform=Win64</code> sets the client artifact's operating system, and <code>-clientconfig=Development</code> its build configuration — Development until there is a reason to say Shipping. <code>-server -serverplatform=Linux -serverconfig=Development</code> says: also produce the dedicated server, targeting Linux, same configuration.</p>
 
@@ -151,7 +151,7 @@
 <div class="box gotcha"><h5>⚠ Symptom index</h5><ul>
 <li>Works in PIE, missing from the packaged build → the cooker bakes only what the reference walk reaches → <a href="#pipeline">the pipeline</a>.</li>
 <li>No Server target anywhere in the platform list → you are on the launcher engine; the target exists only in source builds → <a href="#why-source">the engine fact</a>.</li>
-<li>Hunting for a Linux cross-toolchain that installs on macOS → it does not exist; a build happens where the target OS lives → <a href="#build-host">the build host</a>.</li>
+<li>The Linux cross-toolchain is installed but the cook or link fails → each engine version blesses exactly one toolchain build; install the one 5.8 names, not the newest → <a href="#build-host">the build host</a>.</li>
 <li>The pipeline needs "one more elegant touch" before it ships → sprawl gravity; timebox it. Ship ugly. The box is the feature.</li>
 <li>A build-host candidate fails at the first configure step → check the architecture before blaming the toolchain → <a href="#spark">the Spark's lane</a>.</li>
 </ul></div>
