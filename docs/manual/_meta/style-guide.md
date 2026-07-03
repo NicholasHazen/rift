@@ -322,7 +322,9 @@ in a commit.
    what surprised.
 4. Run T2 for any questions the week resolved.
 5. Sharpen the NEXT week's page only (it may graduate from `sketch` toward `full`);
-   draft its valve line into state.js `valveByWeek`. Touch nothing further out.
+   draft its valve line into state.js `valveByWeek` AND as static text inside that
+   week page's wk-meta valve span, same commit — the span is the JS-absent truth,
+   the renderer overwrites it live. Touch nothing further out.
 6. Roll any unshipped fun payload forward (fun-engines.html#fun-debt) — payloads never
    silently die.
 7. Append earned entries to `UE-GOTCHAS.md`.
@@ -335,9 +337,12 @@ in a commit.
    concrete action of the next session. Nick edits one line and approves.
 2. Update state.js: week/session position, `nextAction` (from the note's first line),
    `lastPlayed`, `sessionsDone`.
-3. Append the session row (and clip row, if any) to clips.html — Chronicle-voiced
+3. Flip the closed session's mark (✓) and move ▶ on the current week's page, and
+   mirror the glyphs in index.html's tracker row — the static fallback state.js
+   paints over when live.
+4. Append the session row (and clip row, if any) to clips.html — Chronicle-voiced
    caption for clips.
-4. Commit. Lint: state.js date must equal tomorrow-note date; a mismatch means the front
+5. Commit. Lint: state.js date must equal tomorrow-note date; a mismatch means the front
    door is lying — fix before anything else.
 
 **The bad-week floor (printed law, doctrine-os.html#friday):** the minimum viable close

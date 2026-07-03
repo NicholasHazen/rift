@@ -135,7 +135,7 @@
 
 <p>If that sentence sounds familiar, it should: this is the EMURJ metafield architecture all over again. Schema in code, content as structured data, and the people who author content never touch the schema layer. You have run a business on this pattern — you know where it bends, where validation has to live, and what happens when someone edits the schema casually. That experience is not decoration; it is the fleet's operating theory for the whole project. Agents author spawn tables, tuning files, and word lists — structured data validated against a schema you wrote — and never hold a binary asset in their hands.</p>
 
-<p>Two standing rules are downstream of this wall, and their rationale lives here. Rule 6 — C++ for systems, Blueprints for wiring — is not aesthetic: C++ and JSON are text, so the fleet can read, diff, author, and review them; Blueprints are opaque binaries, so reviewing a Blueprint diff is two screenshots and a prayer. Logic that drifts into Blueprints exits the fleet's field of vision, and in a one-person studio that means it exits review entirely. Git LFS is a week-0 requirement for the binary world's sake: <code>.uasset</code> and <code>.umap</code> files bloat plain git history and can never be merged anyway, so LFS versions them as blobs behind lightweight pointers and the repo stays clonable in week 12. Keep the game's soul on the text side of the wall.</p>
+<p>Two standing rules are downstream of this wall, and their rationale lives here. <a href="doctrine-os.html#rule-6">Rule 6</a> — C++ for systems, Blueprints for wiring — is not aesthetic: C++ and JSON are text, so the fleet can read, diff, author, and review them; Blueprints are opaque binaries, so reviewing a Blueprint diff is two screenshots and a prayer. Logic that drifts into Blueprints exits the fleet's field of vision, and in a one-person studio that means it exits review entirely. Git LFS is a week-0 requirement for the binary world's sake: <code>.uasset</code> and <code>.umap</code> files bloat plain git history and can never be merged anyway, so LFS versions them as blobs behind lightweight pointers and the repo stays clonable in week 12. Keep the game's soul on the text side of the wall.</p>
 
 <h2 id="tuning-as-text">Tuning as text</h2>
 
@@ -157,9 +157,9 @@
 
 <h4>Shelf pulls</h4>
 <ul>
-<li>"What actually happens between launching the game and my actor's BeginPlay — who creates the GameMode, the PlayerController, and the Pawn, in what order?" → <a href="shelf.html#netcode">Alex Forsythe's game-framework talk</a> — watch during week 0's Friday hour, right after reading the template code.</li>
-<li>"What is the official path for driving gameplay from external text — rule 6's mechanical how?" → <a href="shelf.html#tools">Epic's data-driven gameplay docs</a>.</li>
-<li>"How do UE's C++ idioms — UPROPERTY lifetimes, garbage collection, TObjectPtr, modules — differ from what my systems instincts expect?" → <a href="shelf.html#tools">Tom Looman's C++ guide</a> — skim once in week 0–1, return when the compiler or the GC surprises you.</li>
+<li>"What actually happens between launching the game and my actor's BeginPlay — who creates the GameMode, the PlayerController, and the Pawn, in what order?" → <a href="shelf.html#forsythe-framework">Alex Forsythe's game-framework talk</a> — watch during week 0's Friday hour, right after reading the template code.</li>
+<li>"What is the official path for driving gameplay from external text — rule 6's mechanical how?" → <a href="shelf.html#epic-data-driven">Epic's data-driven gameplay docs</a>.</li>
+<li>"How do UE's C++ idioms — UPROPERTY lifetimes, garbage collection, TObjectPtr, modules — differ from what my systems instincts expect?" → <a href="shelf.html#looman-cpp-guide">Tom Looman's C++ guide</a> — skim once in week 0–1, return when the compiler or the GC surprises you.</li>
 </ul>
 
 <aside class="seealso">

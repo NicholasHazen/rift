@@ -36,12 +36,12 @@
 
 <p>This is the week the manual exists for. Everything so far was parts — a node that breaks, a ledger that settles, a horde that walks; this week is <em>the idea</em>: the greed dial becomes code. It lands deliberately early, partly because every later system tunes against it, and mostly because from Friday onward you're not doing engine exercises anymore — you're building your game. That distinction is fuel, and you need the tank full for the eight weeks that remain.</p>
 
-<p>One prerequisite listen, same as week 1's: before S1, hear <a href="concept-ire.html">the dungeon-master-with-a-wallet page</a> through once, start to finish — it holds the economy, its Unreal shapes, the spawn table, the cap, and the lineage, and this week is its lab.</p>
+<p>One prerequisite listen, same as week 1's: <strong>before S1, hear <a href="concept-ire.html">the dungeon-master-with-a-wallet page</a> through once, start to finish.</strong> It is a listen, not a session — it holds the economy, its Unreal shapes, the spawn table, the cap, and the lineage, and this week is its lab.</p>
 
-<p>The trap this week: building Valve's director instead of yours. You'll know you're in it when the spend loop grows a pacing state machine before the causality demo has run once. The move: ship the deliberately dumb loop, run the ritual, and let the JSON do the escalating — the deck on the shelf is for stealing the skeleton, not the org chart. Tune, don't add.</p>
+<p><strong>The trap this week:</strong> building Valve's director instead of yours. <strong>You'll know you're in it when</strong> the spend loop grows a pacing state machine before the causality demo has run once. <strong>The move:</strong> ship the deliberately dumb loop, run the ritual, and let the JSON do the escalating — the deck on the shelf is for stealing the skeleton, not the org chart. Tune, don't add.</p>
 
 <h2 id="sessions">The sessions</h2>
-<p>Five sessions: a wallet, a schema, a spender, a voice, and the controls. Each carries its done-when, per the week-0 convention; done-marks land as sessions close.</p>
+<p>Five sessions: a wallet, a schema, a spender, a voice, and the controls. Each carries its done-when, per <a href="week-00.html#sessions">the week-0 convention</a>; done-marks land as sessions close.</p>
 
 <h3 id="s1">S1 — The pool</h3>
 <p><strong>[NICK — by hand]</strong> Hand-write <code>UIreSubsystem</code> — rule 4, and this week carries the last firsts for a while: the subsystem here, the codebase's first DataAsset in S2. Give it accrual functions for the three mint families — harvest ticks, kills, structure-minutes — called via a small event bus or direct calls; direct is fine at this size. The pool itself stays server-side, and the current value mirrors onto GameState as an ordinary replicated property whose one-line authority read writes itself: the server mints and writes, clients only read. Why GameState and not PlayerState? → <a href="concept-ire.html#shapes">concept-ire.html#shapes</a>. <em>Done when:</em> you set ire-per-kill to a number you'll recognize, put Gerald down, and the mirror jumps by exactly that much on both clients.</p>
@@ -90,8 +90,8 @@
 
 <h4 id="shelf-pulls">Shelf pulls</h4>
 <ul>
-  <li>"How does the canonical director decide when to spawn and when to relent — which build-up / peak / relax knobs did Valve expose?" → <a href="shelf.html#ai">the Left 4 Dead director deck</a> — read before S3's spend loop; the pacing skeleton is proven, the mint is yours.</li>
-  <li>"What is the official path for driving gameplay from external text — rule 6's mechanical how?" → <a href="shelf.html#tools">Epic's data-driven gameplay docs</a> — open beside S2's import path.</li>
+  <li>"How does the canonical director decide when to spawn and when to relent — which build-up / peak / relax knobs did Valve expose?" → <a href="shelf.html#l4d-director">the Left 4 Dead director deck</a> — read before S3's spend loop; the pacing skeleton is proven, the mint is yours.</li>
+  <li>"What is the official path for driving gameplay from external text — rule 6's mechanical how?" → <a href="shelf.html#epic-data-driven">Epic's data-driven gameplay docs</a> — open beside S2's import path.</li>
 </ul>
 
 <aside class="seealso">

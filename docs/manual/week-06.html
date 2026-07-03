@@ -41,7 +41,7 @@
 <p>The trap this week: building the Chronicle's future instead of its v0. You'll know you're in it when a local model is downloading before the template renderer has rendered once. The move: templates and word lists ship the night; the prose-polish ambitions stay filed with the Chronicle's spec at <a href="fun-engines.html#chronicle">fun-engines.html#chronicle</a>, where they can wait without costing you Friday.</p>
 
 <h2 id="sessions">The sessions</h2>
-<p>Five sessions: a clock, a door, a ledger, a narrator, and a night. Each carries its done-when, per the week-0 convention; done-marks land as sessions close.</p>
+<p>Five sessions: a clock, a door, a ledger, a narrator, and a night. Each carries its done-when, per <a href="week-00.html#sessions">the week-0 convention</a>; done-marks land as sessions close.</p>
 
 <h3 id="s1">S1 — The clock</h3>
 <p><strong>[NICK]</strong> The session state machine lands on the GameMode — Lobby → Active → Extraction → Debrief — with the session timer beside it. The GameMode exists only on the server, which is exactly why it gets the clock: nobody argues with a referee they can't see. Phase and time-remaining mirror onto GameState as replicated properties; the one-line authority read: the server owns and advances the phase, clients read the mirror and paint HUDs. The timer's default length is <a href="register.html#oq-09">OQ-09</a>'s lean — the open-questions box below carries it. <em>Done when:</em> two clients walk one full phase cycle in PIE + dedicated showing the same phase and the same countdown, and nothing a client does can advance either.</p>
@@ -88,7 +88,7 @@
 
 <h4 id="shelf-pulls">Shelf pulls</h4>
 <ul>
-  <li>"How do three friends connect to my listen server tonight without touching NAT or matchmaking?" → <a href="shelf.html#shipping">Tailscale</a> — set the tailnet up before Friday; it's a ten-minute job, and the night should spend zero minutes on plumbing.</li>
+  <li>"How do three friends connect to my listen server tonight without touching NAT or matchmaking?" → <a href="shelf.html#tailscale">Tailscale</a> — set the tailnet up before Friday; it's a ten-minute job, and the night should spend zero minutes on plumbing.</li>
 </ul>
 
 <aside class="seealso">

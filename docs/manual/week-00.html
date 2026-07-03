@@ -23,7 +23,7 @@
 </header>
 
 <div class="wk-meta">
-  <span class="num">Week 00</span><span>Phase: Rig</span><span>Budget: ½ week — hard box</span><span>resolution: full</span><span data-state="valve"></span>
+  <span class="num">Week 00</span><span>Phase: Rig</span><span>Budget: 4 sessions — hard box</span><span>resolution: full</span><span data-state="valve">Valve: switch to the parallel task — read the generated template code top to bottom, or hand the fleet an [AGENT] checklist item.</span>
 </div>
 
 <blockquote class="note"><em>Chronicle fragment, run [unlogged]</em> — The expedition hung tools in an empty workshop and named the mountain. Zero rocks were harvested.</blockquote>
@@ -32,7 +32,7 @@
 
 <div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">The character runs in PIE with 2 clients plus the dedicated-server option — the week's test topology is PIE + dedicated from the very first Play. The repo is pushed and a fresh clone opens clean in the editor. An agent builds from the CLI and correctly answers "where is player input handled in this project?" Clip #001 is posted. Setup week does not get an encore.</p></div>
 
-<p>An empty shop, and you hanging tools. The only goal is a running project, a healthy repo, and an agent that can build the code — which is exactly why the box is hard. The trap this week: perfecting the workshop instead of using it. You'll know you're in it when editor settings are open before the gate passes. The move: you get oriented by needing things.</p>
+<p>An empty shop, and you hanging tools. The only goal is a running project, a healthy repo, and an agent that can build the code — which is exactly why the box is hard. <strong>The trap this week:</strong> perfecting the workshop instead of using it. <strong>You'll know you're in it when</strong> editor settings are open before the gate passes. <strong>The move:</strong> you get oriented by needing things.</p>
 
 <p>The project is <strong>OneMoreRock</strong> — the exit decision in three words. The codename names the <code>.uproject</code> and the primary C++ module, and it exists before the project does because renaming a UE project later is misery. <a href="register.html#d-codename">The register carries the dated decision</a>; it doesn't pre-commit <a href="register.html#oq-01">the Bit</a>, which keeps its week-3 date.</p>
 
@@ -45,10 +45,10 @@
 <h3 id="s2"><span class="ember">▶</span> S2 — Engine, project, first networked run</h3>
 <p><strong>[NICK — GUI]</strong> All five items below are yours, and nothing on the fleet's list unblocks until item three lands.</p>
 <ul>
-  <li><strong>Install UE 5.7 via the Epic Games Launcher</strong> — the binary build, not source; the source build is week 7's job. <em>Done when:</em> the launcher Library shows 5.7 and the editor reaches the Project Browser.</li>
-  <li><strong>While the engine downloads, link the Epic account to GitHub</strong> and accept the EpicGames org invite. Approval latency is exactly why this happens now instead of blocking week 7. <em>Done when:</em> <code>github.com/EpicGames/UnrealEngine</code> renders instead of a 404, logged in as NickHazen.</li>
-  <li><strong>Create the project:</strong> Third Person template, C++, named <strong>OneMoreRock</strong>, into this repo root. Read the gotcha box below before opening the Project Browser — it will not create into a folder that already exists. <em>Done when:</em> <code>OneMoreRock.uproject</code> and <code>Source/</code> sit at the repo root next to <code>CLAUDE.md</code> and the editor opens the project.</li>
-  <li><strong>First PIE run, multiplayer-shaped from minute one:</strong> before the first Play, set Number of Players to 2 and enable the dedicated-server option in the PIE multiplayer settings. <em>Done when:</em> the character runs with 2 clients plus a dedicated server — the gate's first condition.</li>
+  <li><strong>Install UE 5.7 via the Epic Games Launcher</strong> — the binary build, not source; the source build is week 7's job. If this Mac has never had the launcher, that installs first: epicgames.com, signed into the Epic account. Budget ~30&nbsp;GB of download and ~70&nbsp;GB installed — confirm ~100&nbsp;GB free before clicking Install. The bar takes thirty to ninety minutes, and that stretch is scheduled: it belongs to items two and five and one full listen of <a href="concept-anatomy.html#two-worlds">the two-worlds page</a>. An engine that finishes overnight is a pass, not a slip — the valve line above covers the rest of the block. <em>Done when:</em> the launcher Library shows 5.7 and the editor reaches the Project Browser.</li>
+  <li><strong>While the engine downloads, verify the compiler and link the Epic account to GitHub.</strong> The compiler first: full Xcode, installed and license-accepted — <code>xcodebuild -version</code> prints a version, or the create step fails tonight; Command Line Tools alone are not enough. Then the account link, and accept the EpicGames org invite — approval latency is exactly why this happens now instead of blocking week 7. How does the link get made? → <a href="shelf.html#epic-source-download">the shelf's source-access entry</a>. <em>Done when:</em> <code>xcodebuild</code> answers, and the link request is submitted — accepted tonight, or still pending and re-checked at the top of S3; <code>github.com/EpicGames/UnrealEngine</code> rendering instead of a 404, logged in as NickHazen, is the proof either way.</li>
+  <li><strong>Create the project:</strong> Third Person template, C++, named <strong>OneMoreRock</strong>, into this repo root. <strong>Read the gotcha box below before opening the Project Browser</strong> — it will not create into a folder that already exists. <em>Done when:</em> <code>OneMoreRock.uproject</code> and <code>Source/</code> sit at the repo root next to <code>CLAUDE.md</code> and the editor opens the project.</li>
+  <li><strong>First PIE run, multiplayer-shaped from minute one:</strong> before the first Play, open the dropdown beside the Play button and set Number of Players to 2 and Net Mode to <em>Play As Client</em> — "as client" is the dedicated-server option: it means the editor spawns a headless server and every window, yours included, is just a client. The same settings live under Editor Preferences → Play if the dropdown hides them. <em>Done when:</em> the character runs with 2 clients plus a dedicated server — the gate's first condition.</li>
   <li><strong>Decide the IDE:</strong> Rider, or Xcode with clangd — Visual Studio is not on this Mac's ballot (<a href="register.html#oq-02">OQ-02</a>). Cheap to choose, expensive to churn; decide the first time an editor opens and don't revisit. <em>Done when:</em> the choice is recorded in <code>CLAUDE.md</code> and OQ-02 moves up the register as a dated decision.</li>
 </ul>
 <p><strong>[FLEET]</strong> The moment <code>OneMoreRock.uproject</code> exists at the repo root, hand the fleet three jobs:</p>
@@ -64,12 +64,12 @@
 <ul>
   <li><strong>The gate proof:</strong> build from the CLI, then answer "where is player input handled in this project?" citing file and line. <em>Done when:</em> the answer names the Enhanced Input mapping plus <code>SetupPlayerInputComponent</code> and matches what you found in your own read-through.</li>
   <li><strong>A folder-by-folder explainer of the project root</strong> — the first real test of whether the context files work. <em>Done when:</em> you read it and nothing in it contradicts what the editor shows.</li>
-  <li><strong>The ASCII splash logo,</strong> delivered ahead of S4. <em>Done when:</em> logo delivered; you wire it GUI-side.</li>
-  <li><strong>Optional — skip freely:</strong> evaluate the experimental Unreal MCP plugin or UnrealClaude as an agent–editor bridge. Editor-driving agents are a garnish, not a dependency — the tooling is a year old. <em>Done when:</em> evaluated-and-adopted, or skipped — either is a pass.</li>
+  <li><strong>The ASCII splash logo,</strong> delivered ahead of S4 — as raw text and as a splash-ready PNG. <em>Done when:</em> both forms delivered and the text printed once in your terminal — a ten-second preview of S4's ceremony; the wiring is yours, tomorrow.</li>
+  <li><strong>Optional — skip freely:</strong> evaluate <a href="shelf.html#unreal-mcp">the experimental Unreal MCP plugin or UnrealClaude</a> as an agent–editor bridge. Editor-driving agents are a garnish, not a dependency — the tooling is a year old. <em>Done when:</em> evaluated-and-adopted, or skipped — either is a pass.</li>
 </ul>
 
 <h3 id="s4">S4 — Ceremony &amp; clip</h3>
-<p><strong>[NICK — GUI]</strong> Wire the splash so OneMoreRock renders on editor and PIE boot. Put the traffic-cone hat on the mannequin if it stays inside a ten-minute timebox, and skip it without guilt at minute eleven. <em>Done when:</em> the splash renders on boot and the hat is on or explicitly skipped — a screenshot or clip exists either way. Then record and post <strong>Friday Clip #001</strong> — the character doing literally anything. <em>Done when:</em> it's posted to the friends' Discord — the gate's last condition. Close the laptop when the gate passes.</p>
+<p><strong>[NICK — GUI]</strong> Wire the splash so OneMoreRock renders on editor and PIE boot — the mechanism is Project Settings → Description, whose splash slots take the fleet's PNG; the raw ASCII printing to the log at module startup also counts as "renders on boot." Put the traffic-cone hat on the mannequin if it stays inside a ten-minute timebox, and skip it without guilt at minute eleven. <em>Done when:</em> the splash renders on boot and the hat is on or explicitly skipped — a screenshot or clip exists either way. Then record and post <strong>Friday Clip #001</strong> — the character doing literally anything. <em>Done when:</em> it's posted to the friends' Discord — the gate's last condition. Close the laptop when the gate passes.</p>
 
 <div class="box fun" id="fun-payload"><h5>⚑ Fun payload — the codename ceremony</h5><p style="margin:0"><b>Builder:</b> a splash screen with a terrible agent-generated ASCII logo, and the cone hat if it fits the timebox — the project should make you smirk on boot from day one. <b>Player (that's you, for now):</b> Friday Clip #001, the character doing literally anything, posted. The ritual starts before the game does.</p></div>
 
@@ -87,7 +87,9 @@
 <p><strong>The build host.</strong> One question this week seeds instead of answers: this Mac develops the game fine, but it cannot produce the Linux dedicated server or the Windows clients that weeks 6–7 need. Deciding where shipping builds happen is cheap now and expensive in week 7, so <a href="register.html#oq-03">OQ-03</a> carries a week-1 date — and it takes your sign-off, not a fleet default. Why can't this Mac ship week 7's artifacts? → <a href="concept-shipping.html#build-host">concept-shipping.html#build-host</a></p>
 
 <div class="box gotcha" id="gotchas"><h5>⚠ Gotcha seeds</h5><ul>
-  <li>The Unreal Project Browser creates <code>&lt;Location&gt;/&lt;ProjectName&gt;/</code> and errors if that folder already exists — create at a temp location, quit, move the <em>contents</em> (<code>.uproject</code>, <code>Source/</code>, <code>Content/</code>, <code>Config/</code>) into the repo root, reopen. If it bites differently, it's the first entry in <a href="../../UE-GOTCHAS.md">UE-GOTCHAS.md</a>.</li>
+  <li>The Unreal Project Browser creates <code>&lt;Location&gt;/&lt;ProjectName&gt;/</code> and errors if that folder already exists — create at a temp location, quit, move the <em>contents</em> (<code>.uproject</code>, <code>Source/</code>, <code>Content/</code>, <code>Config/</code>) into the repo root, reopen, and answer Yes to the "rebuild missing modules" prompt — it recompiles from <code>Source/</code> and opens clean. If it bites differently, it's the first entry in <a href="../../UE-GOTCHAS.md">UE-GOTCHAS.md</a>.</li>
+  <li>No full Xcode with its license accepted → C++ project creation fails; Command Line Tools alone are not enough, and the fix is a 10+&nbsp;GB download you don't want to discover at the create step.</li>
+  <li>First open of a fresh C++ project compiles the module, then thousands of shaders — 15–30 minutes of progress bars is normal, not a hang. Start it, then make the IDE call while it churns.</li>
   <li><code>compile_commands.json</code> goes stale after module or header changes — re-run the generate command, or the fleet navigates last week's code.</li>
   <li>Do not source-build the engine this week — the launcher binary is the point. Source is week 7's problem, on whatever hardware answers <a href="register.html#oq-03">OQ-03</a>.</li>
 </ul></div>
@@ -99,9 +101,9 @@
 
 <h4 id="shelf-pulls">Shelf pulls</h4>
 <ul>
-  <li>"What actually happens between launching the game and my actor's BeginPlay?" → <a href="shelf.html#tools">Alex Forsythe — From int main() to BeginPlay</a> — week 0's Friday hour, right after reading the template code.</li>
-  <li>"How do UE's C++ idioms differ from what my systems instincts expect?" → <a href="shelf.html#tools">Tom Looman — Unreal Engine C++ Complete Guide</a> — skim once now; return as a lookup when the compiler surprises you.</li>
-  <li>"What is the input system the template already uses, before week 2 binds abilities to it?" → <a href="shelf.html#gas">Epic docs search: Enhanced Input</a></li>
+  <li>"What actually happens between launching the game and my actor's BeginPlay?" → <a href="shelf.html#forsythe-framework">Alex Forsythe — From int main() to BeginPlay</a> — week 0's Friday hour, right after reading the template code.</li>
+  <li>"How do UE's C++ idioms differ from what my systems instincts expect?" → <a href="shelf.html#looman-cpp-guide">Tom Looman — Unreal Engine C++ Complete Guide</a> — skim once now; return as a lookup when the compiler surprises you.</li>
+  <li>"What is the input system the template already uses, before week 2 binds abilities to it?" → <a href="shelf.html#enhanced-input">Epic docs search: Enhanced Input</a></li>
 </ul>
 
 <aside class="seealso">

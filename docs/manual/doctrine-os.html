@@ -46,7 +46,7 @@
 <p>State, logic, and replication live in C++; Blueprints do asset hookup, tuned values, and UI layout; game content — tuning, spawn tables, word lists — flows from JSON into DataAssets and DataTables. The reason is fleet-shaped: C++ and JSON are text, so your agents can read, diff, and author them, while a Blueprint is an opaque binary no diff can see into. Where exactly do the two worlds split? → <a href="concept-anatomy.html#two-worlds">concept-anatomy.html#two-worlds</a>. And how does tuning stay text end to end? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a></p>
 
 <h3 id="rule-7">Rule 7 · Friday = playtest &amp; learn</h3>
-<p>On Friday the build gets played — bots or humans — then measured, then clipped, and the week closes with Monday's tomorrow-note already written. The learning hour lives here too: rule 1's video budget spends itself on Friday, against the week's accumulated questions. The first belief on your list, operationalized weekly: games are meant to be played. The full close, both tiers of it, is printed below at <a href="#friday">the Friday close</a>.</p>
+<p>On Friday the build gets played — bots or humans — then measured, then clipped, and the week closes with Monday's tomorrow-note already written. The learning hour lives here too: rule 1's video budget spends itself on Friday, against the week's accumulated questions. A standing belief, operationalized weekly: games are meant to be played. The full close, both tiers of it, is printed below at <a href="#friday">the Friday close</a>.</p>
 
 <h3 id="rule-8">Rule 8 · Gray-box till week 10</h3>
 <p>Capsules, cubes, and free sound effects until week 10 — no art tasks, no Fab browsing, no "just looking." The Fun Mandate exists so this rule costs nothing to obey: charm comes from committed bits, juice, and text, none of which need a mesh. Art-before-fun is procrastination wearing a render pipeline. Where does graybox charm actually come from? → <a href="doctrine-fun.html">doctrine-fun.html</a></p>
@@ -62,7 +62,7 @@
   <tr><td><b>4 · First-of-pattern by hand</b></td><td>You write the first replicated property, first RPC, first ability, first StateTree, first DataAsset. Agents replicate the pattern after.</td><td>Agents generate UE code that compiles and is subtly wrong about authority. Your mental model is the only firewall.</td></tr>
   <tr><td><b>5 · Multiplayer from hour one</b></td><td>PIE always ≥ 2 clients + the dedicated-server option. Net emulation (100 ms, 2% loss) permanently on from week 3.</td><td>Single-player-only code is a bug written today, found in week 8, at scale.</td></tr>
   <tr><td><b>6 · C++ systems, Blueprint wiring</b></td><td>State, logic, replication in C++. Blueprints: asset hookup, tuned values, UI layout. Content = DataAssets/DataTables from JSON.</td><td>C++ and JSON are text — your fleet can read, diff, author. Blueprints are opaque binaries.</td></tr>
-  <tr><td><b>7 · Friday = playtest &amp; learn</b></td><td>Run the build (bots or humans) → measure → batched learning hour → record the Friday Clip → write Monday's tomorrow-note.</td><td>The first belief on your list, operationalized weekly: games are meant to be played.</td></tr>
+  <tr><td><b>7 · Friday = playtest &amp; learn</b></td><td>Run the build (bots or humans) → measure → batched learning hour → record the Friday Clip → write Monday's tomorrow-note.</td><td>A standing belief, operationalized weekly: games are meant to be played.</td></tr>
   <tr><td><b>8 · Gray-box till week 10</b></td><td>Capsules, cubes, free SFX. No Fab browsing. Charm via the Fun Mandate, not assets.</td><td>Art-before-fun is procrastination wearing a render pipeline.</td></tr>
 </table>
 
@@ -70,7 +70,7 @@
 
 <h2 id="ritual">The session ritual</h2>
 
-<p>The open is three clicks. Click one: <a href="index.html">the mission board</a>, where the save-file window says where you stand and names <span class="ember">the next concrete action</span> — the first line of <code>docs/tomorrow-note.md</code>, rendered live so the front door never rots. Click two: the current week's page, straight from that line. Click three: the <span class="ember">▶</span> session row, which carries tonight's work and its done-when. Target: under five minutes from opening the manual to the first keystroke, because deciding what an evening is for is the most expensive thing you can do at 9pm.</p>
+<p>The open is three clicks. Click one: <a href="index.html">the mission board</a>, where the save-file window says where you stand and names <span class="ember">the next concrete action</span> — the first line of <code>docs/tomorrow-note.md</code>, rendered live so the front door never rots. Click two: the W-number in the masthead strip — every page renders it as a link to the current week's page. Click three: the first session heading without a done-mark, which carries tonight's work and its done-when. Target: under five minutes from opening the manual to the first keystroke, because deciding what an evening is for is the most expensive thing you can do at 9pm.</p>
 
 <p>The block itself is the 10/100/10 shape. Ten minutes loading context — the week page, the note, the last commit. One hundred minutes on one problem: not the week, not the roadmap, one problem. Ten minutes closing — commit, then write the tomorrow-note naming the next session's first concrete action. Re-entry is where ADHD sessions die. The tomorrow-note parks the car on a downhill slope.</p>
 
@@ -98,7 +98,7 @@
 
 <h4>Shelf pulls</h4>
 <ul>
-  <li>"How do I actually turn on 100 ms latency and 2% loss in PIE, so rule 5 is a checkbox instead of folklore?" → <a href="shelf.html#netcode">Epic docs — Using Network Emulation</a></li>
+  <li>"How do I actually turn on 100 ms latency and 2% loss in PIE, so rule 5 is a checkbox instead of folklore?" → <a href="shelf.html#epic-net-emulation">Epic docs — Using Network Emulation</a></li>
 </ul>
 
 <aside class="seealso">

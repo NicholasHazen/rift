@@ -113,7 +113,7 @@
 <li><strong>Load</strong>: launch the bot fleet — 20 to 24 packaged clients, each started headless with <code>-nullrhi -nosound</code>, auto-connecting to the server from the command line. Where the fleet lives long-term is an open question, linked below.</li>
 <li><strong>Pressure</strong>: drive the session to siege load, 60–80 NPCs alive mid-assault. Organic greed takes an hour; the Remote forces the state in a minute → <a href="fun-engines.html#remote">fun-engines.html#remote</a>.</li>
 <li><strong>Measure, sustained</strong>: <code>stat unit</code> through the whole siege, plus an Insights <code>-trace</code> captured for the archive. Sustained means the siege's worst stretch, never its best frame.</li>
-<li><strong>Commit</strong> the numbers to the repo, in the same series week 3's first baseline started. A number that isn't committed didn't happen.</li>
+<li><strong>Commit</strong> the numbers to <code>docs/perf-baseline.md</code>, the same series week 3's first baseline started. A number that isn't committed didn't happen.</li>
 <li><strong>Verdict</strong>: green is server frame under 33 ms sustained on the VPS at that load. Red sends you back to <a href="#lab">the lab</a> — read the trace, pick the lever, pull once, re-run.</li>
 </ol>
 
@@ -123,7 +123,7 @@
 
 <p>Every red Friday will summon the same three names out of the forums, and all three are real, excellent, and wrong for this project right now. Read the inoculation before the first bad trace, so the midnight sales pitch lands on a decided mind.</p>
 
-<p><strong>Replication Graph</strong> replaces per-actor relevancy evaluation with a spatial graph the server maintains once for all connections — the machinery Epic built when Fortnite outgrew exactly the arithmetic in the cost model above. It is Fortnite-scale power with Fortnite-scale complexity, and the trigger for even studying it is precise: a failed perf gate that survived all six levers <em>and</em> the entity cap. Never speculatively. The shelf holds its doc for that day, filed as an escape hatch → <a href="shelf.html#perf">shelf.html#perf</a>.</p>
+<p><strong>Replication Graph</strong> replaces per-actor relevancy evaluation with a spatial graph the server maintains once for all connections — the machinery Epic built when Fortnite outgrew exactly the arithmetic in the cost model above. It is Fortnite-scale power with Fortnite-scale complexity, and the trigger for even studying it is precise: a failed perf gate that survived all six levers <em>and</em> the entity cap. Never speculatively. The shelf holds its doc for that day, filed as an escape hatch → <a href="shelf.html#replication-graph">shelf.html#replication-graph</a>.</p>
 
 <p><strong>Iris</strong> is Epic's opt-in rewrite of the replication system itself — a new engine room under the same ideas. Rewrites are boarded at the dock, not mid-voyage: a future project on a future engine version may start on Iris; this one does not switch to it.</p>
 
@@ -143,9 +143,9 @@
 
 <h4>Shelf pulls</h4>
 <ul>
-<li>"How does <code>NetCullDistanceSquared</code> decide which clients receive an actor, and how does priority split bandwidth during a siege?" → <a href="shelf.html#perf">Epic docs — Actor Relevancy and Priority</a> — open it during the relevancy pass, week 8.</li>
-<li>"How do I put finished walls and idle nodes to sleep, and what are the wake rules so a gnawed wall updates again?" → <a href="shelf.html#perf">Epic docs — Actor Network Dormancy</a> — the chunk contract's net-dormant step made official.</li>
-<li>"How do I capture a <code>-trace</code> from the loaded server and read which system ate the frame?" → <a href="shelf.html#perf">Epic docs — Unreal Insights</a> — open it before week 8's profiling session, not after the first mystery frame.</li>
+<li>"How does <code>NetCullDistanceSquared</code> decide which clients receive an actor, and how does priority split bandwidth during a siege?" → <a href="shelf.html#epic-relevancy">Epic docs — Actor Relevancy and Priority</a> — open it during the relevancy pass, week 8.</li>
+<li>"How do I put finished walls and idle nodes to sleep, and what are the wake rules so a gnawed wall updates again?" → <a href="shelf.html#epic-dormancy">Epic docs — Actor Network Dormancy</a> — the chunk contract's net-dormant step made official.</li>
+<li>"How do I capture a <code>-trace</code> from the loaded server and read which system ate the frame?" → <a href="shelf.html#epic-insights">Epic docs — Unreal Insights</a> — open it before week 8's profiling session, not after the first mystery frame.</li>
 </ul>
 
 <aside class="seealso">

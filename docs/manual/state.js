@@ -43,7 +43,7 @@ const MANUAL_STATE = {
   gates: [],
   clips: [],
   decisionsDue: [
-    { oqId: "OQ-02", dueWeek: 0, line: "IDE: Rider vs Xcode/clangd — decide in S1" },
+    { oqId: "OQ-02", dueWeek: 0, line: "IDE: Rider vs Xcode/clangd — decide in S2" },
     { oqId: "OQ-03", dueWeek: 1, line: "The build host — this Mac cannot ship week 7's artifacts" },
     { oqId: "OQ-01", dueWeek: 3, line: "Commit to the Bit" }
   ],
@@ -79,14 +79,59 @@ const MANUAL_STATE = {
     return el("a", MANUAL_STATE.nextAction, { href: MANUAL_STATE.nextActionHref });
   }
 
+  /* The current week's page. Weeks 11–12 share one file. */
+  function weekHref() {
+    var w = MANUAL_STATE.week;
+    if (w >= 11) return "week-11-12.html";
+    return "week-" + (w < 10 ? "0" + w : w) + ".html";
+  }
+
   function render() {
     var s = MANUAL_STATE;
 
-    /* Masthead position strip: "W0 · S2 · next: {nextAction}" → tomorrow-note */
+    /* Masthead position strip: "W0 · S2 · next: {nextAction}".
+       The W·S pair links the current week's page — the ritual's click two. */
     fill("position", function (slot) {
-      slot.appendChild(document.createTextNode("W" + s.week + " · S" + s.session + " · next: "));
+      slot.appendChild(el("a", "W" + s.week + " · S" + s.session, { href: weekHref() }));
+      slot.appendChild(document.createTextNode(" · next: "));
       slot.appendChild(actionLink());
     });
+
+    /* Any door marked data-week-door points at the current week's page.
+       href-only rewrite: the static href (week-00.html) is the JS-absent truth. */
+    var doors = document.querySelectorAll("[data-week-door]");
+    for (var i = 0; i < doors.length; i++) {
+      doors[i].setAttribute("href", weekHref());
+    }
+
+    /* The index tracker (marked data-tracker): paint the cleared column from
+       gates[] and the current week's row from session position. Enhancement
+       only — the static glyphs are the JS-absent truth, maintained at close. */
+    var tracker = document.querySelector("[data-tracker]");
+    if (tracker) {
+      var rows = tracker.querySelectorAll("tr");
+      var currentRow = s.week >= 11 ? 11 : s.week;
+      for (var r = 1; r < rows.length; r++) {
+        var cells = rows[r].querySelectorAll("td");
+        if (!cells.length) continue;
+        var rowWeek = r - 1; // rows ride in week order, W0 first
+        if (rowWeek < s.gates.length && s.gates[rowWeek]) {
+          cells[0].textContent = "";
+          cells[0].appendChild(el("span", "✓", { "class": "moss" }));
+        }
+        if (rowWeek === currentRow) {
+          for (var c = 1; c < cells.length; c++) {
+            if (c < s.session) {
+              cells[c].textContent = "";
+              cells[c].appendChild(el("span", "✓", { "class": "ember" }));
+            } else if (c === s.session) {
+              cells[c].textContent = "";
+              cells[c].appendChild(el("span", "▶", { "class": "ember" }));
+            }
+          }
+        }
+      }
+    }
 
     /* The full [ SAVE FILE ] window body (index only) */
     fill("savefile", function (slot) {
