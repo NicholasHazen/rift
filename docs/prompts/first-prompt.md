@@ -15,7 +15,7 @@ Then execute Week 0 bootstrap, session 1 — scoped strictly to what you can do 
    - `scripts/build.sh` (and `.ps1` if you think it's warranted) — a placeholder that fails loudly with "UE project not created yet — see docs/week0-checklist.md" so nothing downstream silently no-ops
 
 3. **Week-0 checklist.** Produce `docs/week0-checklist.md` splitting the remaining Week 0 work into:
-   - **[NICK — GUI]**: install UE 5.7 via Epic launcher; create the Third Person C++ template project into this repo root; IDE decision (Rider vs VS2022); link Epic account ↔ GitHub now so week 7's source build isn't blocked on approval later
+   - **[NICK — GUI]**: install UE 5.8 via Epic launcher; create the Third Person C++ template project into this repo root; IDE decision (Rider vs VS2022); link Epic account ↔ GitHub now so week 7's source build isn't blocked on approval later
    - **[AGENT]**: everything that becomes possible the moment the project exists (clang database generation, build command capture into CLAUDE.md, first-commit hygiene)
    Order it by the Week 0 gate in the manual, each item with a one-line definition of done.
 
