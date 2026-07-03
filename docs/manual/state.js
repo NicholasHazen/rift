@@ -31,6 +31,12 @@
    No page ever hard-codes a next action in prose; docs/tomorrow-note.md stays
    the human write-side source of truth. Pages must render fully readable when
    this file is absent — the strip is enhancement, the prose is truth.
+
+   This file also holds MANUAL_MAP — the manual's page manifest — from which
+   the renderer builds the left rail and the prev/next footer on every page.
+   Same law applies: enhancement only, the masthead and mission board are the
+   JS-absent truth. Adding a page = adding a MANUAL_MAP row, same commit as
+   its changelog row.
    ========================================================================== */
 
 const MANUAL_STATE = {
@@ -51,6 +57,58 @@ const MANUAL_STATE = {
     0: "Valve: switch to the parallel task — read the generated template code top to bottom, or hand the fleet an [AGENT] checklist item."
   }
 };
+
+/* ---- The manual map --------------------------------------------------------
+   One entry per page, grouped exactly like the index's mission board. The
+   renderer builds the left rail (wide viewports only) and each page's
+   prev/next footer from this list — no page hand-authors either. Enhancement
+   only: with JS absent, the masthead, the mission board, and the see-also
+   blocks remain the complete nav. A new page buys its row here in the same
+   commit as its changelog row (style-guide.md §HTML conventions). */
+var MANUAL_MAP = [
+  { group: "Doctrine", pages: [
+    ["doctrine-fun.html",     "The Fun Mandate"],
+    ["doctrine-physics.html", "Physics-legible first"],
+    ["doctrine-os.html",      "Operating system"]
+  ]},
+  { group: "Target", pages: [
+    ["the-slice.html", "The greed-dial slice"]
+  ]},
+  { group: "Concepts", pages: [
+    ["concept-netcode.html",  "Netcode"],
+    ["concept-anatomy.html",  "Project anatomy"],
+    ["concept-gas.html",      "GAS — abilities"],
+    ["concept-horde.html",    "The horde"],
+    ["concept-ire.html",      "Ire & the director"],
+    ["concept-perf.html",     "Performance"],
+    ["concept-shipping.html", "Shipping"]
+  ]},
+  { group: "Weeks", chips: true, pages: [
+    ["week-00.html",    "W0 · Rig the workshop",     "W0"],
+    ["week-01.html",    "W1 · The resource node",    "W1"],
+    ["week-02.html",    "W2 · Combat (GAS)",         "W2"],
+    ["week-03.html",    "W3 · The rift pushes back", "W3"],
+    ["week-04.html",    "W4 · Ire & the director",   "W4"],
+    ["week-05.html",    "W5 · Camp as machine",      "W5"],
+    ["week-06.html",    "W6 · The whole story",      "W6"],
+    ["week-07.html",    "W7 · Real infrastructure",  "W7"],
+    ["week-08.html",    "W8 · Earning the 24",       "W8"],
+    ["week-09.html",    "W9 · Two clocks",           "W9"],
+    ["week-10.html",    "W10 · Feel & legibility",   "W10"],
+    ["week-11-12.html", "W11–12 · The fun test",     "W11·12"]
+  ]},
+  { group: "Reference", pages: [
+    ["fun-engines.html", "The fun engines"],
+    ["register.html",    "Decisions & questions"],
+    ["shelf.html",       "The shelf"],
+    ["glossary.html",    "Glossary"]
+  ]},
+  { group: "Workflow", pages: [
+    ["stuck.html",     "The 90-minute valve"],
+    ["clips.html",     "Clips & sessions"],
+    ["changelog.html", "Changelog"]
+  ]}
+];
 
 /* ---- Renderer --------------------------------------------------------------
    Fills the [data-state] slots. Never throws when a slot is missing: every
@@ -84,6 +142,79 @@ const MANUAL_STATE = {
     var w = MANUAL_STATE.week;
     if (w >= 11) return "week-11-12.html";
     return "week-" + (w < 10 ? "0" + w : w) + ".html";
+  }
+
+  /* This page's filename; pages live flat in docs/manual/. */
+  function hereFile() {
+    return location.pathname.split("/").pop() || "index.html";
+  }
+
+  /* The left rail: on-this-page anchors + the mission-board map, built from
+     MANUAL_MAP. Appended to <body> AFTER .wrap so linear readers (TTS) finish
+     the prose first; manual.css shows it only when the viewport has a spare
+     left gutter. Ember marks exactly two things: the page you are on, and
+     tonight's week. */
+  function renderRail() {
+    if (typeof MANUAL_MAP === "undefined" || document.querySelector(".rail")) return;
+    var here = hereFile();
+    var rail = el("nav", null, { "class": "rail", "aria-label": "Manual map" });
+
+    rail.appendChild(el("a", "◈ Mission board", {
+      href: "index.html",
+      "class": "rail-home" + (here === "index.html" ? " here" : "")
+    }));
+
+    var heads = document.querySelectorAll("h2[id]");
+    if (heads.length >= 2) {
+      rail.appendChild(el("div", "On this page", { "class": "rail-h" }));
+      for (var i = 0; i < heads.length; i++) {
+        rail.appendChild(el("a", heads[i].textContent.trim(), { href: "#" + heads[i].id }));
+      }
+    }
+
+    var nowChip = MANUAL_STATE.week >= 11 ? 11 : MANUAL_STATE.week;
+    for (var g = 0; g < MANUAL_MAP.length; g++) {
+      var group = MANUAL_MAP[g];
+      rail.appendChild(el("div", group.group, { "class": "rail-h" }));
+      var holder = rail;
+      if (group.chips) {
+        holder = el("div", null, { "class": "rail-weeks" });
+        rail.appendChild(holder);
+      }
+      for (var p = 0; p < group.pages.length; p++) {
+        var page = group.pages[p];
+        var cls = page[0] === here ? "here" : "";
+        var attrs = { href: page[0] };
+        if (group.chips) {
+          if (p === nowChip && !cls) cls = "now";
+          attrs.title = page[1];
+        }
+        if (cls) attrs["class"] = cls;
+        holder.appendChild(el("a", group.chips ? page[2] : page[1], attrs));
+      }
+    }
+    document.body.appendChild(rail);
+  }
+
+  /* Prev/next within the page's own mission-board group, injected just above
+     the back-to-board footer. Weeks walk W0 → W11–12; concepts walk the
+     curriculum. Pages outside the map (index) get nothing. */
+  function renderPagenav() {
+    if (typeof MANUAL_MAP === "undefined" || document.querySelector(".pagenav")) return;
+    var here = hereFile();
+    var top = document.querySelector("p.top");
+    if (!top) return;
+    for (var g = 0; g < MANUAL_MAP.length; g++) {
+      var pages = MANUAL_MAP[g].pages;
+      for (var p = 0; p < pages.length; p++) {
+        if (pages[p][0] !== here) continue;
+        var nav = el("nav", null, { "class": "pagenav", "aria-label": "Neighboring pages" });
+        if (p > 0) nav.appendChild(el("a", "← " + pages[p - 1][1], { href: pages[p - 1][0], "class": "prev" }));
+        if (p < pages.length - 1) nav.appendChild(el("a", pages[p + 1][1] + " →", { href: pages[p + 1][0], "class": "next" }));
+        if (nav.childNodes.length) top.parentNode.insertBefore(nav, top);
+        return;
+      }
+    }
   }
 
   function render() {
@@ -170,6 +301,9 @@ const MANUAL_STATE = {
     fill("next-action", function (slot) {
       slot.appendChild(actionLink());
     });
+
+    renderRail();
+    renderPagenav();
   }
 
   if (typeof document === "undefined") return;

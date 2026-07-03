@@ -257,6 +257,11 @@ listen / VPS) as an explicit condition.
 - **Masthead on every page:** project mark · `◈ Mission board` link (index.html) ·
   `I'm stuck →` (stuck.html) · position strip rendered from `state.js`. Pages must
   degrade fully readable with JS absent — the strip is enhancement, the prose is truth.
+- **The left rail and prev/next footer are state.js enhancements**, rendered on every
+  page from the `MANUAL_MAP` manifest state.js holds — never hand-authored in page
+  HTML. The rail appears only on viewports with a spare left gutter; with JS absent
+  the masthead, the mission board, and the see-also blocks remain the complete nav.
+  Ember in the rail marks exactly two things: the page you are on and tonight's week.
 - **See-also block** at the bottom of every page, above the back-to-board link.
 - **state.js is the wiki's only JavaScript.** It holds position (week, session, gates,
   clips, decisions due, valve lines) plus the one-line next action written by the close
@@ -277,8 +282,8 @@ listen / VPS) as an explicit condition.
   A sketch-page diff that adds teaching content is rejected at review; new mechanism
   content for those weeks lands on concept-perf/concept-shipping instead.
 - **Page cap 34.** A new page requires: a changelog row justifying it, an index nav
-  entry, and see-also links from ≥2 existing pages. Splitting a page into a stub is
-  banned — consolidate instead.
+  entry, a `MANUAL_MAP` row in state.js, and see-also links from ≥2 existing pages.
+  Splitting a page into a stub is banned — consolidate instead.
 
 ### Resource rules (rule 1, applied to the manual itself)
 
