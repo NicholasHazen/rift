@@ -32,7 +32,7 @@
 </header>
 
 <h2 id="save-file">The save file</h2>
-<p>Everything on this page below the quest window is state, and state has one source. The window below renders from <code>state.js</code> — the save file proper — which is written only at session close and gate pass, in the same commit that writes <a href="../tomorrow-note.md">docs/tomorrow-note.md</a>. The note is the human side of the truth: if the window and the note ever disagree, the front door is lying — fix that before anything else. The quest log inside the window lists decisions coming due by week. What exactly is being decided, and what are the options? → <a href="register.html">register.html</a>.</p>
+<p>Everything on this page below the quest window is state, and state has one source. The window below renders from <code>state.js</code>, the save file proper. It is written only at session close and gate pass, in the same commit that writes <a href="../tomorrow-note.md">docs/tomorrow-note.md</a>. The note is the human side of that same truth. If the window and the note ever disagree, the front door is lying, so fix that before anything else. The quest log inside the window lists the decisions coming due by week. What exactly is being decided, and what are the options? → <a href="register.html">register.html</a>.</p>
 
 <div class="sys" data-tag="[ SAVE FILE ]">
   <div data-state="savefile">No save data loaded. Position and next action live in <a href="../tomorrow-note.md">the tomorrow-note</a>; the map is <a href="#board">the mission board</a> below.</div>
@@ -48,8 +48,8 @@
 <hr>
 
 <h2 id="route">The route</h2>
-<p>Week 0 is the rig: engine, repo, fleet, and a codename ceremony, boxed tight so setup can't become a residence. Then twelve weeks in five phases. <strong>Core loop</strong>, weeks 1–4: a node you whack, chunks you carry, combat through <a href="concept-gas.html">GAS</a>, a horde that answers, and the ire system that turns greed into violence. <strong>Camp</strong>, weeks 5–6: the camp becomes a machine, and the loop closes into one whole story — drop, harvest, extract, Chronicle. <strong>Steel</strong>, weeks 7–8: real infrastructure, then the performance work that earns 24 players. <strong>Arc</strong>, weeks 9–10: the two clocks tuned against each other, then feel and legibility. <strong>Test</strong>, weeks 11–12: strangers play, and the hypothesis gets its verdict. What exactly is the hypothesis, and what counts as passing? → <a href="the-slice.html">the-slice.html</a>.</p>
-<p>Four <span class="ember">ember</span> markers ride the top of the map — the fun engines coming online: the Friday clip at week 0, the JuiceKit at week 1, the Director's Remote at week 4, the Chronicle at week 6. Two markers sit below the line: the <span class="storm">week-8 perf gate</span>, which the world grades, and the <span class="moss">weeks-11–12 fun test</span>, which strangers do.</p>
+<p>Week 0 is the rig: engine, repo, fleet, and a codename ceremony, all boxed tight so setup can't become a residence. After that come twelve weeks in five phases. The <strong>core loop</strong> runs first, across weeks 1 through 4, and it is where you build the loop itself: a node you whack, chunks you carry, combat through <a href="concept-gas.html">GAS</a> (the engine's ability system), a horde that answers back, and the ire system that turns greed into violence. Then comes <strong>camp</strong>, weeks 5 and 6, when the camp itself becomes a machine and the loop finally closes into one whole story — drop, harvest, extract, Chronicle. The <strong>steel</strong> phase follows in weeks 7 and 8, laying down real infrastructure and then the performance work that earns 24 players. In the <strong>arc</strong> phase, weeks 9 and 10, you tune the two clocks — the world's and the player's — against each other, then turn to feel and legibility. And <strong>test</strong>, weeks 11 and 12, is the payoff, when strangers play and the hypothesis finally gets its verdict. What exactly is the hypothesis, and what counts as passing? → <a href="the-slice.html">the-slice.html</a>.</p>
+<p>Four <span class="ember">ember</span> markers ride the top of the map, one for each fun engine as it comes online: the Friday clip at week 0, the JuiceKit at week 1, the Director's Remote at week 4, and the Chronicle at week 6. Two more markers sit below the line: the <span class="storm">perf gate at week 8</span>, which the world grades, and the <span class="moss">fun test at weeks 11 and 12</span>, which strangers do.</p>
 
 <figure>
 <svg width="100%" viewBox="0 0 680 150" role="img" style="max-width:680px;display:block;margin:0 auto"><title>Week map</title><desc>Twelve weeks in five phases, with fun-engine unlock markers at weeks 0, 1, 4, and 6, a perf gate at week 8, and the fun test at weeks 11 to 12.</desc>
@@ -76,7 +76,7 @@
 </figure>
 
 <h2 id="tracker">The tracker</h2>
-<p>One row per gate, one cell per session evening. An <span class="ember">ember ✓</span> is a session closed; the <span class="ember">ember ▶</span> is tonight; a dash is road ahead. The Cleared column turns <span class="moss">moss</span> on the Friday a week's definition-of-done passes — the definition itself lives on the week page behind each row's link, never here. The calendar flexes; the gates don't.</p>
+<p>The tracker gives one row per gate and one cell per session evening. An <span class="ember">ember ✓</span> means a session already closed, the <span class="ember">ember ▶</span> is tonight, and a dash is road still ahead. The Cleared column turns <span class="moss">moss</span> on the Friday that a week's definition-of-done passes. That definition itself lives on the week page behind each row's link, never here. The calendar flexes; the gates don't.</p>
 
 <table data-tracker>
   <tr><th>Gate</th><th>Cleared</th><th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th></tr>
@@ -100,7 +100,7 @@
 <hr>
 
 <h2 id="board">The mission board</h2>
-<p>Everything the manual contains, grouped six ways. Doctrine states law; the target defines done; concepts teach; weeks execute; reference remembers; workflow keeps the machine honest.</p>
+<p>Everything the manual contains is grouped six ways: doctrine states the law, the target defines done, the concepts teach, the weeks execute, reference remembers, and workflow keeps the machine honest.</p>
 
 <h4>Doctrine</h4>
 <nav class="toc" aria-label="Doctrine">
@@ -157,18 +157,18 @@
 </nav>
 
 <h2 id="legend">Two clocks, three colors</h2>
-<p>Color is meaning here, and the meaning comes from your own design: <strong class="ember">ember</strong> marks the player-driven clock — builds, fun payloads, things <em>you</em> push. <strong class="storm">storm violet</strong> marks the world's clock — concepts, systems, open questions the world will answer. <strong class="moss">moss</strong> marks gates: the definition-of-done that decides whether a week is finished. The manual is painted in the same two-clock scheme as the game. That's not decoration; it's rehearsal.</p>
+<p>Color is meaning here, and the meaning comes straight from your own design. <strong class="ember">Ember</strong> marks the player-driven clock: the builds, the fun payloads, the things <em>you</em> push. <strong class="storm">Storm violet</strong> marks the world's clock: the concepts, the systems, the open questions the world will answer. <strong class="moss">Moss</strong> marks the gates, the definition-of-done that decides whether a week is finished. The manual is painted in that same two-clock scheme as the game. That's not decoration; it's rehearsal.</p>
 
 <hr>
 
 <h2 id="how">How this manual works</h2>
 <p>The manual changes through four moves, and only four. A content edit lands on the one page that owns the fact and logs a row in <a href="changelog.html">the changelog</a> — every explanation in this wiki has exactly one home, and every other mention of it is a link. When reality answers an open question, the answer moves up into <a href="register.html">the register</a> as a dated decision; the question is deleted where it stood, and the decided design folds into its owning page as plain law, no scar tissue. A Friday gate pass flips a glyph in the tracker above, appends a window to the archive, and sharpens the <em>next</em> week's page — only the next one, because pretending to have week-11 answers in week 0 is how plans calcify. And a session close writes the first concrete action of the next session into <a href="../tomorrow-note.md">docs/tomorrow-note.md</a> and updates the save file, so the front door never lies about where you stand.</p>
-<p>That's the whole machine. Weeks 7 through 12 are deliberately sketches; they sharpen one gate at a time, fed by what the finished weeks actually taught. The agent-facing contract — voice, style, review checklists, the four transactions in full — lives at <code>_meta/style-guide.md</code>; this section is the human summary, not a second copy. The manual should be smarter in week 6 than it is today.</p>
+<p>That's the whole machine. Weeks 7 through 12 are deliberately sketches; they sharpen one gate at a time, fed by what the finished weeks actually taught. The agent-facing contract — voice, style, review checklists, the four transactions in full — lives at <code>_meta/style-guide.md</code>. This section is only the human summary, not a second copy. The manual should be smarter in week 6 than it is today.</p>
 
 <h2 id="closing-note">A closing note from your mentor</h2>
 <p>Twelve weeks from now the most likely outcome is not triumph or disaster — it's a build that's 70% of this manual, two weeks behind the calendar, with a greed dial that's <em>almost</em> fun, a folder of Friday Clips, and one playtest quote you can't stop thinking about. That is a wildly successful outcome. It means the hypothesis is answerable, and you built the machine that answers it — and if the Fun Mandate held, you're still smiling at the kill feed in week 9, which is the hidden objective this whole manual actually optimizes for.</p>
-<p>The failure modes all share one root: substituting input for output. Watching instead of building. Reading engine source instead of shipping the week. Browsing Fab instead of tuning spawn tables. When you feel the drift, the fix is always the same and always available: open <a href="../tomorrow-note.md">the tomorrow-note</a>, do the first concrete action, and let momentum handle the rest.</p>
-<p>You're bringing unusual advantages — fifteen years of systems instinct, an agent fleet, a design deliberately shaped for a team of one, and a doctrine that refuses to let the work go joyless. What these twelve weeks buy is the one thing none of that can shortcut: <em>judgment about what's fun</em>, formed by watching real people play a real thing you really built — and laughing at the Chronicle afterward, together.</p>
+<p>The failure modes all share one root: substituting input for output. You watch instead of building. You read engine source instead of shipping the week. You browse Fab, the asset store, instead of tuning spawn tables. When you feel the drift, the fix is always the same and always available: open <a href="../tomorrow-note.md">the tomorrow-note</a>, do the first concrete action, and let momentum handle the rest.</p>
+<p>You're bringing unusual advantages — fifteen years of systems instinct, an agent fleet, a design deliberately shaped for a team of one, and a doctrine that refuses to let the work go joyless. What these twelve weeks buy is the one thing none of that can shortcut: <em>judgment about what's fun</em>, formed by watching real people play a real thing you really built and laughing at the Chronicle afterward, together.</p>
 <p class="lede">Go rig the workshop. The rift's waiting, and so is Gerald.</p>
 
 <div class="sys" data-tag="[ SYSTEM MESSAGE ]">

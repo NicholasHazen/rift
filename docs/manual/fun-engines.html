@@ -20,27 +20,27 @@
 <header style="padding-top:56px">
   <div class="eyebrow">Reference · The fun engines &amp; the bestiary</div>
   <h1>The Fun Engines</h1>
-  <p class="lede">The reference floor of the Fun Mandate: the accumulating machinery of the four engines, the closed bestiary, the Chronicle's voice, the word lists, and the debt ledger. This is documentation that ships — when week 6 builds the Chronicle, the taxonomy and templates below are the build input, not a description of it.</p>
+  <p class="lede">This page is the reference floor of the Fun Mandate, where the accumulating machinery of the four engines lives alongside the closed bestiary, the Chronicle's voice, the word lists, and the debt ledger. It is documentation that ships, which means that when week 6 builds the Chronicle, the taxonomy and templates below are the build input rather than a description of it.</p>
 </header>
 
-<p>The Fun Mandate itself — what the four engines are and why each earns permanent status — lives on the doctrine page; this page holds what they own. Why do these engines exist at all? → <a href="doctrine-fun.html#engines">doctrine-fun.html#engines</a></p>
+<p>The Fun Mandate itself lives on the doctrine page, which is where you learn what the four engines are and why each earns permanent status. This page holds what they own instead. Why do these engines exist at all? → <a href="doctrine-fun.html#engines">doctrine-fun.html#engines</a></p>
 
 <p>The law of the page: <span class="ember">artifacts land here the day they are born.</span> A new Remote command ships with its row below and a <a href="changelog.html">changelog</a> entry. A new JuiceKit hook joins the inventory the week it exists. A new name, title, or template joins the workspace before anything builds from it. Week pages keep their reveal prose and link in — the running totals live here and nowhere else.</p>
 
 <h2 id="juicekit">The JuiceKit — the hook inventory</h2>
 
-<p>The JuiceKit is <code>UJuiceComponent</code>, born week 1: one reusable feedback component that every mechanic reports to. The standing rule it enforces: <span class="ember">every mechanic plugs into the kit the day it is born</span> — a mechanic without feedback isn't unfinished, it's numb, and numb is a defect. The kit lives on the client side of the authority line, because feedback is reaction, not fact: it is what OnRep calls when it wants to celebrate. Why do facts live on the server while celebration lives on the client? → <a href="concept-netcode.html#facts-vs-moments">concept-netcode.html#facts-vs-moments</a></p>
+<p>The JuiceKit is <code>UJuiceComponent</code>, born week 1: one reusable feedback component that every mechanic reports to. The standing rule it enforces: <span class="ember">every mechanic plugs into the kit the day it is born</span>. A mechanic without feedback isn't unfinished, it's numb, and numb is a defect. The kit lives on the client side of the authority line, because feedback is reaction rather than fact. It is what OnRep, the client's replication callback, fires when it wants to celebrate. Why do facts live on the server while celebration lives on the client? → <a href="concept-netcode.html#facts-vs-moments">concept-netcode.html#facts-vs-moments</a></p>
 
-<p>The kit exposes four hooks, and only four — restraint is what keeps it a component instead of a subsystem:</p>
+<p>The kit exposes four hooks, and only four — restraint is what keeps it a component instead of a subsystem, an engine-lifetime service:</p>
 
 <ul>
-  <li><b>Floating text</b> — LitRPG combat text in mono type: <code>+3 Ferrocrystal!</code> drifting up from a broken node, <code>−15</code> over Gerald's head.</li>
+  <li><b>Floating text</b> — LitRPG combat text (raw game numbers surfaced as feedback) in mono type: <code>+3 Ferrocrystal!</code> drifting up from a broken node, <code>−15</code> over Gerald's head.</li>
   <li><b>Sound stinger</b> — one-shot cues: the cha-ching, the honk, the buzzer, the klaxon.</li>
   <li><b>Particle pop</b> — confetti bursts, crack VFX, the small physical punctuation of an event.</li>
-  <li><b>Hitstop hook</b> — a few frames of frozen time on impact. Installed week 1, dormant until week 10 tunes it.</li>
+  <li><b>Hitstop hook</b> — a few frames of frozen time on impact, installed in week 1 but left dormant until week 10 tunes it.</li>
 </ul>
 
-<p>What plugs in grows week by week, and the growth tells the project's story: the kit is born celebrating rocks in week 1, learns violence in week 2, inherits the horde's bites for free in week 3 because goose damage rides the same pipeline as player damage, gives the ire meter its voice in week 4, scores the camp's machinery in week 5, marks the portal threshold in week 6, and graduates in weeks 9 and 10 — the klaxon, the battle track, and then the tuning pass where hitstop and screen shake stop being installed and start being seasoned. The table is the same inventory as a printable card.</p>
+<p>What plugs in grows week by week, and the growth tells the project's story: the kit is born celebrating rocks in week 1, learns violence in week 2, inherits the horde's bites for free in week 3 because goose damage rides the same pipeline as player damage, gives the ire meter its voice in week 4, scores the camp's machinery in week 5, marks the portal threshold in week 6, and graduates in weeks 9 and 10. That graduation is the klaxon, the battle track, and then the tuning pass where hitstop and screen shake stop being installed and start being seasoned. The table is the same inventory as a printable card.</p>
 
 <table>
   <tr><th>Week</th><th>What plugs in</th></tr>
@@ -60,7 +60,7 @@
 
 <p>The Remote is the god panel, unlocked week 4 — tuning tooling first, and by weeks 11–12 the instrument of the live-DM party trick. What earns it permanent-engine status? → <a href="doctrine-fun.html#engines">doctrine-fun.html#engines</a>. Every command executes on the server's authority — the Remote is the sanctioned way to cheat, which is exactly why it lives where the answers are made. What separates sanctioned cheating from the kind that fails safe? → <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a></p>
 
-<p>This list is the only complete one. A new command lands here the day it ships, with a changelog row; a command that exists anywhere else first is a filing error. Eight commands so far, across three arrival weeks. <code>ire.ReloadTuning</code> comes first — week 4, session 2, three sessions before the panel itself, because live-reloading the tuning JSON is what makes the whole week's retune-without-recompile gate true. The core ire verbs land with the panel that Friday: <code>ire.Give</code> mints into the pool, <code>ire.ForceWave</code> makes the director spend immediately, <code>ire.SpawnElite</code> buys one elite outside the budget, and <code>KillAllGeese</code> clears the board. Week 7 adds <code>Ducks</code>, the load test that is also a toy. Week 9 adds the second clock's controls: <code>storm.SetPhase</code> and <code>elite.Spawn</code>, at which point you can conduct an entire session's drama by hand. The table is the same list as a printable card.</p>
+<p>This list is the only complete one. A new command lands here the day it ships, with a changelog row; a command that exists anywhere else first is a filing error. There are eight commands so far, spread across three arrival weeks. <code>ire.ReloadTuning</code> comes first, in week 4, session 2 — three sessions before the panel itself. It arrives that early because live-reloading the tuning JSON is what makes the whole week's retune-without-recompile gate true. The core ire verbs land with the panel that Friday: <code>ire.Give</code> mints into the pool, <code>ire.ForceWave</code> makes the director spend immediately, <code>ire.SpawnElite</code> buys one elite outside the budget, and <code>KillAllGeese</code> clears the board. Week 7 adds <code>Ducks</code>, the load test that is also a toy. Week 9 adds the second clock's controls: <code>storm.SetPhase</code> and <code>elite.Spawn</code>, at which point you can conduct an entire session's drama by hand. The table is the same list as a printable card.</p>
 
 <table>
   <tr><th>Command</th><th>Arrives</th><th>What it does</th></tr>
@@ -76,11 +76,11 @@
 
 <h2 id="chronicle">The Chronicle — taxonomy, voice, and templates</h2>
 
-<p>The Chronicle is the end-of-run recap generated from the event log, unlocked week 6 — v0 is string templates over real events; later, local models on <a href="concept-shipping.html#spark">the Spark</a> polish the same log into prose. Why does it earn engine status? → <a href="doctrine-fun.html#engines">doctrine-fun.html#engines</a>. This section is the workspace that build works from: the event taxonomy, the voice bible, and the template sets are one artifact. The voice doc <em>is</em> the feature doc.</p>
+<p>The Chronicle is the end-of-run recap generated from the event log, unlocked week 6. Its v0 is string templates laid over real events. Later, local models running on <a href="concept-shipping.html#spark">the Spark</a>, the project's local box, will polish the same log into prose. Why does it earn engine status? → <a href="doctrine-fun.html#engines">doctrine-fun.html#engines</a>. This section is the workspace that build works from: the event taxonomy, the voice bible, and the template sets are one artifact. The voice doc <em>is</em> the feature doc.</p>
 
 <h3>The event taxonomy</h3>
 
-<p>You own this schema. The event log is a schema-design problem — home turf — and it has two customers reading one set of rows: the ire subsystem tallies events live to price the violence, and the Chronicle reads them back at debrief to tell the story. Why one schema with two customers, and why an event log instead of reconstructing story from replication? → <a href="concept-ire.html#economy">concept-ire.html#economy</a> · <a href="concept-netcode.html#facts-vs-moments">concept-netcode.html#facts-vs-moments</a>. The fleet writes templates against the schema; templates never invent fields. The families:</p>
+<p>You own this schema. The event log is a schema-design problem, and that is home turf for you. It has two customers reading one set of rows: the ire subsystem tallies events live to price the violence, and the Chronicle reads them back at debrief to tell the story. Why one schema with two customers, and why an event log instead of reconstructing story from replication? → <a href="concept-ire.html#economy">concept-ire.html#economy</a> · <a href="concept-netcode.html#facts-vs-moments">concept-netcode.html#facts-vs-moments</a>. The fleet writes templates against the schema, and those templates never invent fields. The families:</p>
 
 <ul>
   <li><b>Lifecycle</b> — session start, extraction window opens, rift closes.</li>
@@ -125,29 +125,29 @@
   <li>Awards block — superlatives from the generator list, one line each, winner named.</li>
 </ul>
 
-<p>Local-model polish changes nothing structural when it arrives: the Chronicle stays offline and season-time either way — runtime LLM ambitions are parked at <a href="register.html#oq-20">OQ-20</a>.</p>
+<p>Local-model polish changes nothing structural when it arrives, because the Chronicle stays offline and season-time either way. Runtime LLM ambitions, meaning a language model generating text live in a session, are parked at <a href="register.html#oq-20">OQ-20</a>.</p>
 
 <h3>The epigraph archive</h3>
 
-<p>Every week page opens with a Chronicle fragment. Until week 6 those fragments are fiction, written in this voice against this bible; from week 6 on they are replaced with real generated quotes from real runs. The manual's fiction gradually becomes telemetry. Screenshot-worthy lines graduate a second time, into clip captions on <a href="clips.html">clips.html</a>.</p>
+<p>Every week page opens with a Chronicle fragment. Until week 6 those fragments are fiction, written in this voice against this bible. From week 6 on, they are replaced with real generated quotes from real runs. The manual's fiction gradually becomes telemetry. Screenshot-worthy lines graduate a second time, into clip captions on <a href="clips.html">clips.html</a>.</p>
 
 <h2 id="bestiary">The bestiary — a closed set</h2>
 
 <p>Four members: Gerald, the goose hierarchy, the ducks, the traffic cone. <span class="ember">The set is closed — no new mascots without retiring one.</span> A cast this small is why the jokes compound instead of diluting: every clip, template, and kill-feed line draws on the same four accounts, and the interest accrues. Humor here aims at the work — the geese, the ducks, the waddle — never at the operator.</p>
 
-<p><strong>Gerald</strong> — the training dummy, hired week 2. Nameplate, one free scream on impact, standing award: Employee of the Rift. Gerald absorbs the first test swing of everything: the first melee trace, the ire economy's first unit test, the storm's damage-over-time before it touches a player. His career advances at most one line per week, and only when a damage target is genuinely the tool — week 10's SFX pass ships his scream, remastered. Zero forced lines: the week a Gerald line would be reaching, Gerald rests.</p>
+<p><strong>Gerald</strong> is the training dummy, hired in week 2. He comes with a nameplate, one free scream on impact, and a standing award: Employee of the Rift. Gerald absorbs the first test swing of everything: the first melee trace, the ire economy's first unit test, the storm's damage-over-time before it touches a player. His career advances at most one line per week, and only when a damage target is genuinely the tool — week 10's SFX pass ships his scream, remastered. He never gets a forced line: on the week a Gerald line would be reaching, Gerald rests.</p>
 
-<p><strong>The goose hierarchy</strong> — an org chart, not a species. The engine is middle-management bureaucracy applied to waterfowl, and it extends in exactly one direction: invent job titles — Regional Goose, Goose Emeritus, Acting Sub-Goose — never new animals. Gregory, Vice-Goose of the Storm, first over the ridge in week 3, is the founding member; the Bureaucrat-Goose of the Endless Storm files week 9's east-wall assault. The hierarchy is the manual's working language while the Bit is on the ballot — geese are the front-runner, and everything here survives a different winner by swapping one word list.</p>
+<p><strong>The goose hierarchy</strong> is an org chart, not a species. The engine is middle-management bureaucracy applied to waterfowl, and it extends in exactly one direction: you invent new job titles, like Regional Goose, Goose Emeritus, or Acting Sub-Goose, but never new animals. Gregory, Vice-Goose of the Storm, was first over the ridge in week 3, and he is the founding member. The Bureaucrat-Goose of the Endless Storm files week 9's east-wall assault. The hierarchy is the manual's working language while the Bit, the horde's committed placeholder identity, is still on the ballot. Geese are the front-runner, but everything here survives a different winner by swapping one word list.</p>
 
-<p><strong>The ducks</strong> — two hundred at a time, week 7, Tier-1 cosmetic with zero gameplay authority. They exist to measure the server's budget, never to spend it, and they founded the proud tradition of load-testing tools that are also toys. Why is the flock nearly free while one shoveable boulder isn't? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a></p>
+<p><strong>The ducks</strong> arrive two hundred at a time in week 7, Tier-1 cosmetic with zero gameplay authority. They exist to measure the server's budget, never to spend it, and they founded the proud tradition of load-testing tools that are also toys. Why is the flock nearly free while one shoveable boulder isn't? → <a href="doctrine-physics.html#tier-test">doctrine-physics.html#tier-test</a></p>
 
-<p><strong>The traffic cone</strong> — the mannequin's hat, week 0, ten-minute timebox. The studio's entire art direction until week 10, and it knows it.</p>
+<p><strong>The traffic cone</strong> is the mannequin's hat, added in week 0 on a ten-minute timebox. It is the studio's entire art direction until week 10, and it knows it.</p>
 
 <p>The Bit's identity is the open half of this section — the ballot and decision live at <a href="register.html#oq-01">OQ-01</a>, due Friday of week 3. Its retirement plan is already written: when real creature design arrives in Stage 2, the generators, the Chronicle voice, and one goose kept as a legacy elite carry over. Players will riot otherwise. The Bit is disposable; the charm systems aren't.</p>
 
 <h2 id="generators">The generators — word lists that outlive the Bit</h2>
 
-<p>The generators are the charm infrastructure: word lists plus template grammars that name things — fleet-authored, agent-extended, and governed by the humor law, which means specificity and commitment, never randomness. The core grammar is <code>{name}, {rank} of {domain}</code> — Gregory, Vice-Goose of the Storm — and its kill-feed form appends the verdict: <code>{name}, {rank} of {domain}, has been slain by {player}</code>. The joke engine is the collision of mundane names with bureaucratic rank; extend the lists, never the mechanism.</p>
+<p>The generators are the charm infrastructure: word lists plus template grammars that name things. They are fleet-authored, agent-extended, and governed by the humor law, which means specificity and commitment rather than randomness. The core grammar is <code>{name}, {rank} of {domain}</code>, as in Gregory, Vice-Goose of the Storm. Its kill-feed form appends the verdict: <code>{name}, {rank} of {domain}, has been slain by {player}</code>. The joke engine is the collision of mundane names with bureaucratic rank. Extend the lists, never the mechanism.</p>
 
 <p>The consumers arrive on schedule: the kill feed in week 3, the Chronicle's awards in week 6, the bot derby's twenty-four named bots in week 8, elite arrival announcements in week 9. Whether the resource names join the party — <code>+3 Goose Down</code> instead of placeholder taxonomy — rides <a href="register.html#oq-07">OQ-07</a>. The lists themselves ship as data like all other content in the game, JSON in, tables out. How does a text file become live game content? → <a href="concept-anatomy.html#tuning-as-text">concept-anatomy.html#tuning-as-text</a>. The seed lists:</p>
 
@@ -160,7 +160,7 @@
 
 <h2 id="fun-debt">The fun-debt ledger</h2>
 
-<p>The Fun Mandate says fun is scope, not garnish, and scope needs a balance sheet. Every week ships a fun payload — one thing for the player, one for the builder; what exactly does each week's box owe? → <a href="doctrine-fun.html#payload-contract">doctrine-fun.html#payload-contract</a>. When a week closes with its payload unshipped, the payload rolls: it lands in the next week's payload box <em>and</em> takes a row here, written at the Friday close — which transaction writes it? → <a href="doctrine-os.html#friday">doctrine-os.html#friday</a>. A row closes only when the payload ships. No row is ever cancelled: when a week runs long, stretch goals get cut and the payload doesn't, because the payload outranks them.</p>
+<p>The Fun Mandate says fun is scope, not garnish, and scope needs a balance sheet. Every week ships a fun payload, one thing for the player and one for the builder. What exactly does each week's box owe? → <a href="doctrine-fun.html#payload-contract">doctrine-fun.html#payload-contract</a>. When a week closes with its payload unshipped, the payload rolls: it lands in the next week's payload box <em>and</em> takes a row here, written at the Friday close. Which transaction writes it? → <a href="doctrine-os.html#friday">doctrine-os.html#friday</a>. A row closes only when the payload ships. No row is ever cancelled: when a week runs long, stretch goals get cut and the payload doesn't, because the payload outranks them.</p>
 
 <p>Each row records four things: the week the payload was owed, the payload in one line, the week it rolled to, and the date it shipped. The ledger opens empty — the table below holds the headers and waits for the first Friday that owes it a row.</p>
 

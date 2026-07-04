@@ -34,49 +34,49 @@
 
 <p class="lede">By Friday you will have the full arc running — calm, escalation, siege, storm, rare-window gamble, extraction — and you will understand why the second clock turns encounters into narratives. This is the week the design's emotional engine ships.</p>
 
-<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">A full session has the arc — calm → escalation → siege → storm → rare-window gamble → extraction — and in a mixed test night (friends plus bots, on the VPS), at least one squad wipes <em>because they got greedy</em>. If nobody ever wipes, the dial has no teeth yet; tune until it bites.</p></div>
+<div class="box dod" id="gate"><h5>▣ Gate — definition of done</h5><p style="margin:0">A full session has the arc — calm → escalation → siege → storm → rare-window gamble → extraction. And in a mixed test night with friends plus bots on the VPS (the rented server box), at least one squad wipes <em>because they got greedy</em>. If nobody ever wipes, the dial has no teeth yet, so tune until it bites.</p></div>
 
-<p>Pure design payoff. Weeks 7 and 8 bought a server anyone can join and a bot fleet that can fill it; this week spends both on the thing the slice exists to test. The second clock ships: <strong class="storm">instability</strong>, the clock the world winds, joins <strong class="ember">ire</strong>, the clock the expedition winds — and sessions stop being encounters and become narratives, the raw material the Chronicle has been waiting for.</p>
+<p>This week is pure design payoff. Weeks 7 and 8 bought a server anyone can join and a bot fleet that can fill it, and this week spends both on the one thing the slice exists to test. The second clock ships. <strong class="storm">Instability</strong>, the clock the world winds, joins <strong class="ember">ire</strong>, the clock the expedition winds, and once both are turning, sessions stop being encounters and become narratives — the raw material the Chronicle has been waiting for.</p>
 
 <h2 id="what-ships">What ships</h2>
-<p>The <strong>siege scheduler</strong>: a proper two-front assault, fronts assigned from spawn-point sets, wave composition scaling with ire tier through the spawn tables. Which table decides what a tier-four siege sends? → <a href="concept-ire.html#spawn-tables">concept-ire.html#spawn-tables</a></p>
+<p>The <strong>siege scheduler</strong> ships a proper two-front assault, with its fronts assigned from spawn-point sets and its wave composition scaling with ire tier through the spawn tables (the data that sets each wave). Which table decides what a tier-four siege sends? → <a href="concept-ire.html#spawn-tables">concept-ire.html#spawn-tables</a></p>
 
-<p>The <strong>instability clock</strong>: a storm escalating across the session — hazard zones, a tightening safe radius, damage-over-time at the fringes; post-process for menace, a GameplayEffect for teeth. The shape is law: <a href="register.html#d-storm-shape">the storm is a shrinking safe radius</a> — the legible one — and roaming hazard cells stay parked as a Stage-2 rift-modifier idea. PNW-you knows precisely what a real storm rolling in should feel like — build that dread.</p>
+<p>The <strong>instability clock</strong> is a storm that escalates across the session, showing up as hazard zones, a tightening safe radius, and damage-over-time (a steady health drain) out at the fringes. You build it in two halves. A post-process pass (a full-screen visual effect) supplies the menace, and a GameplayEffect (the engine's unit of stat change) supplies the teeth. The shape is law. <a href="register.html#d-storm-shape">The storm is a shrinking safe radius</a> — the legible one — while roaming hazard cells stay parked as a Stage-2 rift-modifier idea. PNW-you knows precisely what a real storm rolling in should feel like, so build that dread.</p>
 
-<p>The <strong>rare window</strong>: as instability peaks, elites spawn — with generated titles — and rare nodes unlock. Ranged variants arrive now too: <a href="register.html#d-melee-only">the melee-only law expires with the elites by design</a> — ranged pressure reshapes camp design, so it arrives now and not before. The best loot lives inside the storm at the exact moment leaving is smartest — the exit decision, given teeth.</p>
+<p>The <strong>rare window</strong> opens as instability peaks: elites spawn, each with a generated title, and rare nodes unlock. Ranged variants arrive now too, which means <a href="register.html#d-melee-only">the melee-only law expires with the elites by design</a>. Ranged pressure reshapes camp design, so it arrives now and not before. The best loot lives inside the storm at the exact moment leaving is smartest — the exit decision, given teeth.</p>
 
 <h2 id="sessions">The sessions</h2>
-<p>Five sessions, sketched on purpose — the hands split and the done-whens sharpen when week 8 closes. The shape is already firm.</p>
+<p>There are five sessions here, and they are sketched on purpose, because the hands split and the done-whens sharpen only once week 8 closes. The shape, though, is already firm.</p>
 
 <h3 id="s1">S1 — The siege scheduler</h3>
-<p>Timed events, two fronts, front assignment from spawn-point sets. <em>Done when:</em> an assault arrives on two fronts, on schedule, inside a full session.</p>
+<p>This session wires timed events across two fronts, with front assignment pulled from spawn-point sets. <em>Done when:</em> an assault arrives on two fronts, on schedule, inside a full session.</p>
 
 <h3 id="s2">S2 — Composition from ire tiers</h3>
-<p><strong>[FLEET drafts, NICK reviews]</strong> Wave composition scales from ire tier through the spawn tables — all JSON, which is exactly why the fleet drafts it and you review it like you own it. <em>Done when:</em> a tier change visibly changes what the next wave sends.</p>
+<p><strong>[FLEET drafts, NICK reviews]</strong> Wave composition scales from ire tier through the spawn tables, and because that scaling is all JSON, the fleet drafts it while you review it like you own it. <em>Done when:</em> a tier change visibly changes what the next wave sends.</p>
 
 <h3 id="s3">S3 — Instability clock &amp; storm zones</h3>
-<p>The GameplayEffect DoT and the post-process pass — teeth first, menace second. The storm DoT gets tested on Gerald first; the ledger already knows how to hurt him. <em>Done when:</em> standing in the fringe drains health through the same pipeline as every other hit in the game.</p>
+<p>This session builds the storm's damage-over-time GameplayEffect and its post-process pass, teeth first and menace second. That effect gets tested on Gerald first, because the ledger already knows how to hurt him. <em>Done when:</em> standing in the fringe drains health through the same pipeline as every other hit in the game.</p>
 
 <h3 id="s4">S4 — The rare window</h3>
-<p>The elite archetype — more HP, one nasty ability, a generated title — plus rare nodes flagged and gated by instability phase. <em>Done when:</em> peak instability visibly changes what's worth staying for.</p>
+<p>This session adds the elite archetype — more HP, one nasty ability, a generated title — plus rare nodes that stay flagged and gated by instability phase. <em>Done when:</em> peak instability visibly changes what's worth staying for.</p>
 
 <h3 id="s5">S5 — Full-arc test night</h3>
-<p>Friends plus bots on the VPS, the whole arc end to end. Tune until at least one squad wipes from greed — the gate runs live, not in PIE. These nights also open a verdict window: does ire decay when the expedition lays low? → <a href="register.html#oq-04">register.html#oq-04</a></p>
+<p>This is friends plus bots on the VPS, running the whole arc end to end. Tune until at least one squad wipes from greed, and remember this gate runs live, not in PIE (the game running inside the editor). These nights also open a verdict window: does ire decay when the expedition lays low? → <a href="register.html#oq-04">register.html#oq-04</a></p>
 
-<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — conduct the drama</h5><p style="margin:0"><b>Player:</b> the siege klaxon, and a single free battle track that kicks in when the assault begins — music is the highest feel-per-hour purchase in game development, and it costs you one track. Elites announce themselves by generated title in the kill feed before they arrive: <code>⚠ Bureaucrat-Goose of the Endless Storm approaches the east wall.</code> <b>Builder:</b> the Remote learns <code>storm.SetPhase</code> and <code>elite.Spawn</code> — you can now conduct an entire session's drama by hand, which is both a tuning tool and a preview of weeks 11–12's live-DM party trick. What else does the Remote answer to? → <a href="fun-engines.html#remote">fun-engines.html#remote</a></p></div>
+<div class="box fun" id="fun-payload"><h5>⚑ Fun payload — conduct the drama</h5><p style="margin:0"><b>Player:</b> the siege klaxon fires, and a single free battle track kicks in when the assault begins — music is the highest feel-per-hour purchase in game development, and it costs you one track. Elites announce themselves by generated title in the kill feed before they arrive: <code>⚠ Bureaucrat-Goose of the Endless Storm approaches the east wall.</code> <b>Builder:</b> the Remote, the Director's tuning console, learns <code>storm.SetPhase</code> and <code>elite.Spawn</code>, so you can now conduct an entire session's drama by hand. That makes it both a tuning tool and a preview of weeks 11–12's live-DM party trick. What else does the Remote answer to? → <a href="fun-engines.html#remote">fun-engines.html#remote</a></p></div>
 
 <h2 id="concepts">What this week teaches</h2>
-<p>Nothing new — that's what a payoff week means. Three callbacks, each a system you already own doing a second job.</p>
+<p>Nothing new is taught here, because that's what a payoff week means. You get three callbacks instead, and each one is a system you already own doing a second job.</p>
 
-<p><strong>Storm damage is just another transaction.</strong> The storm's teeth are a GameplayEffect on the week-2 ledger — priced like every other hit, resistible by future gear. Why does every point of damage ride one pipeline? → <a href="concept-gas.html#ledger">concept-gas.html#ledger</a></p>
+<p><strong>Storm damage is just another transaction.</strong> The storm's teeth are a GameplayEffect written on the week-2 ledger, priced like every other hit and resistible by future gear. Why does every point of damage ride one pipeline? → <a href="concept-gas.html#ledger">concept-gas.html#ledger</a></p>
 
-<p><strong>The two-front siege is secretly a relevancy optimization wearing a design hat.</strong> Spatial spread reads as drama and bills as savings. Which optimization pass is it borrowing? → <a href="concept-perf.html#passes">concept-perf.html#passes</a></p>
+<p><strong>The two-front siege is secretly a relevancy optimization wearing a design hat.</strong> A relevancy optimization is just a network-savings trick, which means the spatial spread reads as drama and bills as savings. Which optimization pass is it borrowing? → <a href="concept-perf.html#passes">concept-perf.html#passes</a></p>
 
 <p><strong>Two clocks converging on one decision</strong> is the slice's thesis, and this week it becomes code. Why must the best loot live inside the storm at the exact moment leaving is smartest? → <a href="the-slice.html#two-clocks">the-slice.html#two-clocks</a></p>
 
 <div class="box oq" id="open-questions"><h5>? Open questions</h5><ul>
   <li><a href="register.html#oq-04">OQ-04 — ire decay: does laying low cool the rift, or does it only ratchet?</a> · default: slow decay · verdict after this week's test nights</li>
-  <li><a href="register.html#oq-10">OQ-10 — does the storm damage structures?</a> · test once with the Remote this week; decide by feel</li>
+  <li><a href="register.html#oq-10">OQ-10 — does the storm damage structures?</a> · test once with the Remote this week, then decide by feel</li>
 </ul></div>
 
 <aside class="seealso">
