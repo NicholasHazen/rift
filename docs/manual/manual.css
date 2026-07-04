@@ -205,6 +205,16 @@ table{display:block;overflow-x:auto}
 .save-strip a:hover{color:var(--ember)}
 .save-strip:empty{display:none}
 
+/* ---- Build stamp ----------------------------------------------------------
+   The version line state.js appends to the masthead: which revision + commit
+   is on screen, so a stale cache is visible at a glance. Metadata, not a
+   clock — faint neutral, never ember/storm/moss. flex-basis:100% gives it its
+   own line under the masthead row. Absent (invisible) when JS is absent. */
+.buildstamp{flex-basis:100%;text-align:right;margin-top:2px;color:var(--faint);font-size:10.5px;letter-spacing:.08em}
+.buildstamp a{color:var(--faint);border-bottom:none}
+.buildstamp a:hover{color:var(--ember)}
+.buildstamp:empty{display:none}
+
 /* ---- See-also block -------------------------------------------------------
    Bottom of every page, above the back-to-board link. Links are
    question-shaped ("Why can't the client just decrement health? →

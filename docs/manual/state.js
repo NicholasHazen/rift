@@ -39,6 +39,19 @@
    its changelog row.
    ========================================================================== */
 
+/* ---- Version stamp --------------------------------------------------------
+   Which revision + commit is on screen, rendered into the masthead so a stale
+   cache — a browser or the Pages CDN — is visible at a glance instead of lying
+   silently. `rev` rides the latest changelog row; `date` and `commit` are the
+   commit date and short hash of the content commit this file was stamped
+   against. Regenerated from git by scripts/stamp-version.sh — don't hand-edit
+   the date or commit; bump `rev` when you add the changelog row. */
+const MANUAL_VERSION = {
+  rev:    "r8",
+  date:   "2026-07-04",
+  commit: "e85d1d8"
+};
+
 const MANUAL_STATE = {
   week: 0,
   session: 2,
@@ -217,6 +230,24 @@ var MANUAL_MAP = [
     }
   }
 
+  /* The masthead build stamp: rev · date · commit, appended to .masthead so no
+     page hand-authors it; flex-basis:100% drops it onto its own line. The hash
+     links to the commit on GitHub. Metadata, not a clock — faint neutral.
+     Enhancement only: absent without JS, like the position strip. */
+  function renderVersion() {
+    if (typeof MANUAL_VERSION === "undefined") return;
+    var head = document.querySelector(".masthead");
+    if (!head || head.querySelector(".buildstamp")) return;
+    var v = MANUAL_VERSION;
+    var stamp = el("span", null, { "class": "buildstamp" });
+    stamp.appendChild(document.createTextNode("rev " + v.rev + " · " + v.date + " · "));
+    stamp.appendChild(el("a", v.commit, {
+      href: "https://github.com/NicholasHazen/rift/commit/" + v.commit,
+      title: "the commit this page was built from"
+    }));
+    head.appendChild(stamp);
+  }
+
   function render() {
     var s = MANUAL_STATE;
 
@@ -302,6 +333,7 @@ var MANUAL_MAP = [
       slot.appendChild(actionLink());
     });
 
+    renderVersion();
     renderRail();
     renderPagenav();
   }

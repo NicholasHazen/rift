@@ -305,8 +305,11 @@ listen / VPS) as an explicit condition.
   anti-goal territory — extend, never restyle. Fonts are vendored WOFF2 in `fonts/`
   with honest system fallback stacks; zero network requests from `file://`.
 - **Masthead on every page:** project mark · `◈ Mission board` link (index.html) ·
-  `I'm stuck →` (stuck.html) · position strip rendered from `state.js`. Pages must
-  degrade fully readable with JS absent — the strip is enhancement, the prose is truth.
+  `I'm stuck →` (stuck.html) · position strip rendered from `state.js` · a build
+  stamp (rev · commit date · short hash) state.js appends to the masthead, so a
+  stale cache is caught at a glance rather than lying silently. Pages must degrade
+  fully readable with JS absent — the strip and stamp are enhancement, the prose
+  is truth.
 - **The left rail and prev/next footer are state.js enhancements**, rendered on every
   page from the `MANUAL_MAP` manifest state.js holds — never hand-authored in page
   HTML. The rail appears only on viewports with a spare left gutter; with JS absent
@@ -314,8 +317,9 @@ listen / VPS) as an explicit condition.
   Ember in the rail marks exactly two things: the page you are on and tonight's week.
 - **See-also block** at the bottom of every page, above the back-to-board link.
 - **state.js is the wiki's only JavaScript.** It holds position (week, session, gates,
-  clips, decisions due, valve lines) plus the one-line next action written by the close
-  transaction from the tomorrow-note. **No page ever hard-codes a next action in
+  clips, decisions due, valve lines), the version stamp (`MANUAL_VERSION`, regenerated
+  from git by `scripts/stamp-version.sh`), plus the one-line next action written by the
+  close transaction from the tomorrow-note. **No page ever hard-codes a next action in
   prose** — `docs/tomorrow-note.md` remains the human write-side source of truth; the
   index links to it.
 - **Anchors are kebab-case and immutable once published. Filenames never rename.** A
