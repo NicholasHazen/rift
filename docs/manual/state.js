@@ -48,8 +48,8 @@
    the date or commit; bump `rev` when you add the changelog row. */
 const MANUAL_VERSION = {
   rev:    "r8",
-  date:   "2026-07-04",
-  commit: "e85d1d8"
+  date:   "2026-07-04 14:54 UTC",
+  commit: "4b5f8a2"
 };
 
 const MANUAL_STATE = {
