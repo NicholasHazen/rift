@@ -47,9 +47,9 @@
    against. Regenerated from git by scripts/stamp-version.sh — don't hand-edit
    the date or commit; bump `rev` when you add the changelog row. */
 const MANUAL_VERSION = {
-  rev:    "r8",
-  date:   "2026-07-04 14:54 UTC",
-  commit: "4b5f8a2"
+  rev:    "r9",
+  date:   "2026-07-04 19:20 UTC",
+  commit: "86af678"
 };
 
 const MANUAL_STATE = {
