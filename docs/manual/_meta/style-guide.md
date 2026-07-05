@@ -21,6 +21,19 @@ never for autobiography, history, or credit. "The week I've been steering you to
 class of sentence is banned; rewrite from the conviction: "This is the week the manual
 exists for."
 
+The inclusive guided-tour **"we"** is the one companionable exception, and it is legal
+in exactly one place: **orientation framing** — page ledes, the index route, and each
+week page's intro hook ("this week we teach the world to fight"). It is the teacher
+walking beside the reader toward what comes next, and it carries no history, only
+forward motion. Everywhere else the voice stays second-person "you" for instruction and
+law-voice for decisions. The line that keeps it honest: the companionable *teaching-we*
+walks the reader forward (legal), while the *journey-narration* "we" — "the week we've
+been building toward" — smuggles in the document's own past and stays banned by the
+rebase test. The future-continuous forecast stays banned too, even in orientation:
+"week 0 is going to focus on the rig" must read "week 0 is the rig," because decisions
+are law, not plans. A "we" outside orientation, or any "we" that narrates the manual's
+history, is a defect.
+
 The mentor never awards credit and never keeps score. Banned moves, verbatim classes:
 
 - "you're right" / "you were right" / "at your insistence"
@@ -44,7 +57,10 @@ manual is spoken teaching — one continuous walk from what the reader already h
 what they need next — and the failure mode this law exists to kill is deck-speak:
 verdict-shaped fragments chained by semicolons and em-dashes, prose that reads like
 bullet points wearing a paragraph's clothes. A listener cannot hear an em-dash coming.
-Every unannounced pivot spends working memory the 9pm reader does not have.
+Every unannounced pivot spends working memory the 9pm reader does not have. This law
+governs the whole page, and it bites hardest exactly where pages are tempted to cheat
+it — the **lede and the SVG prose-twin**, the first spoken lines a listener meets.
+Neither gets a marketing exemption.
 
 - **Full sentences carry the body.** A verbless fragment is budgeted like an aphorism:
   at most one per section, first or last position in its paragraph, and only when the
@@ -63,6 +79,13 @@ Every unannounced pivot spends working memory the 9pm reader does not have.
 - **The breath test.** Read the paragraph aloud. Anywhere you re-breathe mid-sentence,
   or a pivot arrives with no audible warning, rewrite. This is the sentence-level half
   of the read-aloud gate.
+- **No wall-paragraphs.** Connection is necessary but not sufficient. A paragraph whose
+  sentences all hang together can still be too long to hold in one breath — ten or more
+  connected sentences with no short one to land on drown the 9pm ear as surely as
+  deck-speak does. Break it into breath-groups, roughly one idea per paragraph, even
+  when nothing inside it is fragmented. The fix is splitting, not rewording; this is the
+  paragraph-level half of the read-aloud gate, where the breath test is the
+  sentence-level half.
 
 ### The jargon on-ramp
 
@@ -220,6 +243,10 @@ document.
 - Teaching passages: one idea per sentence, with its connection to the previous idea
   stated in words (the flow law), and callbacks by name to previously-taught ideas
   ("the ledger pays again", "the DM doesn't narrate other tables").
+- **Spoken arrows.** A literal arrow between words in prose — "client→server",
+  "pop→settle→sleep" — is spelled out ("client-to-server", "pop to settle to sleep"),
+  because a screen reader voices the glyph inconsistently. The "→ page.html"
+  question-shaped *link* is exempt: it is fixed house furniture the listener learns once.
 
 ### Pedagogy (concept pages)
 
@@ -415,8 +442,10 @@ tomorrow-note; the fleet back-fills Monday. A week that hits the floor still cou
 - Voice lint: no banned moves (Part 1); device budgets respected (≤1 window, ≤1 predict,
   ≤1 neurochemistry reference per page; vignettes on payoff weeks only).
 - Flow lint: fragments within budget; no stacked pivots; sentence connections stated,
-  not implied; at most one summary drumbeat per page; every term of art glossed at
-  first use on the page (the on-ramp).
+  not implied; at most one summary drumbeat per page; no wall-paragraph a tired ear
+  can't hold in one breath; the guided-tour "we" appears only in orientation (ledes,
+  index route, week-intro hooks); every term of art glossed at first use on the page
+  (the on-ramp).
 - Say-once check: no explanation duplicated against the canonical-home table.
 - Two-clock check: every colored element answers "whose clock is this?"; no inline
   color styles.

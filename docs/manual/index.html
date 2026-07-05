@@ -20,7 +20,7 @@
 <header style="padding-top:56px">
   <div class="eyebrow">Expedition field manual · Stage 1 · Mission board</div>
   <h1>The Rift</h1>
-  <p class="lede">Twelve weeks to the greed-dial slice. A build order, a teacher, and a promise: every week ends with something on screen, something learned in anger, and something that makes you grin. Written for exactly one developer — a systems engineer with an agent fleet, a LitRPG habit, and a plan that schedules the dopamine instead of hoping for it.</p>
+  <p class="lede">Over the next twelve weeks, we're going to build the greed-dial slice: a small but genuinely playable version of the game whose only job is to prove one idea — that being greedy is fun. Think of this manual as two things at once, your build order and a teacher walking beside you, and it makes you a single promise. Every week ends with three things you can point to: something running on your screen, something you learned the hard way by breaking it and then fixing it, and something that makes you grin. And it's written for exactly one developer — you: a systems engineer with a fleet of AI agents, a LitRPG habit (stories where game-style stats and level-ups are the whole appeal), and a plan that puts the fun on a schedule instead of hoping it turns up.</p>
 
   <div class="sys" data-tag="[ SYSTEM MESSAGE ]">
     Quest accepted: <b>Build the Greed-Dial Slice.</b><br>
@@ -32,7 +32,7 @@
 </header>
 
 <h2 id="save-file">The save file</h2>
-<p>Everything on this page below the quest window is state, and state has one source. The window below renders from <code>state.js</code>, the save file proper. It is written only at session close and gate pass, in the same commit that writes <a href="../tomorrow-note.md">docs/tomorrow-note.md</a>. The note is the human side of that same truth. If the window and the note ever disagree, the front door is lying, so fix that before anything else. The quest log inside the window lists the decisions coming due by week. What exactly is being decided, and what are the options? → <a href="register.html">register.html</a>.</p>
+<p>This window is your save file, and it's how you pick up exactly where you left off: it shows where you are and the one next action waiting for you. It's painted live from <code>state.js</code>, so what you read here is always current. If you're new, or starting fresh tonight, don't worry about the machinery yet — just take one of the three doors below.</p>
 
 <div class="sys" data-tag="[ SAVE FILE ]">
   <div data-state="savefile">No save data loaded. Position and next action live in <a href="../tomorrow-note.md">the tomorrow-note</a>; the map is <a href="#board">the mission board</a> below.</div>
@@ -48,7 +48,10 @@
 <hr>
 
 <h2 id="route">The route</h2>
-<p>Week 0 is the rig: engine, repo, fleet, and a codename ceremony, all boxed tight so setup can't become a residence. After that come twelve weeks in five phases. The <strong>core loop</strong> runs first, across weeks 1 through 4, and it is where you build the loop itself: a node you whack, chunks you carry, combat through <a href="concept-gas.html">GAS</a> (the engine's ability system), a horde that answers back, and the ire system that turns greed into violence. Then comes <strong>camp</strong>, weeks 5 and 6, when the camp itself becomes a machine and the loop finally closes into one whole story — drop, harvest, extract, Chronicle. The <strong>steel</strong> phase follows in weeks 7 and 8, laying down real infrastructure and then the performance work that earns 24 players. In the <strong>arc</strong> phase, weeks 9 and 10, you tune the two clocks — the world's and the player's — against each other, then turn to feel and legibility. And <strong>test</strong>, weeks 11 and 12, is the payoff, when strangers play and the hypothesis finally gets its verdict. What exactly is the hypothesis, and what counts as passing? → <a href="the-slice.html">the-slice.html</a>.</p>
+<p>Week 0 is the rig. We spend it hanging tools — installing the engine, wiring up the repo, standing up the agent fleet, and holding a small codename ceremony — and then we box that week tight. Setup is the kind of job that will quietly expand to fill every evening you feed it, so we don't feed it many. After that come twelve weeks, and they fall into five phases.</p>
+<p>First is the <strong>core loop</strong>, weeks 1 through 4, where the game becomes a game. You build a resource node to whack, chunks to haul, combat through <a href="concept-gas.html">GAS</a> (the engine's built-in ability system), and a horde that fights back. Running under all of it is the ire system — the greed dial itself — which turns your harvesting into the world's escalating violence.</p>
+<p>Then comes <strong>camp</strong>, weeks 5 and 6, when the camp becomes a machine of its own and the loop finally closes into one whole story: you drop in, harvest, extract, and read the Chronicle afterward. The <strong>steel</strong> phase follows in weeks 7 and 8 — first real infrastructure, then the performance work that earns a full 24 players.</p>
+<p>In the <strong>arc</strong> phase, weeks 9 and 10, you tune the two clocks against each other — the world's escalation and the player's greed — and then turn to how the whole thing feels and reads. And <strong>test</strong>, weeks 11 and 12, is the payoff: strangers play, and the hypothesis finally gets its verdict. What exactly is that hypothesis, and what counts as passing? → <a href="the-slice.html">the-slice.html</a>.</p>
 <p>Four <span class="ember">ember</span> markers ride the top of the map, one for each fun engine as it comes online: the Friday clip at week 0, the JuiceKit at week 1, the Director's Remote at week 4, and the Chronicle at week 6. Two more markers sit below the line: the <span class="storm">perf gate at week 8</span>, which the world grades, and the <span class="moss">fun test at weeks 11 and 12</span>, which strangers do.</p>
 
 <figure>
@@ -93,6 +96,8 @@
   <tr><th scope="row"><a href="week-10.html">W10 · Feel floor</a></th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td></td></tr>
   <tr><th scope="row"><a href="week-11-12.html">W11–12 · Fun test</a></th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td></td><td></td></tr>
 </table>
+
+<p>The save file's quest log up top also lists the decisions coming due, week by week. What exactly is each one deciding, and what are its options? → <a href="register.html">register.html</a>.</p>
 
 <h3 id="gate-archive">Cleared gates</h3>
 <p>When a gate clears, its window is appended here by the Friday close: the date, one factual line, one flavor line in the game's own voice. The archive is empty. Twelve windows to earn.</p>
@@ -162,7 +167,10 @@
 <hr>
 
 <h2 id="how">How this manual works</h2>
-<p>The manual changes through four moves, and only four. A content edit lands on the one page that owns the fact and logs a row in <a href="changelog.html">the changelog</a> — every explanation in this wiki has exactly one home, and every other mention of it is a link. When reality answers an open question, the answer moves up into <a href="register.html">the register</a> as a dated decision; the question is deleted where it stood, and the decided design folds into its owning page as plain law, no scar tissue. A Friday gate pass flips a glyph in the tracker above, appends a window to the archive, and sharpens the <em>next</em> week's page — only the next one, because pretending to have week-11 answers in week 0 is how plans calcify. And a session close writes the first concrete action of the next session into <a href="../tomorrow-note.md">docs/tomorrow-note.md</a> and updates the save file, so the front door never lies about where you stand.</p>
+<p>The manual changes through four moves, and only four. A content edit lands on the one page that owns the fact and logs a row in <a href="changelog.html">the changelog</a> — every explanation in this wiki has exactly one home, and every other mention of it is a link.</p>
+<p>When reality answers an open question, the answer moves up into <a href="register.html">the register</a> as a dated decision. The question is deleted where it stood, and the decided design folds into its owning page as plain law, no scar tissue.</p>
+<p>A Friday gate pass flips a glyph in the tracker above, appends a window to the archive, and sharpens the <em>next</em> week's page — only the next one, because pretending to have week-11 answers in week 0 is how plans calcify.</p>
+<p>And a session close writes the first concrete action of the next session into <a href="../tomorrow-note.md">docs/tomorrow-note.md</a> and updates the save file, so the front door never lies about where you stand.</p>
 <p>That's the whole machine. Weeks 7 through 12 are deliberately sketches; they sharpen one gate at a time, fed by what the finished weeks actually taught. The agent-facing contract — voice, style, review checklists, the four transactions in full — lives at <code>_meta/style-guide.md</code>. This section is only the human summary, not a second copy. The manual should be smarter in week 6 than it is today.</p>
 
 <h2 id="closing-note">A closing note from your mentor</h2>

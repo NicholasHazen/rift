@@ -37,7 +37,15 @@
 <p>When a problem has ground for ninety minutes, stop pushing and pull the valve. The exits are pre-chosen, because deciding on a fallback while stuck is itself a task, and that task won't happen. So this page states the law, while the procedure lives on a page built to be read on one screen at minute 91. One wall must never eat a session; momentum is the resource. What are the three exits, in order? → <a href="stuck.html">stuck.html</a></p>
 
 <h3 id="rule-4">Rule 4 · First-of-pattern by hand</h3>
-<p>Five firsts are yours to write by hand: the first replicated property, a variable the server syncs to every client; the first RPC, a function call fired across the network; the first GameplayAbility, an action like a skill or an attack; the first StateTree, an AI state machine; and the first DataAsset, a typed content object on disk. Agents replicate each pattern only after that first example exists, because they generate UE code that compiles and is subtly wrong about authority — the server-or-client question of who owns each fact. Your mental model is the only firewall, which is why every replicated property and every RPC in the codebase ships with a one-line authority explanation you can personally vouch for. How do you prove the explanations are true rather than hopeful? → <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a></p>
+<p>Five firsts are yours to write by hand:</p>
+<ul>
+  <li>the first replicated property, a variable the server syncs to every client</li>
+  <li>the first RPC, a function call fired across the network</li>
+  <li>the first GameplayAbility, an action like a skill or an attack</li>
+  <li>the first StateTree, an AI state machine</li>
+  <li>the first DataAsset, a typed content object on disk</li>
+</ul>
+<p>Agents replicate each pattern only after that first example exists, because they generate UE code that compiles and is subtly wrong about authority — the server-or-client question of who owns each fact. Your mental model is the only firewall, which is why every replicated property and every RPC in the codebase ships with a one-line authority explanation you can personally vouch for. How do you prove the explanations are true rather than hopeful? → <a href="concept-netcode.html#cheater-test">concept-netcode.html#cheater-test</a></p>
 
 <h3 id="rule-5">Rule 5 · Multiplayer from hour one</h3>
 <p>PIE, which runs the game right inside the editor, launches at least two clients plus the dedicated-server option from the very first Play. That dedicated server is a headless host with no player of its own. Network emulation — 100&nbsp;ms latency and 2% packet loss — stays permanently on from week 3. That is a checkbox, not folklore. The editor's Play settings carry a network-emulation section with per-profile latency and loss values, so you set the profile once and stop thinking about it. Single-player-only code is a bug written today and found in week 8, at scale. Which test topology lies about which bugs? → <a href="concept-netcode.html#topologies">concept-netcode.html#topologies</a></p>
